@@ -14,8 +14,8 @@
   },
   "scripts": {
     "start": "gulp",
-    "test": "node node_modules/grunt-cli/bin/grunt test",
-    "postinstall": "node node_modules/grunt-cli/bin/grunt install"
+    "test": "",
+    "postinstall": ""
   },
   "dependencies": {
     "async": "~0.2.9",
