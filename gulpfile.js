@@ -7,7 +7,7 @@ var Server = require('karma').Server;
 
 var reload = browserSync.reload;
 
-gulp.task('browser-sync', ['nodemon'], () => {
+gulp.task('browser-sync', ['nodemon'], function () {
   browserSync({
     proxy: 'localhost:3000',
     port: 5000,
@@ -20,8 +20,8 @@ gulp.task('browser-sync', ['nodemon'], () => {
   });
 });
 
-gulp.task('nodemon', (callback) => {
-  let called = false;
+gulp.task('nodemon', function(callback) {
+  var called = false;
   return nodemon({
     script: 'server.js',
     ignore: [
@@ -50,7 +50,7 @@ gulp.task('lint', function() {
   .pipe(eslint.failOnError());
 });
 
-gulp.task('test', (done) => {
+gulp.task('test', function(done) {
   new Server({
     configFile: path.join(__dirname, 'karma.conf.js'),
     singleRun: true
@@ -58,7 +58,7 @@ gulp.task('test', (done) => {
 });
 
 
-gulp.task('default', ['browser-sync'], () => {
+gulp.task('default', ['browser-sync'], function (){
   gulp.watch(['public/js/*.js'], reload);
   gulp.watch(['public/js/**/*.js'], reload);
   gulp.watch(['**/*.js'], reload);
