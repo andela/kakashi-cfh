@@ -42,7 +42,7 @@ gulp.task('nodemon', (callback) => {
 gulp.task('lint', function() {
   return gulp.src(['*.js', 'test/**/*.js', 'public/js/*.js', 'public/js/**/*.js']).pipe(eslint({
     'configFile': '.eslintrc.json',
-    'useEslintrc': true
+    'useEslintrc': true,
   }))
   .pipe(eslint.format())
   .pipe(eslint.failOnError());
