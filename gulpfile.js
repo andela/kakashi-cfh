@@ -2,6 +2,8 @@ var gulp = require('gulp');
 var browserSync = require('browser-sync');
 var nodemon = require('gulp-nodemon');
 var eslint = require('gulp-eslint');
+var path = require('path');
+var Server = require('karma').Server;
 
 var reload = browserSync.reload;
 
@@ -47,6 +49,14 @@ gulp.task('lint', function() {
   .pipe(eslint.format())
   .pipe(eslint.failOnError());
 });
+
+gulp.task('test', (done) => {
+  new Server({
+    configFile: path.join(__dirname, 'karma.conf.js'),
+    singleRun: true
+  }, done).start();
+});
+
 
 gulp.task('default', ['browser-sync'], () => {
   gulp.watch(['public/js/*.js'], reload);

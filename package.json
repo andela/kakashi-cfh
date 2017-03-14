@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "gulp",
-    "test": "",
+    "test": "gulp test",
     "postinstall": ""
   },
   "dependencies": {
