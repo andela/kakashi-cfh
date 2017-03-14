@@ -1,8 +1,8 @@
-const gulp = require('gulp');
-const browserSync = require('browser-sync');
-const reload = browserSync.reload;
-const nodemon = require('gulp-nodemon');
-const jshint = require('gulp-jshint');
+var gulp = require('gulp');
+var browserSync = require('browser-sync');
+var reload = browserSync.reload;
+var nodemon = require('gulp-nodemon');
+var jshint = require('gulp-jshint');
 
 gulp.task('browser-sync', ['nodemon'], () => {
   browserSync({
