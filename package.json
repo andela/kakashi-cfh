@@ -14,6 +14,7 @@
   },
   "scripts": {
     "start": "gulp",
+    "test": "node node_modules/grunt-cli/bin/grunt test",
     "postinstall": "node node_modules/grunt-cli/bin/grunt install"
   },
   "dependencies": {
@@ -45,6 +46,7 @@
     "eslint": "^3.17.1",
     "eslint-config-airbnb-base": "^11.1.1",
     "eslint-plugin-import": "^2.2.0",
+    "grunt": "^1.0.1",
     "gulp": "^3.9.1",
     "gulp-eslint": "^3.0.1",
     "gulp-nodemon": "^2.2.1",
