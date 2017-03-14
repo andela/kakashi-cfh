@@ -1,8 +1,9 @@
 var gulp = require('gulp');
 var browserSync = require('browser-sync');
-var reload = browserSync.reload;
 var nodemon = require('gulp-nodemon');
-var jshint = require('gulp-jshint');
+var eslint = require('gulp-eslint');
+
+var reload = browserSync.reload;
 
 gulp.task('browser-sync', ['nodemon'], () => {
   browserSync({
@@ -17,7 +18,7 @@ gulp.task('browser-sync', ['nodemon'], () => {
   });
 });
 
-gulp.task('nodemon', ['lint'], (cb) => {
+gulp.task('nodemon', (callback) => {
   let called = false;
   return nodemon({
     script: 'server.js',
@@ -28,7 +29,7 @@ gulp.task('nodemon', ['lint'], (cb) => {
   .on('start', () => {
     if (!called) {
       called = true;
-      cb();
+      callback();
     }
   })
   .on('restart', () => {
@@ -38,10 +39,13 @@ gulp.task('nodemon', ['lint'], (cb) => {
   });
 });
 
-gulp.task("lint", function() {
-    gulp.src(['*.js', 'test/**/*.js', 'public/js/*.js', 'public/js/**/*.js'])
-        .pipe(jshint())
-        .pipe(jshint.reporter("default"));
+gulp.task('lint', function() {
+  return gulp.src(['*.js', 'test/**/*.js', 'public/js/*.js', 'public/js/**/*.js']).pipe(eslint({
+    'configFile': '.eslintrc.json',
+    'useEslintrc': true
+  }))
+  .pipe(eslint.format())
+  .pipe(eslint.failOnError());
 });
 
 gulp.task('default', ['browser-sync'], () => {
