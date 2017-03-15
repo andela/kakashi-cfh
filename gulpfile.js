@@ -25,14 +25,14 @@ gulp.task('nodemon', function(callback) {
   return nodemon({
     script: 'server.js'
   })
-  .on('start', () => {
+  .on('start', function() {
     if (!called) {
       called = true;
       callback();
     }
   })
-  .on('restart', () => {
-    setTimeout(() => {
+  .on('restart', function() {
+    setTimeout(function() {
       reload({ stream: false });
     }, 1000);
   });
