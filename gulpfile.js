@@ -1,13 +1,14 @@
-var gulp = require('gulp');
-var browserSync = require('browser-sync');
-var nodemon = require('gulp-nodemon');
-var eslint = require('gulp-eslint');
-var path = require('path');
-var Server = require('karma').Server;
+const gulp = require('gulp');
+const browserSync = require('browser-sync');
+const nodemon = require('gulp-nodemon');
+const eslint = require('gulp-eslint');
+const path = require('path');
+const Server = require('karma').Server;
+const jasmine = require('gulp-jasmine');
 
-var reload = browserSync.reload;
+const reload = browserSync.reload;
 
-gulp.task('browser-sync', ['nodemon'], function () {
+gulp.task('browser-sync', ['nodemon'], () => {
   browserSync({
     proxy: 'localhost:3000',
     port: 5000,
@@ -20,46 +21,61 @@ gulp.task('browser-sync', ['nodemon'], function () {
   });
 });
 
-gulp.task('nodemon', function(callback) {
-  var called = false;
+gulp.task('nodemon', (callback) => {
+  let called = false;
   return nodemon({
     script: 'server.js'
   })
-  .on('start', function() {
+  .on('start', () => {
     if (!called) {
       called = true;
       callback();
     }
   })
-  .on('restart', function() {
-    setTimeout(function() {
+  .on('restart', () => {
+    setTimeout(() => {
       reload({ stream: false });
     }, 1000);
   });
 });
 
-gulp.task('lint', function() {
-  return gulp.src(['*.js', 'test/**/*.js', 'public/js/*.js', 'public/js/**/*.js']).pipe(eslint({
-    'configFile': '.eslintrc.json',
-    'useEslintrc': true,
-  }))
-  .pipe(eslint.format())
-  .pipe(eslint.failOnError());
-});
+gulp.task('lint', () => gulp.src([
+  '*.js',
+  'test/**/*.js',
+  'public/js/*.js',
+  'public/js/**/*.js'
+]).pipe(eslint({
+  configFile: '.eslintrc.json',
+  useEslintrc: true,
+}))
+.pipe(eslint.format())
+.pipe(eslint.failOnError())
+);
 
-gulp.task('test', function(done) {
+gulp.task('test-back', () =>
+  gulp.src('test/backend/*.js')
+    .pipe(jasmine())
+);
+
+gulp.task('test-front', (done) => {
   new Server({
     configFile: path.join(__dirname, 'karma.conf.js'),
     singleRun: true
-  }, done).start();
+  }, () => {
+    done();
+  }).start();
 });
 
+gulp.task('test', ['test-front', 'test-back']);
 
-gulp.task('default', ['browser-sync'], function (){
-  gulp.watch(['public/js/*.js'], reload);
-  gulp.watch(['public/js/**/*.js'], reload);
-  gulp.watch(['**/*.js'], reload);
+gulp.task('default', ['browser-sync'], () => {
+  gulp.watch([
+    'public/js/**/*.js',
+    '*.js', 'app/**/*.js',
+    'config/**/*.js',
+    'app/views/**/*.jade'
+  ], reload);
   gulp.watch(['public/css/*.*'], reload);
   gulp.watch(['public/views/*.html'], reload);
-  gulp.watch(['*.js'], reload);
+  gulp.watch([], reload);
 });
