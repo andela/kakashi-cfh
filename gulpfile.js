@@ -60,7 +60,7 @@ gulp.task('test-back', () =>
 gulp.task('test-front', (done) => {
   new Server({
     configFile: path.join(__dirname, 'karma.conf.js'),
-    singleRun: true
+    singleRun: true,
   }, () => {
     done();
   }).start();
