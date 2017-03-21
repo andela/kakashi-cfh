@@ -5,6 +5,7 @@ const eslint = require('gulp-eslint');
 const path = require('path');
 const Server = require('karma').Server;
 const jasmine = require('gulp-jasmine');
+const bower = require('gulp-bower');
 
 const reload = browserSync.reload;
 
@@ -64,6 +65,10 @@ gulp.task('test-front', (done) => {
   }, () => {
     done();
   }).start();
+});
+
+gulp.task('bower', () => {
+  bower({ directory: './public/lib' });
 });
 
 gulp.task('test', ['test-front', 'test-back']);
