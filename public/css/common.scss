@@ -394,9 +394,6 @@ html{
     // -moz-background-size: cover;
     // -o-background-size: cover;
     // background-size: cover;
-    @include gradient-bg;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
     position: relative;
 
     @include mobile-only{
@@ -407,15 +404,6 @@ html{
 body{
     font-family: $main-font;
     background: transparent;
-    margin: 10px;
-
-    @include tablet-portrait-only{
-        margin: 5px;
-    }
-
-    @include mobile-only{
-        margin: 1px;
-    }
 }
 
 .navbar .nav>li>a.brand {
@@ -1300,8 +1288,9 @@ body{
 }
 
 #crDonateWidget_cfhio_cards4humanity{
-    width: 90% !important;
-    margin-top: 67px !important;
+    max-width: 300px !important;
+    margin: 0 auto;
+    margin-bottom: 30px;
 
     .crDonateTriangle{
         right: 6px !important;

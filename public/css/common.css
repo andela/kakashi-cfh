@@ -14,6 +14,7 @@
   font-weight: bold;
   vertical-align: top;
 }
+
 @media (max-width: 520px) {
   .card {
     font-size: 14px;
@@ -21,20 +22,24 @@
     word-wrap: break-word;
   }
 }
+
 .card.how-to {
   font-size: 1.4rem;
 }
+
 .card #selection-number {
   position: absolute;
   bottom: 1px;
   left: 7px;
   font-size: 18px;
 }
+
 .card.black {
   background: #252525;
   border-color: white;
   color: white;
 }
+
 .card.longBlack {
   background: #252525;
   border-color: white;
@@ -44,14 +49,17 @@
   padding-left: 2%;
   padding-right: 2%;
 }
+
 .card.smallest {
   font-size: 0.750em;
 }
+
 @media (max-width: 520px) {
   .card.smallest {
     font-size: 10px;
   }
 }
+
 .card u {
   position: relative;
   content: '';
@@ -62,12 +70,15 @@
   border-bottom: 0.125em solid white;
   margin-bottom: -0.125em;
 }
+
 .card u .small {
   width: 25%;
 }
+
 .card u .big {
   width: 75%;
 }
+
 .card u .end:after {
   position: absolute;
   right: -0.357em;
@@ -80,22 +91,9 @@ html, body, .main-container, .cont, #first-section, #inner-container {
 }
 
 html {
-  /* IE10 Consumer Preview */
-  background-image: -ms-linear-gradient(top left, #0b394e 0%, #abce8d 100%);
-  /* Mozilla Firefox */
-  background-image: -moz-linear-gradient(top left, #0b394e 0%, #abce8d 100%);
-  /* Opera */
-  background-image: -o-linear-gradient(top left, #0b394e 0%, #abce8d 100%);
-  /* Webkit (Safari/Chrome 10) */
-  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0, #0b394e), color-stop(1, #abce8d));
-  /* Webkit (Chrome 11+) */
-  background-image: -webkit-linear-gradient(top left, #0b394e 0%, #abce8d 100%);
-  /* W3C Markup, IE10 Release Preview */
-  background-image: linear-gradient(to bottom right, #0b394e 0%, #abce8d 100%);
-  background-attachment: fixed;
-  background-repeat: no-repeat;
   position: relative;
 }
+
 @media (max-width: 520px) {
   html {
     margin-top: 0px;
@@ -105,17 +103,6 @@ html {
 body {
   font-family: "helvetica neue", helvetica, sans-serif;
   background: transparent;
-  margin: 10px;
-}
-@media only screen and (min-width: 521px) and (max-width: 768px) {
-  body {
-    margin: 5px;
-  }
-}
-@media (max-width: 520px) {
-  body {
-    margin: 1px;
-  }
 }
 
 .navbar .nav > li > a.brand {
@@ -131,12 +118,14 @@ body {
 #main-container {
   height: 100%;
 }
+
 #main-container #app-container {
   height: 100%;
   max-width: 1200px;
   margin: 0px auto;
   position: relative;
 }
+
 #main-container #app-container #menu-container {
   width: 100%;
   -webkit-border-radius: 8px;
@@ -147,32 +136,39 @@ body {
   margin-top: 5px;
   padding: 5px;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #menu-container {
     margin-bottom: 1px;
     margin-top: 0px;
   }
 }
+
 #main-container #app-container #menu-container #logo {
   display: inline-block;
   margin-left: 10px;
   font-size: 28px;
   font-family: 'Lobster', cursive;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #menu-container #logo {
     font-size: 20px;
   }
 }
+
 #main-container #app-container #menu-container #logo #first-word {
   color: #7CE4E8;
 }
+
 #main-container #app-container #menu-container #logo #second-word {
   color: #FFFFA5;
 }
+
 #main-container #app-container #menu-container #logo #third-word {
   color: #FC575E;
 }
+
 #main-container #app-container #menu-container #abandon-game-button {
   display: inline-block;
   float: right;
@@ -192,6 +188,7 @@ body {
   width: 140px;
   cursor: pointer;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #menu-container #abandon-game-button {
     font-size: 0.7rem;
@@ -201,15 +198,18 @@ body {
     width: 60px;
   }
 }
+
 #main-container #app-container #menu-container #abandon-game-button:hover {
   background: #F34444;
 }
+
 #main-container #app-container #menu-container #tweet-container {
   float: right;
   padding-top: 10px;
   width: 77px;
   margin-right: 10px;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #menu-container #tweet-container {
     float: right;
@@ -219,17 +219,21 @@ body {
     margin-right: 11px;
   }
 }
+
 #main-container #app-container #menu-container #tweet-container .hcount .count-o {
   display: none !important;
   width: 0 !important;
 }
+
 #main-container #app-container #menu-container #tweet-container .count-0 {
   width: 0 !important;
 }
+
 #main-container #app-container #menu-container #tweet-container .count-ready .count-o {
   visibility: visible;
   visibility: hidden !important;
 }
+
 #main-container #app-container #social-bar-container {
   width: 20%;
   height: 63%;
@@ -237,6 +241,7 @@ body {
   right: 0;
   top: 60px;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #social-bar-container {
     top: auto;
@@ -247,6 +252,7 @@ body {
     left: 0;
   }
 }
+
 #main-container #app-container #social-bar-container #player-container {
   height: 13.166667%;
   position: relative;
@@ -259,6 +265,7 @@ body {
   -moz-border-radius: 8px;
   border-radius: 8px;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #social-bar-container #player-container {
     min-height: 0;
@@ -270,15 +277,18 @@ body {
     padding-bottom: 0;
   }
 }
+
 #main-container #app-container #social-bar-container #player-container #above-czar-container {
   height: 65%;
   width: 100%;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #social-bar-container #player-container #above-czar-container {
     height: 100%;
   }
 }
+
 #main-container #app-container #social-bar-container #player-container #above-czar-container #avatar_ {
   height: 100%;
   width: 38%;
@@ -286,6 +296,7 @@ body {
   position: relative;
   z-index: 999;
 }
+
 #main-container #app-container #social-bar-container #player-container #above-czar-container #avatar_ #king {
   position: absolute;
   max-width: 80%;
@@ -293,12 +304,14 @@ body {
   -webkit-transform: rotate(-18deg);
   left: -5px;
 }
+
 @media only screen and (min-width: 521px) and (max-width: 768px) {
   #main-container #app-container #social-bar-container #player-container #above-czar-container #avatar_ #king {
     max-width: 80%;
     bottom: 27px;
   }
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #social-bar-container #player-container #above-czar-container #avatar_ #king {
     max-width: 80%;
@@ -306,6 +319,7 @@ body {
     left: -3px;
   }
 }
+
 #main-container #app-container #social-bar-container #player-container #above-czar-container #avatar_ img {
   width: 100%;
   height: 140%;
@@ -316,6 +330,7 @@ body {
   min-width: 40px;
   min-height: 40px;
 }
+
 @media only screen and (min-width: 521px) and (max-width: 768px) {
   #main-container #app-container #social-bar-container #player-container #above-czar-container #avatar_ img {
     width: 100%;
@@ -323,6 +338,7 @@ body {
     margin-left: 3px;
   }
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #social-bar-container #player-container #above-czar-container #avatar_ img {
     height: 69%;
@@ -332,6 +348,7 @@ body {
     margin: 0;
   }
 }
+
 #main-container #app-container #social-bar-container #player-container #above-czar-container #player-container-inner {
   float: left;
   position: relative;
@@ -340,11 +357,13 @@ body {
   max-width: 62%;
   overflow: hidden;
 }
+
 @media only screen and (min-width: 521px) and (max-width: 768px) {
   #main-container #app-container #social-bar-container #player-container #above-czar-container #player-container-inner {
     left: 3px;
   }
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #social-bar-container #player-container #above-czar-container #player-container-inner {
     bottom: 0;
@@ -353,15 +372,18 @@ body {
     width: 60%;
   }
 }
+
 #main-container #app-container #social-bar-container #player-container #above-czar-container #player-container-inner #player-name h4 {
   font-family: 'Lobster', cursive;
   margin-bottom: 0px;
 }
+
 @media only screen and (min-width: 521px) and (max-width: 768px) {
   #main-container #app-container #social-bar-container #player-container #above-czar-container #player-container-inner #player-name h4 {
     font-size: 14px;
   }
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #social-bar-container #player-container #above-czar-container #player-container-inner #player-name h4 {
     font-family: 'Lobster', cursive;
@@ -370,49 +392,59 @@ body {
     margin-bottom: 5px;
   }
 }
+
 #main-container #app-container #social-bar-container #player-container #above-czar-container #player-container-inner #player-score {
   float: left;
 }
+
 #main-container #app-container #social-bar-container #player-container #above-czar-container #player-container-inner #player-score h2 {
   font-size: 26px;
   margin-top: 0;
   margin-bottom: 0;
 }
+
 @media only screen and (min-width: 521px) and (max-width: 768px) {
   #main-container #app-container #social-bar-container #player-container #above-czar-container #player-container-inner #player-score h2 {
     font-size: 21px;
   }
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #social-bar-container #player-container #above-czar-container #player-container-inner #player-score h2 {
     font-size: 17px;
     line-height: 40%;
   }
 }
+
 #main-container #app-container #social-bar-container #player-container #above-czar-container #player-container-inner #player-star {
   float: left;
   margin-top: 3px;
   margin-left: 10px;
 }
+
 @media only screen and (min-width: 521px) and (max-width: 768px) {
   #main-container #app-container #social-bar-container #player-container #above-czar-container #player-container-inner #player-star {
     margin-top: 1px;
     margin-left: 5px;
   }
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #social-bar-container #player-container #above-czar-container #player-container-inner #player-star {
     display: none;
   }
 }
+
 #main-container #app-container #social-bar-container #player-container #above-czar-container #player-container-inner #player-star img {
   width: 22px;
 }
+
 @media only screen and (min-width: 521px) and (max-width: 768px) {
   #main-container #app-container #social-bar-container #player-container #above-czar-container #player-container-inner #player-star img {
     width: 18px;
   }
 }
+
 #main-container #app-container #social-bar-container #player-container #czar-container {
   position: absolute;
   bottom: 0;
@@ -427,43 +459,51 @@ body {
   background: black;
   opacity: 0.4;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #social-bar-container #player-container #czar-container {
     overflow: auto;
   }
 }
+
 #main-container #app-container #social-bar-container #player-container #czar-container #the-czar {
   color: #fff;
   font-weight: bold;
   font-size: 20px;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #social-bar-container #player-container #czar-container #the-czar {
     display: none;
   }
 }
+
 #main-container #app-container #gameplay-container {
   height: 100%;
   width: 80%;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container {
     width: 100%;
     height: 91%;
   }
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container {
   height: 28%;
   width: 100%;
   min-height: 220px;
   max-height: 220px;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #upper-gameplay-container {
     min-height: 140px;
     max-height: 140px;
   }
 }
+
 @media only screen and (min-width: 521px) and (max-width: 768px) {
   #main-container #app-container #gameplay-container #upper-gameplay-container {
     height: 16%;
@@ -471,23 +511,27 @@ body {
     max-height: 180px;
   }
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container #menu-timeremaining-container {
   float: left;
   width: 19%;
   height: 100%;
   margin-right: 2%;
 }
+
 @media only screen and (min-width: 521px) and (max-width: 768px) {
   #main-container #app-container #gameplay-container #upper-gameplay-container #menu-timeremaining-container {
     width: 21%;
   }
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #upper-gameplay-container #menu-timeremaining-container {
     width: 27%;
     margin-right: 1%;
   }
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container #menu-timeremaining-container #menu-container {
   display: none;
   text-align: center;
@@ -511,15 +555,18 @@ body {
   -moz-border-radius: 8px;
   border-radius: 8px;
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container #menu-timeremaining-container #menu-container #menu-button {
   position: absolute;
   top: 50%;
   left: 0;
   right: 0;
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container #menu-timeremaining-container #timer-container {
   height: 100%;
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container #menu-timeremaining-container #timer-container #inner-timer-container {
   text-align: center;
   text-align: center;
@@ -545,6 +592,7 @@ body {
   height: 100%;
   color: #000;
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container #menu-timeremaining-container #timer-container #inner-timer-container #timer-status-round, #main-container #app-container #gameplay-container #upper-gameplay-container #menu-timeremaining-container #timer-container #inner-timer-container #timer-status-czar-choosing {
   position: absolute;
   left: 0;
@@ -553,16 +601,19 @@ body {
   padding-bottom: 8px;
   bottom: 0;
 }
+
 @media only screen and (max-width: 1024px) {
   #main-container #app-container #gameplay-container #upper-gameplay-container #menu-timeremaining-container #timer-container #inner-timer-container #timer-status-round, #main-container #app-container #gameplay-container #upper-gameplay-container #menu-timeremaining-container #timer-container #inner-timer-container #timer-status-czar-choosing {
     font-size: 13px;
   }
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #upper-gameplay-container #menu-timeremaining-container #timer-container #inner-timer-container #timer-status-round, #main-container #app-container #gameplay-container #upper-gameplay-container #menu-timeremaining-container #timer-container #inner-timer-container #timer-status-czar-choosing {
     font-size: 12px;
   }
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container #menu-timeremaining-container #timer-container #inner-timer-container #time {
   font-family: 'Lobster', cursive;
   font-size: 110px;
@@ -571,27 +622,32 @@ body {
   left: 0;
   right: 0;
 }
+
 @media only screen and (max-width: 1024px) {
   #main-container #app-container #gameplay-container #upper-gameplay-container #menu-timeremaining-container #timer-container #inner-timer-container #time {
     font-size: 90px;
   }
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #upper-gameplay-container #menu-timeremaining-container #timer-container #inner-timer-container #time {
     font-size: 73px;
   }
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer {
   height: 100%;
   float: left;
   width: 79%;
 }
+
 @media only screen and (min-width: 521px) and (max-width: 768px) {
   #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer {
     width: 77%;
     float: right;
   }
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer {
     float: left;
@@ -599,21 +655,25 @@ body {
     margin-left: 1%;
   }
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner {
   width: 100%;
   height: 100%;
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner .card {
   width: 100%;
   margin: 0px auto;
   display: block;
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner .card #notifications {
   position: absolute;
   bottom: 0;
   right: 0;
   padding: 10px;
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner .card #startGame {
   width: 100%;
   overflow: hidden;
@@ -621,44 +681,54 @@ body {
   position: absolute;
   right: 1%;
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner .card #startGame #finding-players {
   font-size: 33px;
   text-align: center;
   margin-top: 15px;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner .card #startGame #finding-players {
     font-size: 21px;
     margin-top: 0;
   }
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner .card #startGame #player-count-container, #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner .card #startGame #loading-container, #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner .card #startGame #start-game-container {
   width: 33.333%;
   float: left;
   text-align: center;
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner .card #startGame #player-count-container #player-count {
   font-size: 33px;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner .card #startGame #player-count-container #player-count {
     font-size: 21px;
   }
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner .card #startGame #player-count-container #the-word-players {
   font-size: 17px;
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner .card #startGame #loading-gif {
   margin: 20px;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner .card #startGame #loading-gif {
     margin-top: 5px;
   }
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner .card #startGame #start-game-container {
   color: #333;
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner .card #startGame #start-game-container #start-game-button {
   border-radius: 8px;
   -moz-border-radius: 5px;
@@ -673,39 +743,47 @@ body {
   width: 65%;
   cursor: pointer;
 }
+
 @media only screen and (min-width: 521px) and (max-width: 768px) {
   #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner .card #startGame #start-game-container #start-game-button {
     padding: 0.65em 2px;
     font-size: 1.1rem;
   }
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner .card #startGame #start-game-container #start-game-button {
     padding: 0.65em 1px;
     font-size: 1rem;
   }
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner .card #startGame #start-game-container #start-game-button:hover {
   background: #41C2CA;
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner .card #game-end-info {
   text-align: center;
   font-size: 16px;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner .card #game-end-info {
     font-size: 13px;
   }
 }
+
 #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner .card #game-end-info .game-end-headline {
   font-size: 24px;
   margin-bottom: 10px;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #upper-gameplay-container #question-container-outer #question-container-inner .card #game-end-info .game-end-headline {
     font-size: 18px;
   }
 }
+
 #main-container #app-container #gameplay-container #info-container {
   width: 100%;
   background: #252525;
@@ -718,12 +796,14 @@ body {
   height: 50%;
   margin-top: 10px;
 }
+
 @media only screen and (min-width: 521px) and (max-width: 768px) {
   #main-container #app-container #gameplay-container #info-container {
     padding-top: 5px;
     height: auto;
   }
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #info-container {
     width: 100%;
@@ -732,35 +812,42 @@ body {
     height: 72%;
   }
 }
+
 #main-container #app-container #gameplay-container #info-container #inner-info {
   width: 90%;
   margin: 0 5%;
 }
+
 #main-container #app-container #gameplay-container #info-container #inner-info #lobby-how-to-play {
   font-size: 18px;
   margin-top: 10px;
 }
+
 @media only screen and (min-width: 521px) and (max-width: 768px) {
   #main-container #app-container #gameplay-container #info-container #inner-info #lobby-how-to-play {
     font-size: 14px;
   }
 }
+
 #main-container #app-container #gameplay-container #info-container #inner-info ol {
   margin-top: 10px;
   font-family: "helvetica neue", helvetica, sans-serif;
   text-align: left;
   font-size: 17px;
 }
+
 #main-container #app-container #gameplay-container #info-container #inner-info ol li {
   list-style-type: decimal;
   margin-bottom: 5px;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #info-container #inner-info ol {
     font-size: 13px;
     padding: 0px 10px 10px 10px;
   }
 }
+
 #main-container #app-container #gameplay-container #game-end-container {
   width: 100%;
   background: #252525;
@@ -772,20 +859,24 @@ body {
   height: 50%;
   margin-top: 10px;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #game-end-container {
     height: 65%;
   }
 }
+
 #main-container #app-container #gameplay-container #game-end-container #charity-widget-container {
   width: 40%;
   float: left;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #game-end-container #charity-widget-container {
     display: none;
   }
 }
+
 #main-container #app-container #gameplay-container #game-end-container #inner-info-exit {
   width: 60%;
   position: relative;
@@ -794,35 +885,42 @@ body {
   color: white;
   float: left;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #game-end-container #inner-info-exit {
     float: none;
     width: 80%;
   }
 }
+
 #main-container #app-container #gameplay-container #game-end-container #inner-info-exit .game-end-answer-text {
   color: white;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #game-end-container #inner-info-exit .game-end-answer-text {
     padding: 6px;
     font-size: 22px;
   }
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #game-end-container #inner-info-exit {
     width: 100%;
   }
 }
+
 #main-container #app-container #gameplay-container #game-end-container #inner-info-exit #inner-text-container {
   overflow: hidden;
   height: 100%;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #game-end-container #inner-info-exit #inner-text-container {
     height: auto;
   }
 }
+
 #main-container #app-container #gameplay-container #game-end-container #inner-info-exit #inner-text-container #join-new-game {
   float: left;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcfcfc', endColorstr='#f0f0f0');
@@ -860,6 +958,7 @@ body {
   line-height: 155%;
   padding-top: 5%;
 }
+
 #main-container #app-container #gameplay-container #game-end-container #inner-info-exit #inner-text-container #join-new-game:hover {
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f0f0f0), color-stop(1, #ededed));
   background: -moz-linear-gradient(center top, #f0f0f0 5%, #ededed 100%);
@@ -867,6 +966,7 @@ body {
   background-color: #f0f0f0;
   color: #4e4e4e;
 }
+
 #main-container #app-container #gameplay-container #game-end-container #inner-info-exit #inner-text-container #exit-match {
   float: left;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcfcfc', endColorstr='#f0f0f0');
@@ -904,6 +1004,7 @@ body {
   line-height: 155%;
   padding-top: 5%;
 }
+
 #main-container #app-container #gameplay-container #game-end-container #inner-info-exit #inner-text-container #exit-match:hover {
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f0f0f0), color-stop(1, #ededed));
   background: -moz-linear-gradient(center top, #f0f0f0 5%, #ededed 100%);
@@ -911,6 +1012,7 @@ body {
   background-color: #f0f0f0;
   color: #4e4e4e;
 }
+
 #main-container #app-container #gameplay-container #czar-blank-container {
   color: white;
   width: 100%;
@@ -925,6 +1027,7 @@ body {
   margin-top: 10px;
   font-size: 30px;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #czar-blank-container {
     width: 100%;
@@ -932,6 +1035,7 @@ body {
     margin: 0px auto;
   }
 }
+
 #main-container #app-container #gameplay-container #czar-blank-container #czar-blank-inner {
   position: absolute;
   left: 10%;
@@ -940,9 +1044,11 @@ body {
   height: 50px;
   margin-top: 5%;
 }
+
 #main-container #app-container #gameplay-container #czar-blank-container #czar-blank-inner #smaller-text {
   font-size: 18px;
 }
+
 #main-container #app-container #gameplay-container #czar-blank-container #charity-fact-container {
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
@@ -956,12 +1062,14 @@ body {
   padding: 3px;
   text-align: left;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #czar-blank-container #charity-fact-container {
     height: 40%;
     display: none;
   }
 }
+
 #main-container #app-container #gameplay-container #czar-blank-container #charity-fact-container #charity-fact-tagline {
   font-family: 'Lobster', cursive;
   font-size: 22px;
@@ -969,11 +1077,13 @@ body {
   margin-bottom: 3px;
   color: #000;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #czar-blank-container #charity-fact-container #charity-fact-tagline {
     font-size: 16px;
   }
 }
+
 #main-container #app-container #gameplay-container #czar-blank-container #charity-fact-container #charity-fact {
   font-size: 14px;
   font-style: italic;
@@ -981,11 +1091,13 @@ body {
   width: 90%;
   margin: 0 5% 3px 5%;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #czar-blank-container #charity-fact-container #charity-fact {
     font-size: 12px;
   }
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #czar-blank-container #charity-fact-container #charity-logo-container {
     position: absolute;
@@ -993,16 +1105,19 @@ body {
     right: 0;
   }
 }
+
 #main-container #app-container #gameplay-container #czar-blank-container #charity-fact-container #charity-logo-container img {
   float: right;
   margin-right: 2%;
   margin-bottom: 3px;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #czar-blank-container #charity-fact-container #charity-logo-container img {
     width: 53%;
   }
 }
+
 #main-container #app-container #gameplay-container #cards-container {
   width: 100%;
   background: #252525;
@@ -1011,18 +1126,21 @@ body {
   -moz-border-radius: 8px;
   border-radius: 8px;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #cards-container {
     background: transparent;
     margin-top: 2px;
   }
 }
+
 #main-container #app-container #gameplay-container #cards-container #cards {
   width: 100%;
   height: 100%;
   font-size: 18px;
   padding-left: 5px;
 }
+
 @media (max-width: 520px) {
   #main-container #app-container #gameplay-container #cards-container #cards {
     background: #252525;
@@ -1038,6 +1156,7 @@ body {
     font-size: 18px;
   }
 }
+
 @media (max-width: 520px) {
   #notifications {
     font-size: 15px;
@@ -1056,8 +1175,8 @@ body {
 .crDonateWidgetOuter {
   text-align: center;
   background-color: transparent !important;
-  -webkit-box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0) !important;
-  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0) !important;
+  -webkit-box-shadow: 0px 0px 0px 0px transparent !important;
+  box-shadow: 0px 0px 0px 0px transparent !important;
   border: 0px solid #e6e6e6 !important;
   margin: 0px 0px !important;
 }
@@ -1079,12 +1198,15 @@ body {
 }
 
 #crDonateWidget_cfhio_cards4humanity {
-  width: 90% !important;
-  margin-top: 67px !important;
+  max-width: 300px !important;
+  margin: 0 auto;
+  margin-bottom: 30px;
 }
+
 #crDonateWidget_cfhio_cards4humanity .crDonateTriangle {
   right: 6px !important;
 }
+
 #crDonateWidget_cfhio_cards4humanity h4 {
   margin-bottom: 8px !important;
 }
@@ -1098,6 +1220,7 @@ body {
   border-radius: 8px !important;
   text-transform: none !important;
 }
+
 .gradientButton .donateNow {
   border-top: 0px solid black !important;
 }
