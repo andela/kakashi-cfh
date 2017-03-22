@@ -5,7 +5,9 @@ const eslint = require('gulp-eslint');
 const path = require('path');
 const Server = require('karma').Server;
 const jasmine = require('gulp-jasmine');
-
+/* eslint-disable import/no-unresolved */
+const bower = require('gulp-bower');
+/* eslint-enable import/no-unresolved */
 const reload = browserSync.reload;
 
 gulp.task('browser-sync', ['nodemon'], () => {
@@ -64,6 +66,10 @@ gulp.task('test-front', (done) => {
   }, () => {
     done();
   }).start();
+});
+
+gulp.task('bower', () => {
+  bower({ directory: './public/lib' });
 });
 
 gulp.task('test', ['test-front', 'test-back']);
