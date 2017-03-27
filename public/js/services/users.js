@@ -1,7 +1,5 @@
 angular.module('mean.system')
    .factory('Users', ['$http', ($http) => {
-     this.signupErrMsg = '';
-     this.signinErrMsg = '';
 
      return {
        signup: (name, email, password) => new Promise((resolve, reject) => {
@@ -11,8 +9,7 @@ angular.module('mean.system')
              resolve(response);
            })
            .error((error) => {
-             this.signupErrMsg = error.message;
-             reject('Error sending invites ', this.signupErrMsg);
+             reject(error);
            });
        }),
 
