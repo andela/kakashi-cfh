@@ -1,4 +1,4 @@
-<div landing id="main-bod">
+<div id="main-bod" ng-controller="IndexController">
 
   <!--  Navigation  -->
   <nav class="navbar navbar-default navbar-fixed-top">
@@ -18,7 +18,8 @@
           <li><a id="scroll-to-how" href="javascript:void(0)">How to Play</a></li>
           <li ng-show="showOptions"><a href="#!/signup">Sign Up</a></li>
           <li ng-show="showOptions"><a href="#!/signin">Sign In</a></li>
-          <li ng-hide="showOptions"><a href="/signout">Sign Out</a></li>
+
+          <li ng-hide="showOptions"><a href="" ng-click="logout()">Sign Out</a></li>
           <li><a href="https://www.crowdrise.com/fundraise-and-volunteer/donate-mobile/project/cfhio/cards4humanity?widget=true&redirect_to=http%3A%2F%2Flocalhost%3A5000%2F%23!%2F&stylesheet=&amounts=" class="btn-donate">Donate</a></li>
         </ul>
       </div>
