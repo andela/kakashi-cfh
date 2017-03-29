@@ -7,10 +7,10 @@ angular.module('mean.system')
     $scope.modalShown = false;
     $scope.game = game;
     $scope.pickedCards = [];
-    $scope.showFindUsersButton = false;
+    $scope.showFindUsersButton = true;
     let makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
     $scope.makeAWishFact = makeAWishFacts.pop();
-    $scope.showReseInviteButton = true;
+    $scope.usersInvited = Users.usersInvited;
 
     $scope.pickCard = (card) => {
       if (!$scope.hasPickedCards) {
@@ -114,45 +114,30 @@ angular.module('mean.system')
       }
     };
 
+    $scope.sendInvites = (email) => {
+      Users.sendInvite(email).then((response) => {
+        $scope.gameInviteMessage = response.msg;
+        if ($scope.usersInvited.length >= 11) {
+          $scope.showFindUsersButton = false;
+          $scope.gameInviteMessage = 'Maximum number (11) of users invited. Wait 5 seconds...';
+          $('.sendInviteButton').attr('disabled', 'disabled').off('click');
+          setTimeout(() => {
+            $(() => {
+              $('.gameModalClose').click();
+            });
+          }, 5000);
+        }
+      })
+      .catch((error) => {
+        $scope.gameInviteMessage = error;
+      });
+    };
+
     $scope.findUsers = () => {
       Users.findUsers().then((resolvedusers) => {
         $scope.availableUsers = resolvedusers;
         $('#availableUsers').modal();
       });
-    };
-
-    $scope.sendInvites = () => {
-      Users.sendInvites().then((response) => {
-        $scope.gameInviteMessage = response.msg;
-        $scope.showReseInviteButton = false;
-        if (response.numberOfUsersInvited >= 11) {
-          $scope.showFindUsersButton = false;
-          setTimeout(() => {
-            $(() => {
-              $('.gameModalClose').click();
-            });
-          }, 3000);
-        }
-      }).catch((error) => {
-        $scope.gameInviteMessage = error;
-      });
-    };
-
-    $scope.addToInviteList = (userToInvite) => {
-      Users.addToInviteList(userToInvite)
-      .then((response) => {
-        $scope.countUsersToInvite = response;
-        if ($scope.countUsersToInvite >= 11) {
-          $scope.gameInviteMessage = `Maximum users selected. You can only invite ${game.playerMaxLimit - 1}`;
-        }
-      });
-    };
-
-    $scope.resetInviteList = () => {
-      Users.resetInviteList();
-      $scope.gameInviteMessage = 'Invite list have been cleared';
-      $scope.countUsersToInvite = 0;
-      $scope.findUsers();
     };
 
     $scope.$watch('game.state', () => {
