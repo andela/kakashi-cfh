@@ -1,0 +1,229 @@
+body {
+  font-family: 'Lato', sans-serif;
+  font-size: 18px;
+  padding-top: 70px;
+}
+
+.fancy {
+  font-family: "Courgette", cursive;
+}
+
+.orange-text {
+  color: #F4781F;
+}
+
+a:link,
+a:visited {
+  color: #c6c6c6;
+  text-decoration: none;
+}
+
+a:hover,
+a:active {
+  color: #fff;
+}
+
+.btn-donate,
+.btn-donate:link {
+  padding: 5px 10px;
+  border-radius: 8px;
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0px 5px 3px #454545;
+  margin-top: 9px;
+  margin-left: 10px;
+  background-color: #F4781F;
+}
+
+.btn-donate:hover,
+.btn-donate:active {
+  background-color: #d65f0a !important;
+  color: #fff !important;
+}
+
+.navbar {
+  background-color: #3E7293;
+  padding: 10px 0;
+  border: none;
+  margin-bottom: 0px;
+}
+
+.navbar .navbar-brand {
+  padding-top: 10px;
+  padding-bottom: 0;
+  color: #f8a468;
+  font-family: 'Courgette', cursive;
+  font-size: 24px;
+}
+
+.navbar .navbar-brand img {
+  max-width: 250px;
+}
+
+.navbar .navbar-nav a:visited,
+.navbar .navbar-nav a:link {
+  color: #fff;
+}
+
+.navbar .navbar-nav a:hover,
+.navbar .navbar-nav a:active {
+  color: #ccc !important;
+}
+
+.section {
+  padding: 50px 0;
+}
+
+.section .heading {
+  margin: 0;
+  padding-bottom: 20px;
+  text-align: center;
+  font-family: "Courgette", cursive;
+  font-size: 36px;
+}
+
+.section p:last-child {
+  margin-bottom: 0;
+}
+
+.section .description {
+  text-align: center;
+}
+
+.section a:link,
+.section a:visited {
+  color: #3E7293;
+  text-decoration: none;
+}
+
+.section a:hover,
+.section a:active {
+  color: #2f566f;
+}
+
+.btn-blue,
+.btn-blue:link,
+.btn-blue:visited {
+  padding: 5px 10px;
+  border-radius: 8px;
+  color: #fff;
+  text-decoration: none;
+  background-color: #3E7293;
+  color: #fff !important;
+}
+
+.btn-blue:hover {
+  background-color: #2f566f;
+  color: #fff;
+}
+
+.cover {
+  padding: 120px 0;
+  background-image: url("../img/humanity.png");
+  background-size: cover;
+  background-position: top center;
+}
+
+.cover h1,
+.cover h3 {
+  padding: 0;
+  margin: 0;
+  padding-bottom: 30px;
+  color: #fff;
+}
+
+.cover h1 {
+  font-size: 64px;
+  font-family: "Courgette", cursive;
+}
+
+.cover h3 {
+  font-size: 24px;
+}
+
+.cover .btn-blue {
+  display: inline-block;
+}
+
+.how-to-play {
+  background-color: #F3F3F3;
+}
+
+.how-to-play .col-sm-3 {
+  border: 1px solid #fff;
+}
+
+.how-to-play .card-bg {
+  background-size: cover;
+  background-position: center;
+  padding: 35px 15px;
+  text-align: center;
+  border-radius: 12px;
+  max-width: 220px;
+  min-height: 260px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.how-to-play .number {
+  color: #fff;
+  display: inline-block;
+  height: 35px;
+  width: 35px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  padding-top: 3px;
+  margin-bottom: 20px;
+}
+
+.how-to-play .steps {
+  color: #fff;
+}
+
+.how-to-play .play-as-guest {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.how-to-play .play-as-guest .btn-blue {
+  box-shadow: 0px 5px 3px #454545;
+}
+
+.charity {
+  position: relative;
+  background-color: #E6E6E6;
+}
+
+.charity .make-a-wish {
+  position: absolute;
+  bottom: 0;
+}
+
+.charity .make-a-wish img {
+  width: 200px;
+}
+
+@media (max-width: 767px) {
+  .charity .text-center {
+    margin-bottom: 50px;
+  }
+}
+
+footer {
+  padding: 50px 0;
+  color: #fff;
+  background-color: #3E7293;
+}
+
+footer .github-foot {
+  margin-top: 25px;
+}
+
+footer .github-foot img {
+  margin-right: 20px;
+}
+
+#main-container {
+  padding: 0;
+}

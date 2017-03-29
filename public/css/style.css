@@ -6,15 +6,6 @@
    text-transform: uppercase;
  }
 
- #landing-charity {
-   width: 300px !important;
-   margin-left: 15px !important;
-   max-width: 100% !important;
-   position: relative !important;
-   float: left !important;
-   top: -65px;
-}
-
 #tweet-container-index{
    margin-top: 10px;
    display: inline-block;
@@ -95,21 +86,9 @@
    #info-box {
       margin-left: 0%;
    }
-
-   #landing-charity {
-      width: 67%!important;
-      margin-left: 21% !important;
-      max-width: 100% !important;
-      float: left !important;
-      top: -65px;
-   }
 }
 
 @media (max-width: 400px) {
-   #landing-charity {
-      margin-bottom: -60px;
-   }
-
    #info-box {
       margin-left: 0%;
    }
@@ -125,32 +104,6 @@
    font-family: arial;
    margin-bottom: -13px;
 }
-
-
- /**** Links ****/
- a {
-   color: #60B197;
-   -webkit-transition: color 0.5s ease;
-   -moz-transition: color 0.5s ease;
-   -ms-transition: color 0.5s ease;
-   -o-transition:  color 0.5s ease;
-   transition:  color 0.5s ease;
- }
-
- a:hover {
-   text-decoration: none;
-   color: #2ecc71;
-   border-radius:0px !important;
- }
-
- p a {
-   color: #60B197;
- }
-
- p a:hover {
-   color: #2ecc71;
- }
-
 
  /**** Top Bar ****/
 #menu-container {
