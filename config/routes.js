@@ -57,15 +57,15 @@ module.exports = (app, passport, auth) => {
 
   app.post('/users/sendinvite', (req, res) => {
     const url = decodeURIComponent(req.body.url);
-    const usersToInvite = req.body.users;
+    const userToInvite = req.body.user;
     try {
-      usersToInvite.forEach((eachEmail) => {
+      // userToInvite.forEach((eachEmail) => {
         C4HMailer('C4H-Kakashi Team',
-          eachEmail, 'Game invite at C4H',
+          userToInvite, 'Game invite at C4H',
           `You have been invited to join a game at C4H. Use this link ${url}`,
           `You have been invited to join a game at C4H.\nUse this link <a href="${url}">${url}</a>`);
-      });
-      res.send(usersToInvite);
+      // });
+      res.send(userToInvite);
     } catch (error) {
       res.send(error);
     }
