@@ -18,7 +18,7 @@ module.exports = function(io) {
 
   io.sockets.on('connection', function (socket) {
     console.log(socket.id +  ' Connected');
-    socket.emit('id', {id: socket.id});
+    socket.emit('id', { id: socket.id });
 
     socket.on('pickCards', function(data) {
       console.log(socket.id,"picked",data);
@@ -136,6 +136,7 @@ module.exports = function(io) {
         }
       } else {
         // TODO: Send an error message back to this user saying the game has already started
+        socket.emit('gamestarted', { msg: 'game started' });
       }
     } else {
       // Put players into the general queue
