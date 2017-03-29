@@ -82,5 +82,4 @@ gulp.task('default', ['browser-sync'], () => {
   ], reload);
   gulp.watch(['public/css/*.*'], reload);
   gulp.watch(['public/views/*.html'], reload);
-  gulp.watch([], reload);
 });
