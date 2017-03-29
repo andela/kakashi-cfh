@@ -1,18 +1,20 @@
-var async = require('async');
+const async = require('async');
 const mongoose = require('mongoose');
+
+const C4HMailer = require('./mailer.js').C4HMailer;
 const User = mongoose.model('User');
 
 mongoose.Promise = global.Promise;
 
-module.exports = function(app, passport, auth) {
-    //User Routes
-  var users = require('../app/controllers/users');
+module.exports = (app, passport, auth) => {
+    // User Routes
+  const users = require('../app/controllers/users');
   app.get('/signin', users.signin);
   app.get('/signup', users.signup);
   app.get('/chooseavatars', users.checkAvatar);
   app.get('/signout', users.signout);
 
-    //Setting up the users api
+    // Setting up the users api
   app.post('/users', users.create);
   app.post('/users/avatars', users.avatars);
 
@@ -46,7 +48,23 @@ module.exports = function(app, passport, auth) {
     });
   });
 
-    //Setting the facebook oauth routes
+  app.post('/users/sendinvite', (req, res) => {
+    const url = decodeURIComponent(req.body.url);
+    const usersToInvite = req.body.users;
+    try {
+      usersToInvite.forEach((eachEmail) => {
+        C4HMailer('C4H-Kakashi Team',
+          eachEmail, 'Game invite at C4H',
+          `You have been invited to join a game at C4H. Use this link ${url}`,
+          `You have been invited to join a game at C4H.\nUse this link <a href="${url}">${url}</a>`);
+      });
+      res.send(`Invites sent to ${usersToInvite.length}. You can add ${11 - usersToInvite.length} users`);
+    } catch (error) {
+      res.send(error);
+    }
+  });
+
+    // Setting the facebook oauth routes
   app.get('/auth/facebook', passport.authenticate('facebook', {
     scope: ['email'],
     failureRedirect: '/signin'
@@ -56,7 +74,7 @@ module.exports = function(app, passport, auth) {
     failureRedirect: '/signin'
   }), users.authCallback);
 
-    //Setting the github oauth routes
+    // Setting the github oauth routes
   app.get('/auth/github', passport.authenticate('github', {
     failureRedirect: '/signin'
   }), users.signin);
@@ -65,7 +83,7 @@ module.exports = function(app, passport, auth) {
     failureRedirect: '/signin'
   }), users.authCallback);
 
-    //Setting the twitter oauth routes
+    // Setting the twitter oauth routes
   app.get('/auth/twitter', passport.authenticate('twitter', {
     failureRedirect: '/signin'
   }), users.signin);
@@ -74,7 +92,7 @@ module.exports = function(app, passport, auth) {
     failureRedirect: '/signin'
   }), users.authCallback);
 
-    //Setting the google oauth routes
+    // Setting the google oauth routes
   app.get('/auth/google', passport.authenticate('google', {
     failureRedirect: '/signin',
     scope: [
@@ -87,30 +105,29 @@ module.exports = function(app, passport, auth) {
     failureRedirect: '/signin'
   }), users.authCallback);
 
-    //Finish with setting up the userId param
+    // Finish with setting up the userId param
   app.param('userId', users.user);
 
     // Answer Routes
-  var answers = require('../app/controllers/answers');
+  const answers = require('../app/controllers/answers');
   app.get('/answers', answers.all);
   app.get('/answers/:answerId', answers.show);
     // Finish with setting up the answerId param
   app.param('answerId', answers.answer);
 
     // Question Routes
-  var questions = require('../app/controllers/questions');
+  const questions = require('../app/controllers/questions');
   app.get('/questions', questions.all);
   app.get('/questions/:questionId', questions.show);
     // Finish with setting up the questionId param
   app.param('questionId', questions.question);
 
     // Avatar Routes
-  var avatars = require('../app/controllers/avatars');
+  const avatars = require('../app/controllers/avatars');
   app.get('/avatars', avatars.allJSON);
 
-    //Home route
-  var index = require('../app/controllers/index');
+    // Home route
+  const index = require('../app/controllers/index');
   app.get('/play', index.play);
   app.get('/', index.render);
-
 };

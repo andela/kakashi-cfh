@@ -4,7 +4,8 @@ const nodemon = require('gulp-nodemon');
 const eslint = require('gulp-eslint');
 const path = require('path');
 const Server = require('karma').Server;
-const jasmine = require('gulp-jasmine');
+const mocha = require('gulp-mocha');
+const bower = require('gulp-bower');
 
 const reload = browserSync.reload;
 
@@ -53,8 +54,8 @@ gulp.task('lint', () => gulp.src([
 );
 
 gulp.task('test-back', () =>
-  gulp.src('test/backend/*.js')
-    .pipe(jasmine())
+  gulp.src('test/backend/**/*.js')
+    .pipe(mocha())
 );
 
 gulp.task('test-front', (done) => {
@@ -67,6 +68,10 @@ gulp.task('test-front', (done) => {
 });
 
 gulp.task('test', ['test-front', 'test-back']);
+
+gulp.task('bower', () => {
+  bower({ directory: './public/lib' });
+});
 
 gulp.task('default', ['browser-sync'], () => {
   gulp.watch([

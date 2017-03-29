@@ -1,5 +1,5 @@
 angular.module('mean.system')
-  .factory('game', ['socket', '$timeout', (socket, $timeout) => {
+  .factory('game', ['socket', '$timeout', '$location', (socket, $timeout, $location) => {
     const game = {
       id: null, // This player's socket ID, so we know who this player is
       gameID: null,
@@ -11,7 +11,7 @@ angular.module('mean.system')
       table: [],
       czar: null,
       playerMinLimit: 3, // Task 2 -3 - Minimum limit of playes in each game
-      playerMaxLimit: 12, // Task 2 -6 - Maximum 
+      playerMaxLimit: 12, // Task 2 -6 - Maximum
       pointLimit: null,
       state: null,
       round: 0,
@@ -57,6 +57,10 @@ angular.module('mean.system')
 
     socket.on('id', (data) => {
       game.id = data.id;
+    });
+
+    socket.on('gamestarted', (data) => {
+      game.state = 'gamestarted';
     });
 
     socket.on('prepareGame', (data) => {
