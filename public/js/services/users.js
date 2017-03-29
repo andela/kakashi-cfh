@@ -1,8 +1,6 @@
 angular.module('mean.system')
    .factory('Users', ['$http', ($http) => {
-     let numberOfUsersInvited = 0;
-     let usersToInvite = [];
-
+     const usersInvited = [];
 
      const signup = (name, email, password) => new Promise((resolve, reject) => {
        const newuser = { name, email, password };
@@ -35,49 +33,30 @@ angular.module('mean.system')
        });
      });
 
-
-     const sendInvites = () => new Promise((resolve, reject) => {
+     const sendInvite = email => new Promise((resolve, reject) => {
        const gameUrl = encodeURIComponent(window.location.href);
        const postData = {
          url: gameUrl,
-         users: usersToInvite,
+         user: email,
        };
        $http.post('/users/sendinvite', postData)
           .then((response) => {
-            numberOfUsersInvited += response.data.length;
-            const listlen = response.data.length;
-            const msg = `Invites sent to ${listlen}. You can add ${11 - listlen} users`;
-            resolve({ msg, numberOfUsersInvited });
+            if (usersInvited.indexOf(response.data) <= -1) {
+              usersInvited.push(response.data);
+            }
+            const msg = `${response.data} Invite sent`;
+            resolve({ msg, usersInvited });
           })
           .catch((error) => {
             reject('Error sending invites ', error);
           });
      });
 
-     const addToInviteList = user => new Promise((resolve) => {
-       if (usersToInvite.indexOf(user) === -1) {
-         usersToInvite.push(user);
-         resolve(usersToInvite.length);
-       } else {
-         const userindex = usersToInvite.indexOf(user);
-         usersToInvite.splice(userindex, 1);
-         resolve(usersToInvite.length);
-       }
-     });
-
-     const resetInviteList = () => {
-       usersToInvite = [];
-       return usersToInvite;
-     };
-
-
      return {
-       usersToInvite,
        findUsers,
-       sendInvites,
-       addToInviteList,
-       resetInviteList,
        signup,
-       signin
+       signin,
+       sendInvite,
+       usersInvited
      };
    }]);
