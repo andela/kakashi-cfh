@@ -65,7 +65,7 @@
       <div class="modal-body">
         <input type="text" class="form-control" placeholder="Search for a user" ng-model="searchUsers.name">
         <p class="text-center alert-info">{{ gameInviteMessage }}</p>
-        <table class="table table-striped table-responsive">
+        <table class="table table-striped table-responsive" style="font-size: 14px !important;">
           <thead>
             <tr>
               <th>#</th>
@@ -79,7 +79,7 @@
                 {{ $index + 1 }}
               </td>
               <td>
-                {{ user.name }}
+                {{ user.name }} <span style="color: green !important; line-height: 16px;" ng-if="signedInusers.indexOf(user._id) > -1"> <i class="glyphicon glyphicon-record"></i></span>
               </td>
               <td>
                 <button class="btn btn-default btn-block sendInviteButton" ng-click="sendInvites(user.email)" >Send invite</button>
