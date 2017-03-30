@@ -9,14 +9,18 @@ var avatars = require(__dirname + '/../../app/controllers/avatars.js').all();
 var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
 
 module.exports = function(io) {
-
   var game;
   var allGames = {};
   var allPlayers = {};
   var gamesNeedingPlayers = [];
   var gameID = 0;
 
+  const allSignedInUsers = [];
+
   io.sockets.on('connection', function (socket) {
+    socket.on('issignedin', (signedinUserId) => {
+      allSignedInUsers.push(signedinUserId);
+    });
     console.log(socket.id +  ' Connected');
     socket.emit('id', { id: socket.id });
 
@@ -142,12 +146,11 @@ module.exports = function(io) {
       // Put players into the general queue
       console.log('Redirecting player',socket.id,'to general queue');
       if (createPrivate) {
-        createGameWithFriends(player,socket);
+        createGameWithFriends(player, socket);
       } else {
-        fireGame(player,socket);
+        fireGame(player, socket);
       }
     }
-
   };
 
   var fireGame = function(player,socket) {
@@ -185,6 +188,9 @@ module.exports = function(io) {
   };
 
   var createGameWithFriends = function(player,socket) {
+
+    socket.emit('currentusers', allSignedInUsers);
+    
     var isUniqueRoom = false;
     var uniqueRoom = '';
     // Generate a random 6-character game ID
@@ -229,5 +235,4 @@ module.exports = function(io) {
     }
     socket.leave(socket.gameID);
   };
-
 };
