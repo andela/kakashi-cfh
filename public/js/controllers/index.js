@@ -13,11 +13,11 @@ angular.module('mean.system')
 
     $scope.signup = () => {
       Users.signup($scope.name, $scope.email, $scope.password).then((response) => {
-        if (response.success) {
-          $window.localStorage.setItem('token', response.token);
+        if (response.data.uccess) {
+          $window.localStorage.setItem('token', response.data.token);
           $location.path('/');
         } else {
-          $scope.signupErrMsg = response.message;
+          $scope.signupErrMsg = response.data.message;
         }
       }, (err) => {
         $scope.showError();
@@ -26,13 +26,15 @@ angular.module('mean.system')
     };
 
     $scope.signin = () => {
-      // return console.log($scope.email, $scope.password);
       Users.signin($scope.email, $scope.password).then((response) => {
-        if (response.success) {
-          $window.localStorage.setItem('token', response.token);
+        // window.user = {};
+        // window.user._id = response.data.userid;
+        socket.emit('issignedin', response.data.userid);
+        if (response.data.success) {
+          $window.localStorage.setItem('token', response.data.token);
           $location.path('/');
         } else {
-          $scope.signinErrMsg = response.message;
+          $scope.signinErrMsg = response.data.message;
         }
       }, (err) => {
         $scope.showError();
