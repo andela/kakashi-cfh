@@ -58,6 +58,7 @@ exports.signin = (req, res) => {
             .json({
               success: true,
               message: 'User successfully logged in',
+              userid: existingUser.id,
               token: jwt.sign({
                 id: existingUser.id
               }, process.env.SECRETKEY, {
