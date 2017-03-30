@@ -1,14 +1,21 @@
 angular.module('mean.system')
-   .factory('Users', ['$http', ($http) => {
+   .factory('Users', ['$http', 'socket', ($http, socket) => {
      const usersInvited = [];
+     const users = {
+       signedInusers: []
+     };
+
+     socket.on('currentusers', (data) => {
+       users.signedInusers = data;
+     });
 
      const signup = (name, email, password) => new Promise((resolve, reject) => {
        const newuser = { name, email, password };
        $http.post('/api/auth/signup', newuser)
-        .success((response) => {
+        .then((response) => {
           resolve(response);
         })
-        .error((error) => {
+        .catch((error) => {
           reject(error);
         });
      });
@@ -16,10 +23,10 @@ angular.module('mean.system')
      const signin = (email, password) => new Promise((resolve, reject) => {
        const user = { email, password };
        $http.post('/api/auth/signin', user)
-        .success((response) => {
+        .then((response) => {
           resolve(response);
         })
-        .error((error) => {
+        .catch((error) => {
           reject(error);
         });
      });
@@ -57,6 +64,7 @@ angular.module('mean.system')
        signup,
        signin,
        sendInvite,
-       usersInvited
+       usersInvited,
+       users
      };
    }]);
