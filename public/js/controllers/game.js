@@ -10,7 +10,8 @@ angular.module('mean.system')
     $scope.showFindUsersButton = true;
     let makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
     $scope.makeAWishFact = makeAWishFacts.pop();
-    $scope.usersInvited = Users.usersInvited;
+    $scope.usersInvited = Users.usersInvited || [];
+    $scope.signedInusers = Users.signedInusers;
 
     $scope.pickCard = (card) => {
       if (!$scope.hasPickedCards) {
@@ -140,6 +141,12 @@ angular.module('mean.system')
       });
     };
 
+    $scope.$watch('Users.users.signedInusers', () => {
+      if (Users.users.signedInusers.length > 0) {
+        $scope.signedInusers = Users.users.signedInusers;
+      }
+    });
+
     $scope.$watch('game.state', () => {
       if (game.state === 'gamestarted') {
         $scope.showFindUsersButton = false;
@@ -190,7 +197,7 @@ angular.module('mean.system')
           // where the link is meant to be shared.
           $location.search({ game: game.gameID });
           if (!$scope.modalShown) {
-            game.gameOwner = window.user._id;
+            game.gameOwner = game.playerIndex;
             setTimeout(() => {
               const link = document.URL;
               const txt = 'Give the following link to your friends so they can join your game: ';
@@ -200,7 +207,7 @@ angular.module('mean.system')
             $scope.modalShown = true;
           }
         }
-        if (game.gameOwner === window.user._id) {
+        if (game.gameOwner === game.playerIndex) {
           $scope.showFindUsersButton = true;
         } else {
           $scope.showFindUsersButton = false;
