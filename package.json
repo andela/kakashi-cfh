@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "gulp",
-    "test": "gulp test",
+    "test": "node server.js & gulp test",
     "postinstall": "node node_modules/gulp/bin/gulp.js bower"
   },
   "dependencies": {
