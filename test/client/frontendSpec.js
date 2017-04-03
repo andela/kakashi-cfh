@@ -1,3 +1,5 @@
+
+
 describe('The game controller', () => {
   let $rootScope;
   let $scope;
