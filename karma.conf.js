@@ -3,6 +3,7 @@ module.exports = (config) => {
     basePath: '',
     frameworks: ['jasmine'],
     files: [
+      'test/client/helpers/socket/socket.io.js',
       'public/lib/angular/angular.js',
       'public/lib/angular-mocks/angular-mocks.js',
       'public/lib/angular-cookies/angular-cookies.js',
@@ -11,7 +12,7 @@ module.exports = (config) => {
       'public/lib/angular-bootstrap/ui-bootstrap.min.js',
       'public/lib/angular-ui-utils/modules/route/route.js',
       'public/js/**/*.js',
-      'test/client/gameinviteSpec.js',
+      'test/client/*Spec.js',
     ],
     exclude: [
       'public/js/main.js'
