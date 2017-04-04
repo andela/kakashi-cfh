@@ -33,9 +33,9 @@ angular.module('mean', ['ngCookies', 'ngResource', 'ngRoute', 'ui.bootstrap', 'u
       $httpProvider.interceptors.push('TokenInjector');
     }
   ]).run(['$rootScope', ($rootScope) => {
-    $rootScope.safeApply = (fn) => {
+    $rootScope.safeApply = function safeApply(fn) {
       const phase = this.$root.$$phase;
-      if (phase === '$apply' || phase === '$digest') {
+      if (phase === '$apply' ||ap phase === '$digest') {
         if (fn && (typeof (fn) === 'function')) {
           fn();
         }
