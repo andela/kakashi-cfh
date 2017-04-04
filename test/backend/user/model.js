@@ -1,7 +1,7 @@
 process.env.NODE_ENV = 'test';
 
+require('../../../server');
 const should = require('should');
-const app = require('../../../server');
 const mongoose = require('mongoose');
 
 const User = mongoose.model('User');
