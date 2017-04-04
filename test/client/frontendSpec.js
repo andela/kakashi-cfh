@@ -1,22 +1,18 @@
-
+/* eslint-disable no-undef */
 
 describe('The game controller', () => {
   let $rootScope;
   let $scope;
-  let controller;
   const game = {};
-  const Users = {};
   let factory = {};
-  let http;
 
   beforeEach(() => {
     module('mean');
-    // module('mean.system');
     inject(($injector) => {
       $rootScope = $injector.get('$rootScope');
       $scope = $rootScope.$new();
       controller = $injector.get('$controller')('GameController', { $scope, game });
-      factory =  $injector.get('Users');
+      factory = $injector.get('Users');
     });
   });
 
