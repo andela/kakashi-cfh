@@ -1,5 +1,5 @@
 angular.module('mean.system')
-  .factory('game', ['socket', '$timeout', '$location', (socket, $timeout, $location) => {
+  .factory('game', ['socket', '$timeout', (socket, $timeout) => {
     const game = {
       id: null, // This player's socket ID, so we know who this player is
       gameID: null,
@@ -20,20 +20,14 @@ angular.module('mean.system')
       notification: null,
       timeLimits: {},
       joinOverride: false,
-      gameOwner: null
+      gameOwner: null,
+      gamePlayersId: null,
     };
 
     const notificationQueue = [];
     let timeout = false;
-    const self = this;
     let joinOverrideTimeout = 0;
 
-    const addToNotificationQueue = (msg) => {
-      notificationQueue.push(msg);
-      if (!timeout) { // Start a cycle if there isn't one
-        setNotification();
-      }
-    };
     const setNotification = () => {
       if (notificationQueue.length === 0) { // If notificationQueue is empty, stop
         clearInterval(timeout);
@@ -42,6 +36,13 @@ angular.module('mean.system')
       } else {
         game.notification = notificationQueue.shift(); // Show a notification and check again in a bit
         timeout = $timeout(setNotification, 1300);
+      }
+    };
+
+    const addToNotificationQueue = (msg) => {
+      notificationQueue.push(msg);
+      if (!timeout) { // Start a cycle if there isn't one
+        setNotification();
       }
     };
 
@@ -59,7 +60,7 @@ angular.module('mean.system')
       game.id = data.id;
     });
 
-    socket.on('gamestarted', (data) => {
+    socket.on('gamestarted', () => {
       game.state = 'gamestarted';
     });
 
@@ -161,7 +162,7 @@ angular.module('mean.system')
         if (game.czar === game.playerIndex) {
           addToNotificationQueue("Everyone's done. Choose the winner!");
         } else {
-          addToNotificationQueue("The czar is contemplating...");
+          addToNotificationQueue('The czar is contemplating...');
         }
       } else if (data.state === 'winner has been chosen' &&
               game.curQuestion.text.indexOf('<u></u>') > -1) {
