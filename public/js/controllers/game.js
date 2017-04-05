@@ -1,6 +1,8 @@
 angular.module('mean.system')
-.controller('GameController', ['$scope', '$sce', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$http', 'Users',
-  function GameController($scope, $sce, game, $timeout, $location, MakeAWishFactsService, $http, Users) {
+.controller('GameController', ['$scope', '$sce', 'game', '$timeout', '$location',
+  'MakeAWishFactsService', '$http', 'Users',
+  function GameController($scope, $sce, game, $timeout,
+    $location, MakeAWishFactsService, $http, Users) {
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
@@ -74,7 +76,8 @@ angular.module('mean.system')
 
     $scope.showFirst = card => game.curQuestion.numAnswers > 1 && $scope.pickedCards[0] === card.id;
 
-    $scope.showSecond = card => game.curQuestion.numAnswers > 1 && $scope.pickedCards[1] === card.id;
+    $scope.showSecond = card => game.curQuestion.numAnswers > 1 &&
+      $scope.pickedCards[1] === card.id;
 
     $scope.isCzar = () => game.czar === game.playerIndex;
 
@@ -120,14 +123,15 @@ angular.module('mean.system')
             $('.gameModalClose').click();
           });
         })
-        .catch((error) => {
-          console.log(error, ' another error');
+        .catch(() => {
+          // console.log(error, ' another error');
         });
     };
 
     $scope.startGame = () => {
-      // if (!($window.localstorage) || ($window.$location.token === undefined)) return $location.path('/');
-      if ((game.playerIndex === 0 || game.joinOverride) && (game.players.length >= game.playerMinLimit)) {
+      if ((game.playerIndex === 0 || game.joinOverride) &&
+        (game.players.length >= game.playerMinLimit)) {
+
         if (game.players.length < game.playerMaxLimit) {
           $('#gameModal').modal();
           $scope.gameInviteMessage = `Are you sure you want to start with ${game.players.length} players? 
