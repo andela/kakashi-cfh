@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const users = require('../app/controllers/users');
 const answers = require('../app/controllers/answers');
 const index = require('../app/controllers/index');
@@ -6,8 +7,6 @@ const questions = require('../app/controllers/questions');
 
 module.exports = (app, passport) => {
   // User Routes
-  const mongoose = require('mongoose');
-
   const User = mongoose.model('User');
 
   mongoose.Promise = global.Promise;
