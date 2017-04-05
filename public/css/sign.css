@@ -40,9 +40,16 @@
     border-bottom: 5px solid #F4781F !important;
 }
 
+p.avatar-choice {
+    text-align: center;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
 p.social-text {
     text-align: center;
     font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .img-thumbnail {
