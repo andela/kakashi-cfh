@@ -27,10 +27,10 @@ angular.module('mean.system')
 
     $scope.signin = () => {
       Users.signin($scope.email, $scope.password).then((response) => {
-        // window.user = {};
-        // window.user._id = response.data.userid;
-        socket.emit('issignedin', response.data.userid);
         if (response.data.success) {
+          window.user = {};
+          window.user._id = response.data.userid;
+          window.user._token = response.data.token;
           $window.localStorage.setItem('token', response.data.token);
           $location.path('/');
         } else {
