@@ -2,12 +2,12 @@
  * [Module dependencies.]
  * @type {[type]}
  */
-const mongoose = require('mongoose'),
-  User = mongoose.model('User');
-const avatars = require('./avatars')
-  .all();
+const mongoose = require('mongoose');
+const avatars = require('./avatars').all();
 const jwt = require('jsonwebtoken');
 const C4HMailer = require('../../config/mailer.js').C4HMailer;
+
+const User = mongoose.model('User');
 
 /**
  * [Auth callback]
