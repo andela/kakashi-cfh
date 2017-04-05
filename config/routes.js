@@ -1,19 +1,18 @@
-const async = require('async');
 const users = require('../app/controllers/users');
 const answers = require('../app/controllers/answers');
 const index = require('../app/controllers/index');
 const avatars = require('../app/controllers/avatars');
 const questions = require('../app/controllers/questions');
 
-module.exports = (app, passport, auth) => {
-    // User Routes
+module.exports = (app, passport) => {
+  // User Routes
   const mongoose = require('mongoose');
 
   const User = mongoose.model('User');
 
   mongoose.Promise = global.Promise;
+
   // User Routes
-  const users = require('../app/controllers/users');
   app.get('/signin', users.signin);
   app.get('/signup', users.signup);
   app.get('/chooseavatars', users.checkAvatar);
@@ -117,25 +116,21 @@ module.exports = (app, passport, auth) => {
   app.param('userId', users.user);
 
     // Answer Routes
-  const answers = require('../app/controllers/answers');
   app.get('/answers', answers.all);
   app.get('/answers/:answerId', answers.show);
     // Finish with setting up the answerId param
   app.param('answerId', answers.answer);
 
     // Question Routes
-  const questions = require('../app/controllers/questions');
   app.get('/questions', questions.all);
   app.get('/questions/:questionId', questions.show);
     // Finish with setting up the questionId param
   app.param('questionId', questions.question);
 
-    // Avatar Routes
-  const avatars = require('../app/controllers/avatars');
+
   app.get('/avatars', avatars.allJSON);
 
     // Home route
-  const index = require('../app/controllers/index');
   app.get('/play', index.play);
   app.get('/', index.render);
 };
