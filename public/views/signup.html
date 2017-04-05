@@ -46,11 +46,13 @@
                 <input class="form-control" type="password" ng-model="password" placeholder="Password" class="form-control input-lg" required novalidate>
               </div>
             </div>
+            
+            <p class="avatar-choice">Please select an avatar</p>  
 
             <div class="row">
               <div class="col-xs-3 col-sm-3 col-md-2 img-thumbnail" ng-repeat="avatar in avatars">
                 <img ng-src="{{avatar}}" class="img-responsive">
-                <input name="avatar" type='radio' value="{{$index}}"/>
+                <input name="avatar" type='radio' value="{{$index}}" required/>
               </div>
             </div>
 
