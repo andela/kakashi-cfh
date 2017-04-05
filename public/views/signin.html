@@ -1,69 +1,96 @@
-<div id="main-bod" ng-controller="IndexController">
+<div id="main-bod" class="coverup" ng-controller="IndexController">
+
   <!-- Fixed Logo & Menu Bar Start -->
-  <div id="top-part">
-    <div class="wpb-top-bar">
-      <div class="mod-contain" id="navver">
-        <div class="row">
-          <!-- Logo -->
-          <div class="wpb-logo-container">
-            <div id="landing-logo"> 
-              <span id="first-word">Cards</span>
-              <span id="second-word"> for</span> 
-              <span id="third-word">Humanity</span> 
-            </div> 
-            <div class="col-md-9 wpb-menu-container">
-              <ul class="wpb-main-menu">
-                <li><a href="/">Home</a></li>
-              </ul>
-            </div>
-          </div>      
-        </div>
+  <nav class="navbar navbar-default navbar-fixed-top signheader">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"><img src="img/cfhlogo.png" alt=""></a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a id="scroll-to-home" href="/">Home</a></li>
+          <li><a href="https://www.crowdrise.com/fundraise-and-volunteer/donate-mobile/project/cfhio/cards4humanity?widget=true&redirect_to=http%3A%2F%2Flocalhost%3A5000%2F%23!%2F&stylesheet=&amounts=" class="btn-donate">Donate</a></li>
+        </ul>
       </div>
     </div>
-  </div>
+  </nav>
 <!-- Fixed Logo & Menu Bar End -->
 
 <!-- Landing Start -->
-<div class="wpb-teaser parallax-background" id="homer" ng-controller="IndexController">
-  <div class="background-opacity"></div> 
-  <div class="modified-container">
-    <div class="row" id="main-text"> 
-    <!-- Teaser Text Start -->
-    <div id="landing-logo">
-      <h2 id="slogan">Sign in with:</h2>
-      <div id="login-buttons">
-        <a href="/auth/facebook"><img class="login-item" src="/img/icons/facebook.png"></a>
-        <a href="/auth/github"><img class="login-item" src="/img/icons/github.png"></a>
-        <a href="/auth/twitter"><img class="login-item" src="/img/icons/twitter.png"></a>
-        <a href="/auth/google"><img class="login-item" src="/img/icons/google.png"></a>
-      </div>
-      <p id="create">Or log in below:</p>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 groupform">
+          <form class="form-horizontal">
+          <fieldset>
+            <div class="control-group inputspace">
+              <div class="controls ">
+                <input type="email" ng-model="email" placeholder="Email" class="form-control input-lg" required novalidate>
+              </div>
+            </div>
+         
+            <div class="control-group inputspace">
+              <div class="controls">
+                <input type="password" ng-model="password" placeholder="Password" class="form-control input-lg" required novalidate>
+              </div>
+            </div>
 
-      <div class="sign-body">
-        <div class="more-sign">
-          <div class="text-center text-danger errMsg">{{ signinErrMsg }}</div>
-          <form class="signup form-horizontal">
-            <div class="control-group">
-              <label for="email" class="control-label"></label>
+            <div class="control-group inputspace">
               <div class="controls">
-                <input class="input-info" ng-model="email" type="text" name="email" placeholder="Email" required novalidate />
+                <button ng-click="signin()" class="btn btn-primary btn-block signup-button"><i class="fa fa-user"></i>  Sign In</button>
               </div>
             </div>
-            <div class="control-group">
-              <label for="password" class="control-label"></label>
-              <div class="controls">
-                <input class="input-info" ng-model="password" type="password" name="password" placeholder="Password" required novalidate />
-              </div>
+          </fieldset>
+        </form>
+
+        <div>
+          <div>
+            <div>
+              <p class="social-text">Or Sign In with</p>
             </div>
-            <div class="form-actions top-margin">
-              <button id="sign-up-btn-other" ng-click="signin()" type='submit'>Sign In</button>
+          </div>
+          <div class="social-buttons">
+            <div class="col-xs-3 col-sm-3 col-md-3">
+              <a href="/auth/facebook" class="btn btn-lg btn-social-icon btn-facebook">
+                <span class="fa fa-facebook"></span>
+              </a>
             </div>
-          </form>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+              <a href="/auth/facebook" class="btn btn-lg btn-social-icon btn-twitter">
+                <span class="fa fa-twitter"></span>
+              </a>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+              <a href="/auth/facebook" class="btn btn-lg btn-social-icon btn-google">
+                <span class="fa fa-google"></span>
+              </a>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+              <a href="/auth/facebook" class="btn btn-lg btn-social-icon btn-github">
+                <span class="fa fa-github"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+
         </div>
       </div>
     </div>
-    </div>
-    </div>
-  </div>
-</div>
 
+      <footer id="signfooter">
+        <div class="container text-center">
+          <p>
+            Legal stuff: This game is based on the <a class="orange-text" href="http://cardsagainsthumanity.com">Cards Against Humanity</a> card game, which is CC licensed (BY-NC-SA). Cards for Humanity is not affiliated with Cards Against Humanity. In complying with the Creative Commons license of the Cards Against Humanity card game, all proceeds from donations go directly to charity, as managed by <a href="http://crowdrise.com">crowdrise</a>.
+          </p>
+          <p class="github-foot">
+            <a href="https://github.com/cardsforhumanity/cardsforhumanity"><img src="img/github.png" alt="github"></a> <a href="/#!/privacy">Privacy Policy</a>
+          </p>
+        </div>
+      </footer>
+    </div>
