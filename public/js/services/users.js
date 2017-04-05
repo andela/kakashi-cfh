@@ -1,12 +1,14 @@
 angular.module('mean.system')
-   .factory('Users', ['$http', 'socket', ($http, socket) => {
+   .factory('Users', ['$http', '$window', 'socket', ($http, $window, socket) => {
      const usersInvited = [];
      const users = {
        signedInusers: []
      };
 
      socket.on('currentusers', (data) => {
-       users.signedInusers = data;
+       if (users.signedInusers.indexOf(data) === -1) {
+         users.signedInusers = data;
+       }
      });
 
      const signup = (name, email, password) => new Promise((resolve, reject) => {
@@ -32,11 +34,11 @@ angular.module('mean.system')
      });
 
      const findUsers = () => new Promise((resolve, reject) => {
-       $http.get('/api/search/users/').then((response) => {
+       $http.get('/api/search/users').then((response) => {
          const users = response.data;
          resolve(users);
-       }, () => {
-         reject('failure');
+       }, (error) => {
+         reject(error);
        });
      });
 
@@ -65,6 +67,6 @@ angular.module('mean.system')
        signin,
        sendInvite,
        usersInvited,
-       users
+       users,
      };
    }]);
