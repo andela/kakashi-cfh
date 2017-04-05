@@ -168,28 +168,19 @@ exports.create = (req, res) => {
                 message: 'Unable to save user'
               });
             }
-            req.logIn(user, (err) => {
-              if (err) {
-                res.json({
-                  success: false,
-                  message: 'Unable to login',
-                });
-              } else {
-                const token = jwt.sign({
-                  id: user.id
-                }, process.env.SECRETKEY, {
-                  expiresIn: 60 * 60 * 24 * 7
-                });
-
-                return res.status(200)
-                  .json({
-                    success: true,
-                    userid: user.id,
-                    message: 'User successfully created',
-                    token
-                  });
-              }
+            const token = jwt.sign({
+              id: user.id
+            }, process.env.SECRETKEY, {
+              expiresIn: 60 * 60 * 24 * 7
             });
+
+            return res.status(200)
+              .json({
+                success: true,
+                userid: user.id,
+                message: 'User successfully created',
+                token
+              });
           });
         } else {
           return res.json({
