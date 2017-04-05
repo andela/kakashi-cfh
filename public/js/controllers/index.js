@@ -11,7 +11,7 @@ angular.module('mean.system')
       $scope.showOptions = true;
     }
 
-    function storeUserAndRedirect() {
+    function storeUserAndRedirect(data) {
       window.user = {};
       window.user._id = data.userid;
       window.user._token = data.token;
@@ -24,7 +24,7 @@ angular.module('mean.system')
       Users.signup($scope.name, $scope.email, $scope.password).then((response) => {
         const data = response.data;
         if (data.success) {
-          storeUserAndRedirect();
+          storeUserAndRedirect(data);
         } else {
           $scope.signupErrMsg = data.message;
         }
@@ -38,7 +38,7 @@ angular.module('mean.system')
       Users.signin($scope.email, $scope.password).then((response) => {
         const data = response.data;
         if (data.success) {
-          storeUserAndRedirect();
+          storeUserAndRedirect(data);
         } else {
           $scope.signinErrMsg = data.message;
         }
