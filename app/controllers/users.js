@@ -7,6 +7,7 @@ const mongoose = require('mongoose'),
 const avatars = require('./avatars')
   .all();
 const jwt = require('jsonwebtoken');
+const C4HMailer = require('../../config/mailer.js').C4HMailer;
 
 /**
  * [Auth callback]
@@ -25,6 +26,54 @@ exports.authCallback = (req, res) => {
  * @param  {[res]} res [response]
  * @return {[Path]}     [Path]
  */
+
+exports.findUsers = (req, res) => {
+  User.find({}).select('name email').then((allUsers) => {
+    res.send(allUsers);
+  });
+};
+
+exports.findUser = (req, res) => {
+  const userid = req.params.userid;
+  User.findById(userid, (err, oneUser) => {
+    if (!err) {
+      res.send(oneUser);
+    } else {
+      res.send('An error occurred');
+    }
+  });
+};
+
+exports.sendInvites = (req, res) => {
+  const url = decodeURIComponent(req.body.url);
+  const userToInvite = req.body.user;
+  try {
+    C4HMailer('C4H-Kakashi Team',
+      userToInvite, 'Game invite at C4H',
+      `You have been invited to join a game at C4H. Use this link ${url}`,
+      `You have been invited to join a game at C4H.\nUse this link <a href="${url}">${url}</a>`);
+    res.send(userToInvite);
+  } catch (error) {
+    res.send(error);
+  }
+};
+
+exports.isAuthenticated = (req, res, next) => {
+  const usertoken = req.headers['x-access-token'];
+  jwt.verify(usertoken, process.env.SECRETKEY, (error, decoded) => {
+    if (error) {
+      res.status(401)
+        .json({
+          success: false,
+          message: 'user not authenticated'
+        });
+    } else {
+      req.decodedUser = decoded;
+      next();
+    }
+  });
+};
+
 exports.signin = (req, res) => {
   if (req.body.email && req.body.password) {
     User.findOne({
