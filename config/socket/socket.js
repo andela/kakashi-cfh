@@ -200,7 +200,7 @@ module.exports = function socketMethod(io) {
     }
   };
 
-  const createGameWithFriends = 
+  const createGameWithFriends =
     function createGameWithFriends(player, socket) {
       let isUniqueRoom = false;
       let uniqueRoom = '';
