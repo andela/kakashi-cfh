@@ -37,7 +37,7 @@
   </div>
 </div>
 
-<div id="gameModal" class="modal fade" role="dialog">
+<div id="gameModal" class="modal fade" style="background: rgba(0, 0, 0, .8);"role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -48,7 +48,12 @@
         {{ gameInviteMessage }}
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default gameModalClose" data-dismiss="modal">Close</button>
+        <div class="col-md-6">
+          <button class="btn btn-primary btn-block" ng-show="showStartButtonOverlay" ng-click="startAnyWay()">Start anyway</button>
+        </div>
+        <div class="col-md-6">
+          <button type="button" class="btn btn-default btn-block gameModalClose" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
 
@@ -74,7 +79,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="user in availableUsers | filter:searchUsers | limitTo:11" ng-show="usersInvited.indexOf(user.email) <= -1">
+            <tr ng-repeat="user in availableUsers | filter:searchUsers | limitTo:20" ng-show="usersInvited.indexOf(user.email) <= -1">
                <td>
                 {{ $index + 1 }}
               </td>
