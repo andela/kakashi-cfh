@@ -1,6 +1,6 @@
 angular.module('mean.system')
-.controller('GameController', ['$scope', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$http', 'Users',
-  function GameController($scope, game, $timeout, $location, MakeAWishFactsService, $http, Users) {
+.controller('GameController', ['$scope', '$sce', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$http', 'Users',
+  function GameController($scope, $sce, game, $timeout, $location, MakeAWishFactsService, $http, Users) {
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
@@ -110,10 +110,9 @@ angular.module('mean.system')
       const gameWinner = game.gameWinner;
       const gameID = game.gameID;
       const gameRound = game.round;
-      const gameOwnerId = window.user._id;
-
-      const data = { gamePlayers, gameWinner, gameOwnerId, gameID, gameRound };
-      $http.post(`/api/games/${gameOwnerId}/start`, data)
+      const gameOwnerId = window.localStorage.userid;
+      const gameInfo = { gamePlayers, gameWinner, gameOwnerId, gameID, gameRound };
+      game.record(gameInfo)
         .then((response) => {
           game.startGame();
           $scope.showFindUsersButton = false;
@@ -122,7 +121,7 @@ angular.module('mean.system')
           });
         })
         .catch((error) => {
-          // console.log(error);
+          console.log(error, ' another error');
         });
     };
 
@@ -164,9 +163,8 @@ angular.module('mean.system')
         $scope.gameInviteMessage = error;
       });
     };
-    // console.log(window.user._id, 'from game');
     $scope.findUsers = () => {
-      Users.findUsers(window.user.token).then((resolvedusers) => {
+      Users.findUsers().then((resolvedusers) => {
         $scope.availableUsers = resolvedusers;
         $('#availableUsers').modal();
       });
@@ -230,7 +228,7 @@ angular.module('mean.system')
           $location.search({ game: game.gameID });
           if (!$scope.modalShown) {
             game.gameOwner = game.playerIndex;
-            game.gamePlayersId = window.user._id;
+            game.gamePlayersId = window.localStorage.userid;
             setTimeout(() => {
               const link = document.URL;
               const txt = 'Give the following link to your friends so they can join your game: ';
