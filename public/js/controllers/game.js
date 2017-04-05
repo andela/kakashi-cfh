@@ -11,7 +11,7 @@ angular.module('mean.system')
     let makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
     $scope.makeAWishFact = makeAWishFacts.pop();
     $scope.usersInvited = Users.usersInvited || [];
-    $scope.signedInusers = Users.signedInusers;
+    $scope.showStartButtonOverlay = false;
 
     $scope.pickCard = (card) => {
       if (!$scope.hasPickedCards) {
@@ -102,10 +102,41 @@ angular.module('mean.system')
 
     $scope.winnerPicked = () => game.winningCard !== -1;
 
+    $scope.startAnyWay = () => {
+      const gamePlayers = [];
+      Object.keys(game.players).map((index) => {
+        gamePlayers.push(game.players[index].username);
+      });
+      const gameWinner = game.gameWinner;
+      const gameID = game.gameID;
+      const gameRound = game.round;
+      const gameOwnerId = window.user._id;
+
+      const data = { gamePlayers, gameWinner, gameOwnerId, gameID, gameRound };
+      $http.post(`/api/games/${gameOwnerId}/start`, data)
+        .then((response) => {
+          game.startGame();
+          $scope.showFindUsersButton = false;
+          $(() => {
+            $('.gameModalClose').click();
+          });
+        })
+        .catch((error) => {
+          // console.log(error);
+        });
+    };
+
     $scope.startGame = () => {
+      // if (!($window.localstorage) || ($window.$location.token === undefined)) return $location.path('/');
       if ((game.playerIndex === 0 || game.joinOverride) && (game.players.length >= game.playerMinLimit)) {
-        game.startGame();
-        $scope.showFindUsersButton = false;
+        if (game.players.length < game.playerMaxLimit) {
+          $('#gameModal').modal();
+          $scope.gameInviteMessage = `Are you sure you want to start with ${game.players.length} players? 
+          CLicking the start button will begin a new game session`;
+          $scope.showStartButtonOverlay = true;
+        } else {
+          $scope.startAnyWay();
+        }
       } else if (game.players.length < game.playerMinLimit) {
         $('#gameModal').modal();
         $scope.gameInviteMessage = 'The minimum required number of players have not been reached';
@@ -133,9 +164,9 @@ angular.module('mean.system')
         $scope.gameInviteMessage = error;
       });
     };
-
+    // console.log(window.user._id, 'from game');
     $scope.findUsers = () => {
-      Users.findUsers().then((resolvedusers) => {
+      Users.findUsers(window.user.token).then((resolvedusers) => {
         $scope.availableUsers = resolvedusers;
         $('#availableUsers').modal();
       });
@@ -187,6 +218,7 @@ angular.module('mean.system')
     });
 
     $scope.$watch('game.gameID', () => {
+      // if (!($window.localstorage)) $scope.showFindUsersButton = false;
       if (game.gameID && game.state === 'awaiting players') {
         if (!$scope.isCustomGame() && $location.search().game) {
           // If the player didn't successfully enter the request room,
@@ -198,6 +230,7 @@ angular.module('mean.system')
           $location.search({ game: game.gameID });
           if (!$scope.modalShown) {
             game.gameOwner = game.playerIndex;
+            game.gamePlayersId = window.user._id;
             setTimeout(() => {
               const link = document.URL;
               const txt = 'Give the following link to your friends so they can join your game: ';
@@ -230,5 +263,7 @@ angular.module('mean.system')
       } else {
         game.joinGame('joinGame', null, true);
       }
+    } else {
+      game.joinGame();
     }
   }]);
