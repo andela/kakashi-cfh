@@ -131,7 +131,6 @@ angular.module('mean.system')
     $scope.startGame = () => {
       if ((game.playerIndex === 0 || game.joinOverride) &&
         (game.players.length >= game.playerMinLimit)) {
-
         if (game.players.length < game.playerMaxLimit) {
           $('#gameModal').modal();
           $scope.gameInviteMessage = `Are you sure you want to start with ${game.players.length} players? 
