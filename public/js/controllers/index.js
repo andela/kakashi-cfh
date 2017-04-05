@@ -11,6 +11,10 @@ angular.module('mean.system')
       $scope.showOptions = true;
     }
 
+    /**
+     * @param {Object} data - user details token and id
+     * @return {Null} no-return value
+     */
     function storeUserAndRedirect(data) {
       window.user = {};
       window.user._id = data.userid;

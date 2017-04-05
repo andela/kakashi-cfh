@@ -116,7 +116,7 @@ angular.module('mean.system')
       const gameOwnerId = window.localStorage.userid;
       const gameInfo = { gamePlayers, gameWinner, gameOwnerId, gameID, gameRound };
       game.record(gameInfo)
-        .then((response) => {
+        .then(() => {
           game.startGame();
           $scope.showFindUsersButton = false;
           $(() => {
