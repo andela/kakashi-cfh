@@ -1,5 +1,5 @@
 angular.module('mean.system')
-  .factory('game', ['socket', '$timeout', (socket, $timeout) => {
+  .factory('game', ['socket', '$timeout', '$http', (socket, $timeout, $http) => {
     const game = {
       id: null, // This player's socket ID, so we know who this player is
       gameID: null,
@@ -206,6 +206,16 @@ angular.module('mean.system')
     game.pickWinning = (card) => {
       socket.emit('pickWinning', { card: card.id });
     };
+
+    game.record = gameInfo => new Promise((resolve, reject) => {
+      $http.post(`/api/games/${gameInfo.gameOwnerId}/start`, gameInfo)
+        .then((response) => {
+          resolve(response);
+        }, (error) => {
+          console.log(error, ' is error');
+          reject(error);
+        });
+    });
 
     decrementTime();
 
