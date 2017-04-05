@@ -18,9 +18,9 @@ const C4HMailer = (from, to, subject, text, html) => {
   };
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      return console.log(error);
+      return error;
     }
-    console.log('Message %s sent: %s', info.messageId, info.response);
+    return `Message ${info.messageId} sent: ${info.response}`;
   });
 };
 
