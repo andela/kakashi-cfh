@@ -27,14 +27,16 @@ angular.module('mean.system')
 
     $scope.signin = () => {
       Users.signin($scope.email, $scope.password).then((response) => {
-        if (response.data.success) {
+        const data = response.data;
+        if (data.success) {
           window.user = {};
-          window.user._id = response.data.userid;
-          window.user._token = response.data.token;
-          $window.localStorage.setItem('token', response.data.token);
+          window.user._id = data.userid;
+          window.user._token = data.token;
+          window.localStorage.userid = data.userid;
+          window.localStorage.setItem('token', data.token);
           $location.path('/');
         } else {
-          $scope.signinErrMsg = response.data.message;
+          $scope.signinErrMsg = data.message;
         }
       }, (err) => {
         $scope.showError();
