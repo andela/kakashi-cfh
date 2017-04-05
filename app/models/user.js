@@ -31,7 +31,7 @@ const UserSchema = new Schema({
 /**
  * Virtuals
  */
-UserSchema.virtual('password').set((password) => {
+UserSchema.virtual('password').set(function virtual(password) {
   this._password = password;
   this.hashed_password = this.encryptPassword(password);
 }).get(() => this._password);
