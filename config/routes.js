@@ -9,7 +9,6 @@ module.exports = (app, passport, auth) => {
     // User Routes
   const mongoose = require('mongoose');
 
-  const C4HMailer = require('./mailer.js').C4HMailer;
   const User = mongoose.model('User');
 
   mongoose.Promise = global.Promise;
@@ -38,37 +37,40 @@ module.exports = (app, passport, auth) => {
   app.get('/users/:userId', users.show);
 
     // API routes for user search
-  app.get('/api/search/users', /** Authentication middleware **/ (req, res) => {
-    User.find({}).select('name email').then((allUsers) => {
-      res.send(allUsers);
-    });
-  });
+  app.get('/api/search/users', users.isAuthenticated, users.findUsers);
+  app.get('/api/search/users/:userid', users.isAuthenticated, users.findUser);
+  app.post('/users/sendinvite', users.sendInvites);
 
-  app.get('/api/search/users/:userid', /** Authentication middleware **/ (req, res) => {
-    const userid = req.params.userid;
-    User.findById(userid, (err, oneUser) => {
-      if (!err) {
-        res.send(oneUser);
-      } else {
-        res.send('An error occurred');
+  // const Game = require('../app/models/game');
+  app.post('/api/games/:id/start', users.isAuthenticated, (req, res) => {
+    if (!(req.params.gameOwnerId)) res.send()
+    const gameOwnerId = req.params.gameOwnerId;
+    const players = req.body.gamePlayers;
+    const winner = req.body.gameWinner;
+    const gameID = req.body.gameID;
+    const round = req.body.gameRound;
+    const updates = {
+      [gameID]: {
+        date: Date.now(),
+        rounds: round,
+        players,
+        winner,
       }
-    });
-  });
-
-  app.post('/users/sendinvite', (req, res) => {
-    const url = decodeURIComponent(req.body.url);
-    const userToInvite = req.body.user;
-    try {
-      // userToInvite.forEach((eachEmail) => {
-        C4HMailer('C4H-Kakashi Team',
-          userToInvite, 'Game invite at C4H',
-          `You have been invited to join a game at C4H. Use this link ${url}`,
-          `You have been invited to join a game at C4H.\nUse this link <a href="${url}">${url}</a>`);
-      // });
-      res.send(userToInvite);
-    } catch (error) {
-      res.send(error);
-    }
+    };
+    User.findByIdAndUpdate(gameOwnerId,
+      {
+        $push: { games: updates }
+      }, {
+        upsert: true
+      }, (error) => {
+        if (!(error)) {
+          res.status(200).json({
+            message: 'game successfully recorded'
+          });
+        } else {
+          res.send('An error occured.');
+        }
+      });
   });
 
     // Setting the facebook oauth routes
