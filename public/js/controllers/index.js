@@ -11,13 +11,22 @@ angular.module('mean.system')
       $scope.showOptions = true;
     }
 
+    function storeUserAndRedirect() {
+      window.user = {};
+      window.user._id = data.userid;
+      window.user._token = data.token;
+      window.localStorage.userid = data.userid;
+      window.localStorage.setItem('token', data.token);
+      $location.path('/');
+    }
+
     $scope.signup = () => {
       Users.signup($scope.name, $scope.email, $scope.password).then((response) => {
-        if (response.data.uccess) {
-          $window.localStorage.setItem('token', response.data.token);
-          $location.path('/');
+        const data = response.data;
+        if (data.success) {
+          storeUserAndRedirect();
         } else {
-          $scope.signupErrMsg = response.data.message;
+          $scope.signupErrMsg = data.message;
         }
       }, (err) => {
         $scope.showError();
@@ -29,12 +38,7 @@ angular.module('mean.system')
       Users.signin($scope.email, $scope.password).then((response) => {
         const data = response.data;
         if (data.success) {
-          window.user = {};
-          window.user._id = data.userid;
-          window.user._token = data.token;
-          window.localStorage.userid = data.userid;
-          window.localStorage.setItem('token', data.token);
-          $location.path('/');
+          storeUserAndRedirect();
         } else {
           $scope.signinErrMsg = data.message;
         }
@@ -46,6 +50,7 @@ angular.module('mean.system')
 
     $scope.logout = () => {
       $window.localStorage.removeItem('token');
+      $window.localStorage.removeItem('userid');
       $scope.showOptions = true;
       $location.path('/');
     };
