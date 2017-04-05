@@ -184,6 +184,7 @@ exports.create = (req, res) => {
                 return res.status(200)
                   .json({
                     success: true,
+                    userid: user.id,
                     message: 'User successfully created',
                     token
                   });
