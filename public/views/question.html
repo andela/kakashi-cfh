@@ -1,7 +1,7 @@
 <div id="question-container-inner">
   <div class="card longBlack">
     <button class="btn btn-primary" ng-click="findUsers()" ng-show="showFindUsersButton">Find Users</button>
-    <span ng-bind-html-unsafe="game.curQuestion.text" ng-hide="game.state === 'game ended' || game.state ==='game dissolved' || game.state === 'awaiting players'"></span>
+    <span ng-bind-html="game.curQuestion.text" ng-hide="game.state === 'game ended' || game.state ==='game dissolved' || game.state === 'awaiting players'"></span>
 
     <div id="notifications" ng-if="game.notification" ng-animate="{enter:'animated fadeInLeft', leave:'animated fadeOut'}">{{game.notification}}</div>
 
@@ -9,7 +9,7 @@
       <div id="finding-players">Finding Players</div>
       <div id="player-count-container">
         <div id="player-count">{{game.players.length}} / 12 </div>
-        <div id="the-word-players"> Players </div>
+        <div id="the-word-players"> Player<span ng-if="game.players.length > 1">s</span> </div>
       </div>
       <div id="loading-container">
         <div id="loading-gif"><img ng-src="../img/loader.gif"/></div>
