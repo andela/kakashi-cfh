@@ -43,7 +43,6 @@ module.exports = (app, passport, auth) => {
 
   // const Game = require('../app/models/game');
   app.post('/api/games/:id/start', users.isAuthenticated, (req, res) => {
-    if (!(req.params.gameOwnerId)) res.send()
     const gameOwnerId = req.params.gameOwnerId;
     const players = req.body.gamePlayers;
     const winner = req.body.gameWinner;
