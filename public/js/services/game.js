@@ -29,12 +29,14 @@ angular.module('mean.system')
     let joinOverrideTimeout = 0;
 
     const setNotification = () => {
-      if (notificationQueue.length === 0) { // If notificationQueue is empty, stop
+      if (notificationQueue.length === 0) {
+        // If notificationQueue is empty, stop
         clearInterval(timeout);
         timeout = false;
         game.notification = '';
       } else {
-        game.notification = notificationQueue.shift(); // Show a notification and check again in a bit
+        // Show a notification and check again in a bit
+        game.notification = notificationQueue.shift();
         timeout = $timeout(setNotification, 1300);
       }
     };
@@ -185,7 +187,7 @@ angular.module('mean.system')
       mode = mode || 'joinGame';
       room = room || '';
       createPrivate = createPrivate || false;
-      const userID = !!window.user ? user._id : 'unauthenticated';
+      const userID = !!window.user ? window.localStorage.userid : 'unauthenticated';
       socket.emit(mode, { userID, room, createPrivate });
     };
 
@@ -212,7 +214,6 @@ angular.module('mean.system')
         .then((response) => {
           resolve(response);
         }, (error) => {
-          console.log(error, ' is error');
           reject(error);
         });
     });

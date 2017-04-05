@@ -35,8 +35,8 @@ angular.module('mean.system')
 
      const findUsers = () => new Promise((resolve, reject) => {
        $http.get('/api/search/users').then((response) => {
-         const users = response.data;
-         resolve(users);
+         const userList = response.data;
+         resolve(userList);
        }, (error) => {
          reject(error);
        });
