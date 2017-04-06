@@ -65,7 +65,7 @@ describe('Game Server', () => {
           createPrivate: false
         });
         client1.on('notification', (data) => {
-          data.notification.should.match(/ has joined the game\!/);
+          data.notification.should.match(/ has joined the game/);
         });
       });
       setTimeout(disconnect, 200);
