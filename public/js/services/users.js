@@ -5,11 +5,13 @@ angular.module('mean.system')
        signedInusers: []
      };
 
-     socket.on('currentusers', (data) => {
-       if (users.signedInusers.indexOf(data) === -1) {
-         users.signedInusers = data;
-       }
-     });
+     (function currentUsers() {
+       socket.on('currentusers', (data) => {
+         if (users.signedInusers.indexOf(data) === -1) {
+           users.signedInusers = data;
+         }
+       });
+     }());
 
      const signup = (name, email, password) => new Promise((resolve, reject) => {
        const newuser = { name, email, password };
