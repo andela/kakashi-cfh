@@ -106,26 +106,11 @@ angular.module('mean.system')
     $scope.winnerPicked = () => game.winningCard !== -1;
 
     $scope.startAnyWay = () => {
-      const gamePlayers = [];
-      Object.keys(game.players).map((index) => {
-        gamePlayers.push(game.players[index].username);
+      game.startGame();
+      $scope.showFindUsersButton = false;
+      $(() => {
+        $('.gameModalClose').click();
       });
-      const gameWinner = game.gameWinner;
-      const gameID = game.gameID;
-      const gameRound = game.round;
-      const gameOwnerId = window.localStorage.userid;
-      const gameInfo = { gamePlayers, gameWinner, gameOwnerId, gameID, gameRound };
-      game.record(gameInfo)
-        .then(() => {
-          game.startGame();
-          $scope.showFindUsersButton = false;
-          $(() => {
-            $('.gameModalClose').click();
-          });
-        })
-        .catch(() => {
-          // console.log(error, ' another error');
-        });
     };
 
     $scope.startGame = () => {
@@ -133,8 +118,8 @@ angular.module('mean.system')
         (game.players.length >= game.playerMinLimit)) {
         if (game.players.length < game.playerMaxLimit) {
           $('#gameModal').modal();
-          $scope.gameInviteMessage = `Are you sure you want to start with ${game.players.length} players? 
-          CLicking the start button will begin a new game session`;
+          $scope.gameInviteMessage = `${game.playerMaxLimit - game.players.length} more player(s)
+          to join. Are you sure you want to start?`;
           $scope.showStartButtonOverlay = true;
         } else {
           $scope.startAnyWay();
@@ -231,7 +216,7 @@ angular.module('mean.system')
           $location.search({ game: game.gameID });
           if (!$scope.modalShown) {
             game.gameOwner = game.playerIndex;
-            game.gamePlayersId = window.localStorage.userid;
+            game.gameOwnersId = window.localStorage.userid;
             setTimeout(() => {
               const link = document.URL;
               const txt = 'Give the following link to your friends so they can join your game: ';
