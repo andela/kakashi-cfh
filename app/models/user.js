@@ -91,7 +91,7 @@ UserSchema.methods = {
      * @return {Boolean}
      * @api public
      */
-  authenticate(plainText) {
+  authenticate: function authenticate(plainText) {
     if (!plainText || !this.hashed_password) {
       return false;
     }
@@ -105,7 +105,7 @@ UserSchema.methods = {
      * @return {String}
      * @api public
      */
-  encryptPassword(password) {
+  encryptPassword: function encryptPassword(password) {
     if (!password) return '';
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
   }
