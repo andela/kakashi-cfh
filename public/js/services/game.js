@@ -197,7 +197,7 @@ angular.module('mean.system')
         $http.post(`/api/games/${gameInfo.gameOwnerId}/start`, gameInfo)
           .then(() => {
             // console.log('This game is has been recorded');
-          }, (error) => {
+          }, () => {
             // console.log(error);
           });
 
