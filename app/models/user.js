@@ -20,7 +20,7 @@ const UserSchema = new Schema({
   avatar: String,
   premium: Number, // null or 0 for non-donors, 1 for everyone else (for now)
   donations: [],
-  hashed_password: String,
+  hashedPassword: String,
   facebook: {},
   twitter: {},
   github: {},
@@ -32,9 +32,9 @@ const UserSchema = new Schema({
  * Virtuals
  */
 UserSchema.virtual('password').set(function virtual(password) {
-  this._password = password;
-  this.hashed_password = this.encryptPassword(password);
-}).get(() => this._password);
+  this.password = password;
+  this.hashedPassword = this.encryptPassword(password);
+}).get(() => this.password);
 
 /**
  * Validations
@@ -60,7 +60,7 @@ UserSchema.path('username').validate((username) => {
   return username.length;
 }, 'Username cannot be blank');
 
-UserSchema.path('hashed_password').validate((hashedPassword) => {
+UserSchema.path('hashedPassword').validate((hashedPassword) => {
     // if you are authenticating by any of the oauth strategies, don't validate
   if (authTypes.indexOf(this.provider) !== -1) return true;
   return hashedPassword.length;
@@ -92,10 +92,10 @@ UserSchema.methods = {
      * @api public
      */
   authenticate: function authenticate(plainText) {
-    if (!plainText || !this.hashed_password) {
+    if (!plainText || !this.hashedPassword) {
       return false;
     }
-    return bcrypt.compareSync(plainText, this.hashed_password);
+    return bcrypt.compareSync(plainText, this.hashedPassword);
   },
 
     /**
