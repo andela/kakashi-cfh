@@ -1,4 +1,7 @@
 eslint:
   enabled: true
   config_file: .eslintrc.json
+    checks:
+      import/no-unresolved:
+        enabled: false
   ignore_file: .eslintignore
