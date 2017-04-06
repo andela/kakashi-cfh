@@ -1,4 +1,4 @@
-<div id="question-container-inner">
+<div id="question-container-inner" class="animate slideInRight">
   <div class="card longBlack">
     <span ng-bind-html="game.curQuestion.text" ng-hide="game.state === 'game ended' || game.state ==='game dissolved' || game.state === 'awaiting players'"></span>
 
@@ -15,7 +15,7 @@
       </span>
       <button class="btn-donate q-btn" ng-click="findUsers()" ng-show="showFindUsersButton">Invite Players</button>
       <div id="start-game-container" ng-click="startGame()" ng-show="(game.playerIndex === 0 || game.joinOverride) && game.players.length >= game.playerMinLimit">
-        <button id='start-game-button'>
+        <button id='start-game-button' class="animated bounce">
           Start Game</br>with {{game.players.length}} players
         </button>
       </div>
@@ -37,7 +37,7 @@
       </div>
     </div>
 
-<div id="gameModal" class="modal fade" style="background: rgba(0, 0, 0, .8);"role="dialog">
+<div id="gameModal" class="modal fade animated bounceInRight" style="background: rgba(0, 0, 0, .8);"role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -60,7 +60,7 @@
   </div>
 </div>
 
-<div id="availableUsers" class="modal fade" role="dialog">
+<div id="availableUsers" class="modal fade animated bounceInRight" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -84,7 +84,7 @@
                 {{ $index + 1 }}
               </td>
               <td>
-                {{ user.name }} <span style="color: green !important; font-size: 8px;" ng-if="signedInusers.indexOf(user._id) > -1"> <i class="glyphicon glyphicon-record"></i></span>
+                {{ user.name }} <span style="color: green !important; font-size: 10px;" ng-if="signedInusers.indexOf(user._id) > -1"> <i class="fa fa-circle"></i></span>
               </td>
               <td>
                 <button class="btn btn-default btn-block sendInviteButton" ng-click="sendInvites(user.email)" >Send invite</button>
