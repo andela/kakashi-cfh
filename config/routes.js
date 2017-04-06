@@ -8,11 +8,6 @@ const game = require('../app/controllers/game');
 
 module.exports = (app, passport) => {
   // User Routes
-  const User = mongoose.model('User');
-
-  mongoose.Promise = global.Promise;
-
-  // User Routes
   app.get('/signin', users.signin);
   app.get('/signup', users.signup);
   app.get('/chooseavatars', users.checkAvatar);
