@@ -15,8 +15,9 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
+          <li><a id="startTour" href="javascript:void(0)">Tour</a></li>
           <li><a href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw&related=CFH_App&text=Cards%20for%20Humanity%3A%20A%20Game%20for%20Horrible%20People%20Desperately%20Trying%20to%20do%20Good&tw_p=tweetbutton&url=http%3A%2F%2Fcfh.io">Tweet</a></li>
-          <li><a href="#" ng-click="abandonGame()">Abandon Game</a></li>
+          <li><a id="abandon-game" href="#" ng-click="abandonGame()">Abandon Game</a></li>
           <li><a target="_blank" href="https://www.crowdrise.com/fundraise-and-volunteer/donate-mobile/project/cfhio/cards4humanity?widget=true&redirect_to=http%3A%2F%2Flocalhost%3A5000%2F%23!%2F&stylesheet=&amounts=" class="btn-donate">Donate</a></li>
         </ul>
       </div>
@@ -27,7 +28,7 @@
     <div class="container">
       <div class="row">
 
-        <div class="col-md-2">
+        <div class="col-md-2" id="player-section">
             <player></player>
         </div>
 

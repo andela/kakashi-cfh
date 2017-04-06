@@ -468,6 +468,11 @@ footer .github-foot img {
   min-width: 300px;
 }
 
+.popover .popover-title {
+  background-color: #3E7293;
+  color: #fff;
+}
+
 .col-xs-5ths,
 .col-sm-5ths,
 .col-md-5ths,
