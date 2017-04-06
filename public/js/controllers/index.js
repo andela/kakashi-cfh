@@ -16,11 +16,9 @@ angular.module('mean.system')
      * @return {Null} no-return value
      */
     function storeUserAndRedirect(data) {
-      window.user = {};
-      window.user._id = data.userid;
-      window.user._token = data.token;
       window.localStorage.userid = data.userid;
       window.localStorage.setItem('token', data.token);
+      socket.emit('issignedin', data.userid);
       $location.path('/');
     }
 
@@ -53,8 +51,9 @@ angular.module('mean.system')
     };
 
     $scope.logout = () => {
-      $window.localStorage.removeItem('token');
-      $window.localStorage.removeItem('userid');
+      socket.emit('issignedout', window.localStorage.getItem('userid'));
+      window.localStorage.removeItem('token');
+      window.localStorage.removeItem('userid');
       $scope.showOptions = true;
       $location.path('/');
     };
