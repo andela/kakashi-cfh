@@ -1,6 +1,5 @@
 <div id="question-container-inner">
   <div class="card longBlack">
-    <button class="btn btn-primary" ng-click="findUsers()" ng-show="showFindUsersButton">Find Users</button>
     <span ng-bind-html="game.curQuestion.text" ng-hide="game.state === 'game ended' || game.state ==='game dissolved' || game.state === 'awaiting players'"></span>
 
     <div id="notifications" ng-if="game.notification" ng-animate="{enter:'animated fadeInLeft', leave:'animated fadeOut'}">{{game.notification}}</div>
@@ -14,11 +13,11 @@
       <span id="loading-container">
         <span id="loading-gif"><img class="q-spinner" ng-src="../img/loader.gif"/></span>
       </span>
-      <a href="#" class="btn-donate q-btn">Invite Players</a>
+      <button class="btn-donate q-btn" ng-click="findUsers()" ng-show="showFindUsersButton">Invite Players</button>
       <div id="start-game-container" ng-click="startGame()" ng-show="(game.playerIndex === 0 || game.joinOverride) && game.players.length >= game.playerMinLimit">
-        <div id='start-game-button'>
+        <button id='start-game-button'>
           Start Game</br>with {{game.players.length}} players
-        </div>
+        </button>
       </div>
     </div>
 
@@ -80,12 +79,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="user in availableUsers | filter:searchUsers | limitTo:20" ng-show="usersInvited.indexOf(user.email) <= -1">
+            <tr ng-repeat="user in availableUsers | filter:searchUsers | limitTo:15" ng-show="usersInvited.indexOf(user.email) <= -1">
                <td>
                 {{ $index + 1 }}
               </td>
               <td>
-                {{ user.name }} <span style="color: green !important; line-height: 16px;" ng-if="signedInusers.indexOf(user._id) > -1"> <i class="glyphicon glyphicon-record"></i></span>
+                {{ user.name }} <span style="color: green !important; font-size: 8px;" ng-if="signedInusers.indexOf(user._id) > -1"> <i class="glyphicon glyphicon-record"></i></span>
               </td>
               <td>
                 <button class="btn btn-default btn-block sendInviteButton" ng-click="sendInvites(user.email)" >Send invite</button>
@@ -95,7 +94,7 @@
         </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default gameModalClose" data-dismiss="modal">Close</button>
+        <button class="btn btn-default gameModalClose" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
