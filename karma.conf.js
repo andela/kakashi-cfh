@@ -11,6 +11,8 @@ module.exports = (config) => {
       'public/lib/angular-route/angular-route.js',
       'public/lib/angular-bootstrap/ui-bootstrap.min.js',
       'public/lib/angular-ui-utils/modules/route/route.js',
+      'public/lib/angular-sanitize/angular-sanitize.min.js',
+      'public/lib/jquery/jquery.min.js',
       'public/js/**/*.js',
       'test/client/*Spec.js',
     ],
