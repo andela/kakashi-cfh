@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const users = require('../app/controllers/users');
 const answers = require('../app/controllers/answers');
 const index = require('../app/controllers/index');
