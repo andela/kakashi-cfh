@@ -21,7 +21,7 @@ angular.module('mean.system')
       timeLimits: {},
       joinOverride: false,
       gameOwner: null,
-      gamePlayersId: null,
+      gameOwnersId: null,
     };
 
     const notificationQueue = [];
@@ -174,6 +174,33 @@ angular.module('mean.system')
           game.joinOverride = true;
         }, 15000);
       } else if (data.state === 'game dissolved' || data.state === 'game ended') {
+        // Post to update game record
+        // const winner = game.gameWinner;
+        const gamePlayers = [];
+        Object.keys(game.players).map((index) => {
+          gamePlayers.push(game.players[index].username);
+        });
+        const gameWinner = game.players[game.gameWinner].username;
+        const gameRound = game.round;
+        const gameID = game.gameID;
+        const gameOwnerId = game.gameOwnersId;
+        const gameEndTIme = Date.now();
+        const gameInfo = {
+          gameWinner,
+          gameRound,
+          gameOwnerId,
+          gamePlayers,
+          gameID,
+          gameEndTIme,
+        };
+
+        $http.post(`/api/games/${gameInfo.gameOwnerId}/start`, gameInfo)
+          .then(() => {
+            // console.log('This game is has been recorded');
+          }, (error) => {
+            // console.log(error);
+          });
+
         game.players[game.playerIndex].hand = [];
         game.time = 0;
       }
@@ -208,15 +235,6 @@ angular.module('mean.system')
     game.pickWinning = (card) => {
       socket.emit('pickWinning', { card: card.id });
     };
-
-    game.record = gameInfo => new Promise((resolve, reject) => {
-      $http.post(`/api/games/${gameInfo.gameOwnerId}/start`, gameInfo)
-        .then((response) => {
-          resolve(response);
-        }, (error) => {
-          reject(error);
-        });
-    });
 
     decrementTime();
 
