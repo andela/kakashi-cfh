@@ -1,3 +1,4 @@
+require('should');
 const io = require('socket.io-client');
 
 const socketURL = 'http://localhost:3000';
@@ -15,11 +16,7 @@ describe('Game Server', () => {
       done();
     };
     client1.on('connect', () => {
-      client1.emit('joinGame', {
-        userID: 'unauthenticated',
-        room: '',
-        createPrivate: false
-      });
+      client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
       setTimeout(disconnect, 200);
     });
   });
@@ -31,11 +28,7 @@ describe('Game Server', () => {
       done();
     };
     client1.on('connect', () => {
-      client1.emit('joinGame', {
-        userID: 'unauthenticated',
-        room: '',
-        createPrivate: false
-      });
+      client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
       client1.on('gameUpdate', (data) => {
         data.gameID.should.match(/\d+/);
       });
@@ -52,20 +45,12 @@ describe('Game Server', () => {
       done();
     };
     client1.on('connect', () => {
-      client1.emit('joinGame', {
-        userID: 'unauthenticated',
-        room: '',
-        createPrivate: false
-      });
+      client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
       client2 = io.connect(socketURL, options);
       client2.on('connect', () => {
-        client2.emit('joinGame', {
-          userID: 'unauthenticated',
-          room: '',
-          createPrivate: false
-        });
+        client2.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
         client1.on('notification', (data) => {
-          data.notification.should.match(/ has joined the game/);
+          data.notification.should.match(/has joined the game/);
         });
       });
       setTimeout(disconnect, 200);
@@ -76,7 +61,6 @@ describe('Game Server', () => {
     let client1 = '';
     let client2 = '';
     let client3 = '';
-
     client1 = io.connect(socketURL, options);
     const disconnect = () => {
       client1.disconnect();
@@ -98,25 +82,13 @@ describe('Game Server', () => {
       setTimeout(disconnect, 200);
     };
     client1.on('connect', () => {
-      client1.emit('joinGame', {
-        userID: 'unauthenticated',
-        room: '',
-        createPrivate: false
-      });
+      client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
       client2 = io.connect(socketURL, options);
       client2.on('connect', () => {
-        client2.emit('joinGame', {
-          userID: 'unauthenticated',
-          room: '',
-          createPrivate: false
-        });
+        client2.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
         client3 = io.connect(socketURL, options);
         client3.on('connect', () => {
-          client3.emit('joinGame', {
-            userID: 'unauthenticated',
-            room: '',
-            createPrivate: false
-          });
+          client3.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
           setTimeout(expectStartGame, 100);
         });
       });
@@ -124,6 +96,7 @@ describe('Game Server', () => {
   });
 
   it('Can add up to 12 players are in a game', (done) => {
+
     let client1 = '';
     let client2 = '';
     let client3 = '';

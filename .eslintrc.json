@@ -19,11 +19,9 @@
     "consistent-return": 0,
     "no-param-reassign": 0,
     "no-use-before-define": 0,
-    "no-lonely-if": 0,
-    "no-underscore-dangle": 0,
     "comma-dangle": 0,
     "curly": ["error", "multi-line"],
-    "import/no-unresolved": [2, { "commonjs": true }],
+    "import/no-unresolved": 0,
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
     "valid-jsdoc": ["error", {
       "requireReturn": true,
