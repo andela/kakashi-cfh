@@ -1,6 +1,6 @@
 process.env.NODE_ENV = 'test';
 
-const app = require('../../../server');
+require('../../../server');
 const should = require('should');
 const mongoose = require('mongoose');
 
