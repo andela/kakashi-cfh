@@ -1,12 +1,12 @@
-const async = require('async');
 const users = require('../app/controllers/users');
 const answers = require('../app/controllers/answers');
 const index = require('../app/controllers/index');
 const avatars = require('../app/controllers/avatars');
 const questions = require('../app/controllers/questions');
+const game = require('../app/controllers/game');
 
-module.exports = (app, passport, auth) => {
-    // User Routes
+module.exports = (app, passport) => {
+  // User Routes
   app.get('/signin', users.signin);
   app.get('/signup', users.signup);
   app.get('/chooseavatars', users.checkAvatar);
@@ -15,6 +15,7 @@ module.exports = (app, passport, auth) => {
     // Setting up the users api
   app.post('/api/auth/signin', users.signin);
   app.post('/api/auth/signup', users.create);
+  app.post('/users', users.create);
   app.post('/users/avatars', users.avatars);
 
     // Donation Routes
@@ -27,6 +28,14 @@ module.exports = (app, passport, auth) => {
 
   app.get('/users/me', users.me);
   app.get('/users/:userId', users.show);
+
+    // API routes for user search
+  app.get('/api/search/users', users.isAuthenticated, users.findUsers);
+  app.get('/api/search/users/:userid', users.isAuthenticated, users.findUser);
+  app.post('/users/sendinvite', users.sendInvites);
+
+  // game start route
+  app.post('/api/games/:id/start', users.isAuthenticated, game.record);
 
     // Setting the facebook oauth routes
   app.get('/auth/facebook', passport.authenticate('facebook', {
@@ -84,7 +93,7 @@ module.exports = (app, passport, auth) => {
     // Finish with setting up the questionId param
   app.param('questionId', questions.question);
 
-    // Avatar Routes
+
   app.get('/avatars', avatars.allJSON);
 
     // Home route
