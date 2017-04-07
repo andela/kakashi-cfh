@@ -8,6 +8,10 @@ body {
   max-width: 100%;
 }
 
+button{
+  border: 0px;
+}
+
 .orange-text {
   color: #F4781F;
 }
