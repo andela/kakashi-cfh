@@ -178,9 +178,7 @@ angular.module('mean.system')
           // Post to update game record
         // const winner = game.gameWinner;
           const gamePlayers = [];
-          Object.keys(game.players).map((index) => {
-            gamePlayers.push(game.players[index].username);
-          });
+          Object.keys(game.players).map(index => gamePlayers.push(game.players[index].username));
           const gameWinner = game.players[game.gameWinner].username;
           const gameRound = game.round;
           const gameID = game.gameID;
