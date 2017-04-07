@@ -3,6 +3,10 @@ const _ = require('underscore');
 
 // Load app configuration
 
-module.exports = _.extend(
-    require(`${__dirname}/../config/env/all.js`),
-    require(`${__dirname}/../config/env/${process.env.NODE_ENV}.json`) || {});
+const envBaseUrl = `./env/${process.env.NODE_ENV}.json` || {};
+
+module.exports =
+    _.extend(
+      require('./env/all.js'),
+      require(envBaseUrl)
+    );

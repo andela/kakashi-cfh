@@ -4,10 +4,9 @@ const nodemon = require('gulp-nodemon');
 const eslint = require('gulp-eslint');
 const path = require('path');
 const Server = require('karma').Server;
-const jasmine = require('gulp-jasmine');
-/* eslint-disable import/no-unresolved */
+const mocha = require('gulp-mocha');
 const bower = require('gulp-bower');
-/* eslint-enable import/no-unresolved */
+
 const reload = browserSync.reload;
 
 gulp.task('browser-sync', ['nodemon'], () => {
@@ -55,8 +54,8 @@ gulp.task('lint', () => gulp.src([
 );
 
 gulp.task('test-back', () =>
-  gulp.src('test/backend/*.js')
-    .pipe(jasmine())
+  gulp.src('test/backend/**/*.js')
+    .pipe(mocha())
 );
 
 gulp.task('test-front', (done) => {
@@ -67,6 +66,7 @@ gulp.task('test-front', (done) => {
     done();
   }).start();
 });
+gulp.task('test', ['test-front', 'test-back']);
 
 gulp.task('bower', () => {
   bower({ directory: './public/lib' });
