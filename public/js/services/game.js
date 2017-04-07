@@ -174,33 +174,36 @@ angular.module('mean.system')
           game.joinOverride = true;
         }, 15000);
       } else if (data.state === 'game dissolved' || data.state === 'game ended') {
-        // Post to update game record
+        if (game.state === 'game ended') {
+          // Post to update game record
         // const winner = game.gameWinner;
-        const gamePlayers = [];
-        Object.keys(game.players).map((index) => {
-          gamePlayers.push(game.players[index].username);
-        });
-        const gameWinner = game.players[game.gameWinner].username;
-        const gameRound = game.round;
-        const gameID = game.gameID;
-        const gameOwnerId = game.gameOwnersId;
-        const gameEndTIme = Date.now();
-        const gameInfo = {
-          gameWinner,
-          gameRound,
-          gameOwnerId,
-          gamePlayers,
-          gameID,
-          gameEndTIme,
-        };
+          const gamePlayers = [];
+          Object.keys(game.players).map((index) => {
+            gamePlayers.push(game.players[index].username);
+          });
+          const gameWinner = game.players[game.gameWinner].username;
+          const gameRound = game.round;
+          const gameID = game.gameID;
+          const gameOwnerId = game.gameOwnersId;
+          const gameEndTIme = Date.now();
+          const gameInfo = {
+            gameWinner,
+            gameRound,
+            gameOwnerId,
+            gamePlayers,
+            gameID,
+            gameEndTIme,
+          };
 
-        $http.post(`/api/games/${gameInfo.gameOwnerId}/start`, gameInfo)
+          $http.post(`/api/games/${gameInfo.gameOwnerId}/start`, gameInfo)
           .then(() => {
             // console.log('This game is has been recorded');
           }, () => {
             // console.log(error);
           });
-
+        } else {
+          // console.log('Game abandoned');
+        }
         game.players[game.playerIndex].hand = [];
         game.time = 0;
       }
