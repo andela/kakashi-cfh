@@ -1,7 +1,3 @@
-// const mongoose = require('mongoose');
-// const async = require('async');
-// const undescore = require('underscore');
-
 /**
  * Redirect users to /#!/app (forcing Angular to reload the page)
  */

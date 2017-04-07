@@ -6,9 +6,10 @@ const mongoose = require('mongoose');
 
 const User = mongoose.model('User');
 
+let user;
+
 describe('<Unit Test>', () => {
   describe('Model User:', () => {
-    let user = '';
     before((done) => {
       user = new User({
         name: 'Full name',
