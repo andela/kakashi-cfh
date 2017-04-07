@@ -13,9 +13,9 @@
     "npm": "3.10.x"
   },
   "scripts": {
-    "start": "gulp",
+    "start": "node server.js",
     "test": "node server.js & gulp test",
-    "postinstall": "node node_modules/gulp/bin/gulp.js bower"
+    "postinstall": "bower install"
   },
   "dependencies": {
     "async": "~0.2.9",
