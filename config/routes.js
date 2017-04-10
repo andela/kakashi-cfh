@@ -33,6 +33,12 @@ module.exports = (app, passport) => {
   app.get('/api/search/users/:userid', users.isAuthenticated, users.findUser);
   app.post('/users/sendinvite', users.sendInvites);
 
+  // API routes for player community
+  app.post('/users/addfriend', users.addFriends);
+  app.post('/users/inviteallfriends', users.inviteFriends);
+  app.post('/users/deletefriend', users.deleteFriend);
+  app.post('/user/friends', users.getFriends);
+
   // game start route
   app.post('/api/games/:id/start', users.isAuthenticated, game.record);
 
