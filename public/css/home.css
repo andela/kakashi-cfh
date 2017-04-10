@@ -388,10 +388,40 @@ footer .github-foot img {
   margin: 0;
 }
 
-.chatbox .chat-header .fa {
+.chatbox .chat-header .fa-chevron-down,
+.chatbox .chat-header .fa-chevron-up {
   float: right;
   font-size: 25px;
   cursor: pointer;
+}
+
+#chatNotification {
+  font-size: 16px;
+  color: #F4781F;
+  display: none;
+}
+
+#chatInner .emojioneemoji{
+  width: 25px;
+}
+
+.chat-meta {
+    text-transform: capitalize;
+}
+
+.send-message {
+    padding-bottom: 5px;
+}
+
+.send-message button {
+    padding: 2px 5px;
+    margin: 0 5px;
+}
+
+.chatbox .chat-begin{
+  font-size: 14px;
+  color: #bbb;
+  margin-bottom: 6px;
 }
 
 .chatbox .chat-header .fa-chevron-down {
@@ -420,7 +450,7 @@ footer .github-foot img {
 .chatbox .chat .chat-message {
   display: inline-block;
   margin: 5px 0px 20px 20px;
-  background-color: #e6e6e6;
+  background-color: #f9f9f9;
   padding: 5px;
   border-radius: 8px;
 }
