@@ -3,11 +3,24 @@
 const Game = require('./game');
 const Player = require('./player');
 const mongoose = require('mongoose');
+const firebase = require('firebase');
 require('console-stamp')(console, 'm/dd HH:MM:ss');
+
+// firebase details
+const config = {
+  apiKey: process.env.API_KEY,
+  authDomain: 'sample-project-d889a.firebaseapp.com',
+  databaseURL: 'https://sample-project-d889a.firebaseio.com',
+  projectId: 'sample-project-d889a',
+  storageBucket: 'sample-project-d889a.appspot.com',
+};
+firebase.initializeApp(config);
+const database = firebase.database();
 
 const avatars = require('../../app/controllers/avatars.js').all();
 
 const User = mongoose.model('User');
+let chatMessages = [];
 
 
 // Valid characters to use to generate random private game IDs
@@ -22,7 +35,20 @@ module.exports = function socketMethod(io) {
 
   const allSignedInUsers = [];
 
+
   io.sockets.on('connection', (socket) => {
+    // initialize chat when a new socket is connected
+    socket.emit('initializeChat', chatMessages);
+
+    // send recieved chat message to all connected sockets
+    socket.on('chat message', (chat) => {
+      for (let j = 0; j < game.players.length; j += 1) {
+        game.players[j].socket.emit('chat message', chat);
+      }
+      chatMessages.push(chat);
+      database.ref(`chat/${gameID}`).set(chatMessages);
+    });
+
     socket.on('issignedin', (signedinUserId) => {
       allSignedInUsers.push(signedinUserId);
       // console.log(allSignedInUsers, ' are signed in');
@@ -248,6 +274,8 @@ module.exports = function socketMethod(io) {
         }
         game.killGame();
         delete allGames[socket.gameID];
+        // reset chat message collection
+        chatMessages = [];
       }
     }
     socket.leave(socket.gameID);
