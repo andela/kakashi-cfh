@@ -22,11 +22,12 @@ $('body').on('click', '#closeChat', () => {
   $('#openChat').show();
   $('.chat-content').slideUp();
 });
-$('body').on('click', '#openChat', () => {
+$('body').on('click', '#openChat, .emojionearea-editor', () => {
   $('#openChat').hide();
   $('#closeChat').show();
   $('.chat-content').slideDown();
 });
+$('body').on('click', '.chatbox', () => $('#chatNotification').hide());
 
 $(window).ready(() => {
 // Instance the tour
