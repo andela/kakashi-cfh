@@ -86,17 +86,7 @@ $(window).ready(() => {
     tour.start();
   });
 
-  // Initialize emoji
   setTimeout(() => {
-    $('#chatInput').emojioneArea({
-      pickerPosition: 'top',
-      filtersPosition: 'top',
-      tones: false,
-      autocomplete: false,
-      inline: true,
-      hidePickerOnBlur: true
-    });
-
     // Initialize the tour
     tour.init();
   }, 300);

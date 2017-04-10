@@ -19,6 +19,19 @@ angular.module('mean.system')
       $scope.setPlayer = Chat.setPlayer;
       $scope.isPlayerSet = Chat.isPlayerSet;
 
+      $scope.attachEmoji = () => {
+        if ($scope.isPlayerSet) return;
+        $('#chatInput').emojioneArea({
+          pickerPosition: 'top',
+          filtersPosition: 'top',
+          tones: false,
+          autocomplete: false,
+          inline: true,
+          hidePickerOnBlur: true
+        });
+        $scope.isPlayerSet = true;
+      };
+
       $scope.pickCard = (card) => {
         if (!$scope.hasPickedCards) {
           if ($scope.pickedCards.indexOf(card.id) < 0) {
