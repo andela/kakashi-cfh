@@ -9,10 +9,10 @@ require('console-stamp')(console, 'm/dd HH:MM:ss');
 // firebase details
 const config = {
   apiKey: process.env.API_KEY,
-  authDomain: 'sample-project-d889a.firebaseapp.com',
+  authDomain: process.env.AUTH_DOMAIN,
   databaseURL: 'https://sample-project-d889a.firebaseio.com',
-  projectId: 'sample-project-d889a',
-  storageBucket: 'sample-project-d889a.appspot.com',
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
 };
 firebase.initializeApp(config);
 const database = firebase.database();
