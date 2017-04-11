@@ -1,0 +1,224 @@
+$blue: #3E7293;
+$orange: #F4781F;
+$shadow: 0px 5px 3px #454545;
+$header-font: 'Courgette', cursive;
+$radius: 8px;
+
+
+//Game-Load
+.game-load{
+  .col-md-3, .col-md-2, .col-md-10, .col-md-9 {
+    padding: 0 5px;
+  }
+  .top-bar{
+    width: 100%;
+    margin: 0;
+  }
+  .timer {
+    padding: 20px 15px 10px 15px;
+    color: #fff;
+    background-color: $blue;
+    text-align: center;
+    border-radius: $radius;
+    min-height: 180px;
+    margin-bottom: 10px;
+    .number{
+      font-size: 90px;
+      line-height: 80px;
+      font-weight: 800;
+      padding: 0; margin: 0;
+    }
+    .num-info{
+      display: block;
+      margin-top: 15px;
+    }
+  }
+  .question{
+    position: relative;
+    text-align: center;
+    background-color: $blue;
+    color: #fff;
+    padding: 25px 20px 10px 20px;
+    border-radius: $radius;
+    min-height: 180px;
+    margin-bottom: 10px;
+    
+    p{
+      text-align: left;
+    }
+    .q-header{
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+    .q-spinner{
+      width: 80px;
+    }
+    .q-players{
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      margin-top: 15px;
+    }
+    .q-btn{
+      position: absolute;
+      margin-top: 25px;
+      color: #fff;
+      bottom: 20px;
+      right: 20px;
+    }
+  }
+
+  .how-to-play{
+    background-color: #fff;
+    margin-top: 20px;
+  }
+  
+  @media (min-width: 992px){
+    .col-md-2 {
+      float: right;
+    }
+  }
+}
+
+#player-container{
+  width: 100%;
+  max-width: 185px;
+  border-radius: $radius;
+  margin-bottom: 10px;
+  display: inline-block;
+  padding: 10px 5px;
+  #above-czar-container{
+    display: flex;
+  }
+  #avatar_{
+    display: inline-block;
+    width: 45px;
+    text-align: center;
+    img{
+      max-width: 100%;
+    }
+  }
+  #player-container-inner{
+    display: inline-block;
+    h4, h2{
+      display: inline-block;
+      font-size: 15px;
+      font-weight: bold;
+      margin: 0; padding: 0;
+    }
+    #player-star, #player-score {
+      display: inline-block;
+    }
+    img{
+      width: 20px;
+    }
+  }
+  #czar-container{
+    font-size: 14px;
+  }
+}
+
+
+//ChatBox
+.chatbox{
+  width: 300px;
+  border-radius: $radius;
+  position: fixed;
+  background-color: #fff;
+  border: 1px solid #fff;
+  bottom: 10px;
+  right: 10px;
+  z-index: 998;
+  .chat-header{
+    background-color: $blue;
+    border-radius: $radius;
+    padding: 6px 15px;
+    color: #fff;
+    h3{
+      display: inline-block;
+      margin: 0;
+    }
+    .fa{
+      float: right;
+      font-size: 25px;
+      cursor: pointer;
+    }
+    .fa-chevron-down{
+      display: none;
+    }
+  }
+  .chat-content{
+    padding: 15px 5px;
+    max-height: 350px;
+    overflow: auto;
+    display: none;
+  }
+  .chat{
+    .chat-meta{
+      display: block;
+      margin-left: 5px;
+      font-size: 14px;
+      img{
+        float: left;
+        width: 50px;
+        margin-right: 15px;
+      }
+    }
+    .chat-message{
+      display: inline-block;
+      margin: 5px 0px 20px 20px;
+      background-color: #e6e6e6;
+      padding: 5px;
+      border-radius: $radius;
+    }
+  }
+}
+
+.answers{
+  background-color: $blue;
+  padding: 0 15px;
+  margin-top: 20px;
+  border-radius: $radius;
+  .answer-card{
+    background-color: #fff;
+    padding: 15px 10px;
+    border-radius: $radius;
+    font-size: 15px;
+    min-height: 220px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+}
+
+.game-end{
+  color: #fff;
+  text-align: center;
+  padding: 20px 10px;
+  
+  a{
+    display: inline-block;
+  }
+  #join-new-game, #exit-match{
+    color: #fff;
+    padding: 10px 15px;
+    margin: 10px;
+    border-radius: $radius;
+    background-color: $orange;
+    &:hover{
+      background-color: darken($orange, 10%);
+    }
+  }
+}
+
+#start-game-button{
+  cursor: pointer;
+}
+
+// Popover
+.popover{
+  min-width: 300px;
+  .popover-title{
+    background-color: $blue;
+    color: #fff;
+  }
+}

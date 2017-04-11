@@ -1,0 +1,519 @@
+body {
+  font-family: 'Lato', sans-serif;
+  font-size: 18px;
+  padding-top: 70px;
+}
+
+#main-bod {
+  max-width: 100%;
+}
+
+.orange-text {
+  color: #F4781F;
+}
+
+a:link,
+a:visited {
+  color: #c6c6c6;
+  text-decoration: none;
+}
+
+a:hover,
+a:active {
+  color: #fff;
+}
+
+.btn-donate,
+.btn-donate:link {
+  padding: 5px 10px;
+  border-radius: 8px;
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0px 5px 3px #454545;
+  margin-top: 9px;
+  margin-left: 10px;
+  background-color: #F4781F;
+}
+
+.btn-donate:hover,
+.btn-donate:active {
+  background-color: #d65f0a !important;
+  color: #fff !important;
+}
+
+.navbar {
+  background-color: #3E7293;
+  padding: 10px 0;
+  margin-bottom: 0px;
+}
+
+.navbar .navbar-brand {
+  padding-top: 7px;
+  color: #f8a468;
+  font-family: 'Courgette', cursive;
+  font-size: 24px;
+}
+
+.navbar .navbar-brand img {
+  max-width: 250px;
+}
+
+.navbar .navbar-nav a:visited,
+.navbar .navbar-nav a:link {
+  color: #fff;
+}
+
+.navbar .navbar-nav a:hover,
+.navbar .navbar-nav a:active {
+  color: #ccc !important;
+}
+
+.section {
+  padding: 50px 0;
+}
+
+.section .heading {
+  margin: 0;
+  padding-bottom: 20px;
+  text-align: center;
+  font-family: "Courgette", cursive;
+  font-size: 36px;
+}
+
+.section p:last-child {
+  margin-bottom: 0;
+}
+
+.section .description {
+  text-align: center;
+}
+
+.section a:link,
+.section a:visited {
+  color: #3E7293;
+  text-decoration: none;
+}
+
+.section a:hover,
+.section a:active {
+  color: #2f566f;
+}
+
+.btn-blue,
+.btn-blue:link,
+.btn-blue:visited {
+  padding: 5px 10px;
+  border-radius: 8px;
+  color: #fff;
+  text-decoration: none;
+  background-color: #3E7293;
+  color: #fff !important;
+}
+
+.btn-blue:hover {
+  background-color: #2f566f;
+  color: #fff;
+}
+
+.cover {
+  padding: 120px 0;
+  background-image: url("../img/humanity.png");
+  background-size: cover;
+  background-position: top center;
+}
+
+.cover h1,
+.cover h3 {
+  padding: 0;
+  margin: 0;
+  padding-bottom: 30px;
+  color: #fff;
+}
+
+.cover h1 {
+  font-size: 64px;
+  font-family: "Courgette", cursive;
+}
+
+.cover h3 {
+  font-size: 24px;
+}
+
+.cover .btn-blue {
+  display: inline-block;
+}
+
+.how-to-play {
+  background-color: #F3F3F3;
+}
+
+.how-to-play .container {
+  max-width: 100% !important;
+}
+
+.how-to-play .col-sm-3 {
+  border: 1px solid #fff;
+}
+
+.how-to-play .card-bg {
+  background-size: cover;
+  background-position: center;
+  padding: 35px 15px;
+  text-align: center;
+  border-radius: 12px;
+  max-width: 220px;
+  min-height: 260px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.how-to-play .number {
+  color: #fff;
+  display: inline-block;
+  height: 35px;
+  width: 35px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  padding-top: 3px;
+  margin-bottom: 20px;
+}
+
+.how-to-play .steps {
+  color: #fff;
+}
+
+.how-to-play .play-as-guest {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.how-to-play .play-as-guest .btn-blue {
+  box-shadow: 0px 5px 3px #454545;
+}
+
+.charity {
+  position: relative;
+  background-color: #E6E6E6;
+}
+
+.charity .make-a-wish {
+  position: absolute;
+  bottom: 0;
+}
+
+.charity .make-a-wish img {
+  width: 200px;
+}
+
+@media (max-width: 767px) {
+  .charity .text-center {
+    margin-bottom: 50px;
+  }
+}
+
+footer {
+  padding: 25px 0 20px 0;
+  color: #fff;
+  background-color: #3E7293;
+}
+
+footer .github-foot {
+  margin-top: 25px;
+}
+
+footer .github-foot img {
+  margin-right: 20px;
+}
+
+#main-container {
+  padding: 0;
+}
+
+.game-load .col-md-3, .game-load .col-md-2, .game-load .col-md-10, .game-load .col-md-9 {
+  padding: 0 5px;
+}
+
+.game-load .top-bar {
+  width: 100%;
+  margin: 0;
+}
+
+.game-load .timer {
+  padding: 20px 15px 10px 15px;
+  color: #fff;
+  background-color: #3E7293;
+  text-align: center;
+  border-radius: 8px;
+  min-height: 180px;
+  margin-bottom: 10px;
+}
+
+.game-load .timer .number {
+  font-size: 90px;
+  line-height: 80px;
+  font-weight: 800;
+  padding: 0;
+  margin: 0;
+}
+
+.game-load .timer .num-info {
+  display: block;
+  margin-top: 15px;
+}
+
+.game-load .question {
+  position: relative;
+  text-align: center;
+  background-color: #3E7293;
+  color: #fff;
+  padding: 25px 20px 10px 20px;
+  border-radius: 8px;
+  min-height: 180px;
+  margin-bottom: 10px;
+}
+
+.game-load .question p {
+  text-align: left;
+}
+
+.game-load .question .q-header {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.game-load .question .q-spinner {
+  width: 80px;
+}
+
+.game-load .question .q-players {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  margin-top: 15px;
+}
+
+.game-load .question .q-btn {
+  position: absolute;
+  margin-top: 25px;
+  color: #fff;
+  bottom: 20px;
+  right: 20px;
+}
+
+.game-load .how-to-play {
+  background-color: #fff;
+  margin-top: 20px;
+}
+
+@media (min-width: 992px) {
+  .game-load .col-md-2 {
+    float: right;
+  }
+}
+
+#player-container {
+  width: 100%;
+  max-width: 185px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  display: inline-block;
+  padding: 10px 5px;
+}
+
+#player-container #above-czar-container {
+  display: flex;
+}
+
+#player-container #avatar_ {
+  display: inline-block;
+  width: 45px;
+  text-align: center;
+}
+
+#player-container #avatar_ img {
+  max-width: 100%;
+}
+
+#player-container #player-container-inner {
+  display: inline-block;
+}
+
+#player-container #player-container-inner h4, #player-container #player-container-inner h2 {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+
+#player-container #player-container-inner #player-star, #player-container #player-container-inner #player-score {
+  display: inline-block;
+}
+
+#player-container #player-container-inner img {
+  width: 20px;
+}
+
+#player-container #czar-container {
+  font-size: 14px;
+}
+
+.chatbox {
+  width: 300px;
+  border-radius: 8px;
+  position: fixed;
+  background-color: #fff;
+  border: 1px solid #fff;
+  bottom: 10px;
+  right: 10px;
+  z-index: 998;
+}
+
+.chatbox .chat-header {
+  background-color: #3E7293;
+  border-radius: 8px;
+  padding: 6px 15px;
+  color: #fff;
+}
+
+.chatbox .chat-header h3 {
+  display: inline-block;
+  margin: 0;
+}
+
+.chatbox .chat-header .fa {
+  float: right;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.chatbox .chat-header .fa-chevron-down {
+  display: none;
+}
+
+.chatbox .chat-content {
+  padding: 15px 5px;
+  max-height: 350px;
+  overflow: auto;
+  display: none;
+}
+
+.chatbox .chat .chat-meta {
+  display: block;
+  margin-left: 5px;
+  font-size: 14px;
+}
+
+.chatbox .chat .chat-meta img {
+  float: left;
+  width: 50px;
+  margin-right: 15px;
+}
+
+.chatbox .chat .chat-message {
+  display: inline-block;
+  margin: 5px 0px 20px 20px;
+  background-color: #e6e6e6;
+  padding: 5px;
+  border-radius: 8px;
+}
+
+.answers {
+  background-color: #3E7293;
+  padding: 0 15px;
+  margin-top: 20px;
+  border-radius: 8px;
+}
+
+.answers .answer-card {
+  background-color: #fff;
+  padding: 15px 10px;
+  border-radius: 8px;
+  font-size: 15px;
+  min-height: 220px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.game-end {
+  color: #fff;
+  text-align: center;
+  padding: 20px 10px;
+}
+
+.game-end a {
+  display: inline-block;
+}
+
+.game-end #join-new-game, .game-end #exit-match {
+  color: #fff;
+  padding: 10px 15px;
+  margin: 10px;
+  border-radius: 8px;
+  background-color: #F4781F;
+}
+
+.game-end #join-new-game:hover, .game-end #exit-match:hover {
+  background-color: #d65f0a;
+}
+
+#start-game-button {
+  cursor: pointer;
+}
+
+.popover {
+  min-width: 300px;
+}
+
+.popover .popover-title {
+  background-color: #3E7293;
+  color: #fff;
+}
+
+.col-xs-5ths,
+.col-sm-5ths,
+.col-md-5ths,
+.col-lg-5ths {
+  position: relative;
+  min-height: 1px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.col-xs-5ths {
+  width: 20%;
+  float: left;
+}
+
+@media (min-width: 768px) {
+  .col-sm-5ths {
+    width: 20%;
+    float: left;
+  }
+}
+
+@media (min-width: 992px) {
+  .col-md-5ths {
+    width: 20%;
+    float: left;
+  }
+}
+
+@media (min-width: 1200px) {
+  .col-lg-5ths {
+    width: 20%;
+    float: left;
+  }
+}
+
+.nav-tabs li.active a:link,
+.nav-tabs li.active a:hover,
+.nav-tabs li.active a:visited {
+  background-color: #3E7293;
+  color: #fff;
+}
+
+.nav-tabs li a {
+  color: #000;
+}

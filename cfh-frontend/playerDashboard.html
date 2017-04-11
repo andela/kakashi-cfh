@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cards For Humanity</title>
+
+  <!-- Bootstrap -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/bootstrap-tour.min.css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Courgette|Lato" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/emojionearea.min.css">
+
+  <link rel="stylesheet" href="css/common.css">
+<!--  <link rel="stylesheet" href="css/animate.css">-->
+<!--  <link rel="stylesheet" href="css/style_.css">-->
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <!--  Navigation  -->
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" 
+        data-toggle="collapse" data-target="#navbar" aria-expanded="false" 
+        aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        <a class="navbar-brand" href="#"><img src="image/cfhlogo.png" alt="">
+        </a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a onclick="startTour()" href="#">Home</a></li>
+          <li><a href="playerDashboard.html">Dashboard</a></li>
+          <li><a href="#">Tweet</a></li>
+          <li><a href="#">Abandon Game</a></li>
+          <li><a href="#" class="btn-donate">Donate</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class= "tabs">
+  <h3><i class="fa fa-dashboard"></i> My Dashboard</h3>
+  <ul class="nav nav-tabs">
+<!--     <li><a href ="dashboard.html">Home</a></li>-->
+    <li class="active"><a href="#Game" data-toggle= "tab">Game Log</a></li>
+    <li><a href="#Leaderboard" data-toggle= "tab">Leaderboard</a></li>
+    <li><a href="#Donations" data-toggle= "tab">Donations</a></li>
+  </ul>
+  <br>
+</div>
+<div class="tab-content">
+  <div class="tab-pane" id="Game">
+    <p>Game ID</p>
+    <table class="table table-sm">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Player Name</th>
+      <th>Last Name</th>
+      <th>Winner</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td colspan="2">Larry the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+  <div class="tab-pane" id="Leaderboard">
+    <p>View the leaderboard here!</p>
+  </div>
+  <div class="tab-pane" id="Donations">
+    <p>View your donations here!</p>
+  </div>
+</div>
+  </div>
+  
+  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/bootstrap-tour.min.js"></script>
+  <script src="js/emojionearea.min.js"></script>
+
+  <script src="js/main.js"></script>
+  <script>
+  </script>
+  <script>
+</script>
+</body>
+
+<footer>
+    <div class="container text-center">
+      <p>
+        Legal stuff: This game is based on the <a class="orange-text" href="#">Cards Against Humanity</a> card game, which is CC licensed (BY-NC-SA). Cards for Humanity is not affiliated with Cards Against Humanity. In complying with the Creative Commons license of the Cards Against Humanity card game, all proceeds from donations go directly to charity, as managed by crowdrise.
+      </p>
+      <p class="github-foot">
+        <img src="image/github.png" alt="github"> <a href="#">Privacy Policy</a>
+      </p>
+    </div>
+    
+  </footer>
+</html>

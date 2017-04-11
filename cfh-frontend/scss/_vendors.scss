@@ -1,0 +1,59 @@
+
+.crDonateWidget {
+  -webkit-box-shadow: 0px 0px 0px 0px transparent !important;
+  -moz-box-shadow: 0px 0px 0px 0px transparent !important;
+  box-shadow: 0px 0px 0px 0px transparent !important;
+  -webkit-border-radius: 8px !important;
+  -moz-border-radius: 8px !important;
+  border-radius: 8px !important;
+}
+
+.crDonateWidgetOuter {
+  text-align: center;
+  background-color: transparent !important;
+  -webkit-box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0) !important;
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0) !important;
+  border: 0px solid #e6e6e6 !important;
+  margin: 0px 0px !important;
+}
+
+.crDonated {
+  margin-top: 2px !important;
+}
+
+.crImageAndTitle {
+  display: none;
+}
+
+.crImageAndTitleOuter {
+  display: none;
+} 
+
+.startFundraiser {
+  display: none;
+}
+
+#crDonateWidget_cfhio_cards4humanity {
+  max-width: 300px !important;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+#crDonateWidget_cfhio_cards4humanity .crDonateTriangle {
+  right: 6px !important;
+}
+#crDonateWidget_cfhio_cards4humanity h4 {
+  margin-bottom: 8px !important;
+}
+
+.gradientButton {
+  width: 80% !important;
+  margin-top: 8px !important;
+  background: #f4781f !important;
+  -webkit-border-radius: 8px !important;
+  -moz-border-radius: 8px !important;
+  border-radius: 8px !important;
+  text-transform: none !important;
+}
+.gradientButton .donateNow {
+  border-top: 0px solid black !important;
+}

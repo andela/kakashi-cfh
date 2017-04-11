@@ -1,0 +1,223 @@
+$blue: #3E7293;
+$orange: #F4781F;
+$shadow: 0px 5px 3px #454545;
+$header-font: 'Courgette', cursive;
+$radius: 8px;
+@mixin btn() {
+  padding: 5px 10px;
+  border-radius: 8px;
+  color: #fff;
+  text-decoration: none;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  font-size: 18px;
+  padding-top: 70px;
+}
+#main-bod{
+  max-width: 100%;
+}
+.orange-text {
+  color: $orange;
+}
+
+a:link,
+a:visited {
+  color: #c6c6c6;
+  text-decoration: none;
+}
+
+a:hover,
+a:active {
+  color: #fff;
+}
+
+//Buttons
+.btn-donate,
+.btn-donate:link {
+  @include btn;
+  display: inline-block;
+  box-shadow: $shadow;
+  margin-top: 9px;
+  margin-left: 10px;
+  background-color: $orange;
+}
+
+.btn-donate:hover,
+.btn-donate:active {
+  background-color: darken($orange, 10%) !important;
+  color: #fff !important;
+}
+
+//Navigation
+.navbar {
+  background-color: $blue;
+  padding: 10px 0;
+  margin-bottom: 0px;
+  .navbar-brand {
+    padding-top: 7px;
+    color: lighten($orange, 15%);
+    font-family: 'Courgette', cursive;
+    font-size: 24px;
+    img {
+      max-width: 250px
+    }
+  }
+  .navbar-nav {
+    a:visited,
+    a:link {
+      color: #fff;
+    }
+    a:hover,
+    a:active {
+      color: #ccc !important;
+    }
+  }
+}
+
+//Section
+.section {
+  padding: 50px 0;
+  .heading {
+    margin: 0;
+    padding-bottom: 20px;
+    text-align: center;
+    font-family: $header-font;
+    font-size: 36px;
+  }
+  p:last-child {
+    margin-bottom: 0;
+  }
+  .description {
+    text-align: center;
+  }
+  a:link,
+  a:visited {
+    color: $blue;
+    text-decoration: none;
+  }
+  a:hover,
+  a:active {
+    color: darken($blue, 10%)
+  }
+}
+
+.btn-blue,
+.btn-blue:link,
+.btn-blue:visited {
+  @include btn;
+  background-color: $blue;
+  color: #fff !important;
+}
+
+.btn-blue:hover {
+  background-color: darken($blue, 10%);
+  color: #fff;
+}
+
+//Cover
+.cover {
+  padding: 120px 0;
+  background-image: url('../img/humanity.png');
+  background-size: cover;
+  background-position: top center;
+  h1,
+  h3 {
+    padding: 0;
+    margin: 0;
+    padding-bottom: 30px;
+    color: #fff;
+  }
+  h1 {
+    font-size: 64px;
+    font-family: $header-font;
+  }
+  h3 {
+    font-size: 24px;
+  }
+  .btn-blue {
+    display: inline-block;
+  }
+}
+
+//How to play
+.how-to-play {
+  background-color: #F3F3F3;
+  .container{
+    max-width: 100% !important;
+  }
+  .col-sm-3 {
+    border: 1px solid #fff;
+  }
+  .card-bg {
+    background-size: cover;
+    background-position: center;
+    padding: 35px 15px;
+    text-align: center;
+    border-radius: 12px;
+    max-width: 220px;
+    min-height: 260px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+  .number {
+    color: #fff;
+    display: inline-block;
+    height: 35px;
+    width: 35px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    padding-top: 3px;
+    margin-bottom: 20px;
+  }
+  .steps {
+    color: #fff;
+  }
+  .play-as-guest {
+    margin-top: 10px;
+    text-align: center;
+    .btn-blue {
+      box-shadow: $shadow;
+    }
+  }
+}
+
+//Charity
+.charity {
+  position: relative;
+  background-color: #E6E6E6;
+  .make-a-wish {
+    position: absolute;
+    bottom: 0;
+    img {
+      width: 200px;
+    }
+  }
+  .text-center {
+    @media (max-width: 767px) {
+      margin-bottom: 50px;
+    }
+  }
+}
+
+//Footer
+footer {
+  padding: 25px 0 20px 0;
+  color: #fff;
+  background-color: $blue;
+  .github-foot {
+    margin-top: 25px;
+    img {
+      margin-right: 20px;
+    }
+  }
+}
+
+#main-container {
+  padding: 0;
+}
+
+@import 'game-load';
+@import 'grid';
+@import 'dashboard';

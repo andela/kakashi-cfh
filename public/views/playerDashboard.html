@@ -1,0 +1,120 @@
+</script>
+<div id="app-container">
+
+  <!--  Navigation  -->
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        <a class="navbar-brand" href="#"><img src="img/cfhlogo.png" alt=""></a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a id="startTour" href="javascript:void(0)">Tour</a></li>
+          <li><a href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw&related=CFH_App&text=Cards%20for%20Humanity%3A%20A%20Game%20for%20Horrible%20People%20Desperately%20Trying%20to%20do%20Good&tw_p=tweetbutton&url=http%3A%2F%2Fcfh.io">Tweet</a></li>
+          <li><a id="abandon-game" href="#" ng-click="abandonGame()">Abandon Game</a></li>
+          <li><a target="_blank" href="https://www.crowdrise.com/fundraise-and-volunteer/donate-mobile/project/cfhio/cards4humanity?widget=true&redirect_to=http%3A%2F%2Flocalhost%3A5000%2F%23!%2F&stylesheet=&amounts=" class="btn-donate">Donate</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="container">
+    <div class= "tabs">
+  <h3><i class="fa fa-dashboard"></i> My Dashboard</h3>
+  <ul class="nav nav-tabs">
+<!--     <li><a href ="dashboard.html">Home</a></li>-->
+    <li class="active"><a href="javascript:void(0)#Game" data-toggle= "tab">Game Log</a></li>
+    <li><a href="javascript:void(0)#Leaderboard" data-toggle= "tab">Leaderboard</a></li>
+    <li><a href= "javascript:void(0)#Donations" data-toggle= "tab">Donations</a></li>
+  </ul>
+  <br>
+</div>
+<div class="tab-content">
+  <div class="tab-pane" id="Game">
+    <p>Game ID: ZPaFyJ</p>
+    <p>Date: Monday, 10 April 2017</p>
+    <table class="table table-sm">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Player Name</th>
+      <th>Number of Rounds</th>
+      <th>Winner</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Oiza</td>
+      <td>5</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Joshua</td>
+      <td>5</td>
+      <td><i class="fa fa-check"></i></td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Tracy</td>
+      <td>5</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+  <div class="tab-pane" id="Leaderboard">
+    <p>View the leaderboard here!</p>
+    <table class="table table-sm">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Player Name</th>
+      <th>Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Oiza</td>
+      <td>5</td>
+    
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Joshua</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Stacy</td>
+      <td>3</td>
+     </tr>
+     </tbody>
+     </table>
+  </div>
+  <div class="tab-pane" id="Donations">
+    <p>You have made 0 donations so far</p>
+  </div>
+</div>
+  </div>
+
+  <!--  Footer  -->
+<footer>
+  <div class="container text-center">
+    <p>
+      Legal stuff: This game is based on the <a class="orange-text" href="#">Cards Against Humanity</a> card game, which is CC licensed (BY-NC-SA). Cards for Humanity is not affiliated with Cards Against Humanity. In complying with the Creative Commons license of the Cards Against Humanity card game, all proceeds from donations go directly to charity, as managed by crowdrise.
+    </p>
+    <p class="github-foot">
+      <img src="img/github.png" alt="github"> <a href="#">Privacy Policy</a>
+    </p>
+  </div>
+</footer>
