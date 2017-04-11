@@ -10,7 +10,7 @@ require('console-stamp')(console, 'm/dd HH:MM:ss');
 const config = {
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,
-  databaseURL: 'https://sample-project-d889a.firebaseio.com',
+  databaseURL: process.env.DATABASE_URL,
   projectId: process.env.PROJECT_ID,
   storageBucket: process.env.STORAGE_BUCKET,
 };

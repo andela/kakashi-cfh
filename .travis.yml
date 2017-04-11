@@ -1,5 +1,8 @@
 language: node_js
 
+env:
+  - DATABASE_URL=https://sample-project-d889a.firebaseio.com
+
 node_js:
   - "6"
 
