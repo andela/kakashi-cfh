@@ -1,7 +1,7 @@
 angular.module('mean.system')
-  .controller('GameController', ['$scope', '$sce', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$http', 'Users', 'toastr', 'Chat',
+  .controller('GameController', ['$scope', '$sce', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$http', 'Users', 'toastr',
     function GameController($scope, $sce, game, $timeout, $location, MakeAWishFactsService,
-      $http, Users, toastr, Chat) {
+      $http, Users, toastr) {
       $scope.hasPickedCards = false;
       $scope.winningCardPicked = false;
       $scope.showTable = false;
@@ -14,23 +14,6 @@ angular.module('mean.system')
       $scope.makeAWishFact = makeAWishFacts.pop();
       $scope.usersInvited = Users.usersInvited || [];
       $scope.showStartButtonOverlay = false;
-      // Chat
-      $scope.sendChatMessage = Chat.sendChatMessage;
-      $scope.setPlayer = Chat.setPlayer;
-      $scope.isPlayerSet = Chat.isPlayerSet;
-
-      $scope.attachEmoji = () => {
-        if ($scope.isPlayerSet) return;
-        $('#chatInput').emojioneArea({
-          pickerPosition: 'top',
-          filtersPosition: 'top',
-          tones: false,
-          autocomplete: false,
-          inline: true,
-          hidePickerOnBlur: true
-        });
-        $scope.isPlayerSet = true;
-      };
 
       $scope.pickCard = (card) => {
         if (!$scope.hasPickedCards) {

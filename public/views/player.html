@@ -5,10 +5,6 @@
           <img ng-src="img/king.png" id="king">
         </span>
       <img ng-src="{{player.avatar}}" />
-     <div ng-if="isPlayer($index) && !isPlayerSet">
-       {{setPlayer(player.avatar, player.username)}}
-       {{attachEmoji()}}
-      </div>
     </div>
     <div id="player-container-inner">
       <div id="player-name">
@@ -19,6 +15,7 @@
       </div>
       <div ng-show="isPlayer($index)" id="player-star">
         <img src="../img/11.png" />
+        <span ng-if="!isPlayerSet">{{setPlayer(player.avatar, player.username)}}</span>
       </div>
     </div>
   </div>
