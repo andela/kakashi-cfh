@@ -15,9 +15,10 @@ angular.module('mean.system')
      * @param {Object} data - user details token and id
      * @return {Null} no-return value
      */
-    function storeUserAndRedirect(data) {
+    function storeUserAndRedirect(data, email) {
       window.localStorage.userid = data.userid;
       window.localStorage.setItem('token', data.token);
+      window.localStorage.setItem('email', email);
       socket.emit('issignedin', data.userid);
       $location.path('/');
     }
@@ -26,7 +27,7 @@ angular.module('mean.system')
       Users.signup($scope.name, $scope.email, $scope.password).then((response) => {
         const data = response.data;
         if (data.success) {
-          storeUserAndRedirect(data);
+          storeUserAndRedirect(data, $scope.email);
         } else {
           $scope.signupErrMsg = data.message;
         }
@@ -40,7 +41,7 @@ angular.module('mean.system')
       Users.signin($scope.email, $scope.password).then((response) => {
         const data = response.data;
         if (data.success) {
-          storeUserAndRedirect(data);
+          storeUserAndRedirect(data, $scope.email);
         } else {
           $scope.signinErrMsg = data.message;
         }
@@ -54,6 +55,7 @@ angular.module('mean.system')
       socket.emit('issignedout', window.localStorage.getItem('userid'));
       window.localStorage.removeItem('token');
       window.localStorage.removeItem('userid');
+      window.localStorage.removeItem('email');
       $scope.showOptions = true;
       $location.path('/');
     };
