@@ -42,9 +42,7 @@ module.exports = function socketMethod(io) {
 
     // send recieved chat message to all connected sockets
     socket.on('chat message', (chat) => {
-      for (let j = 0; j < game.players.length; j += 1) {
-        game.players[j].socket.emit('chat message', chat);
-      }
+      game.players.forEach(player => player.socket.emit('chat message', chat));
       chatMessages.push(chat);
       database.ref(`chat/${gameID}`).set(chatMessages);
     });
@@ -274,7 +272,6 @@ module.exports = function socketMethod(io) {
         }
         game.killGame();
         delete allGames[socket.gameID];
-        // reset chat message collection
         chatMessages = [];
       }
     }
