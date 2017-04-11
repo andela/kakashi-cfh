@@ -31,16 +31,3 @@ exports.record = (req, res) => {
       }
     });
 };
-
-exports.gameLog = (req, res) => {
-  const userId = req.body.userId;
-  User.findById(userId, (error, user) => {
-    if (error) {
-      console.log(error);
-      return res.status(404).send({ error });
-    }
-    const games = user.games;
-    console.log(user);
-    return res.status(200).json({ games });
-  });
-};

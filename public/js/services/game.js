@@ -192,6 +192,7 @@ angular.module('mean.system')
             gameID,
             gameEndTIme,
           };
+
           $http.post(`/api/games/${gameInfo.gameOwnerId}/start`, gameInfo)
           .then(() => {
             // console.log('This game is has been recorded');

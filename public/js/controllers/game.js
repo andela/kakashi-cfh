@@ -252,8 +252,4 @@ angular.module('mean.system')
     } else {
       game.joinGame();
     }
-
-    $scope.viewGameLogs = () => {
-
-    };
   }]);
