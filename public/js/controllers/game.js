@@ -15,6 +15,10 @@ angular.module('mean.system')
     $scope.usersInvited = Users.usersInvited || [];
     $scope.showStartButtonOverlay = false;
 
+    if (window.localStorage.email !== undefined) {
+      $scope.signedInUserEmail = window.localStorage.email;
+    }
+
     $scope.pickCard = (card) => {
       if (!$scope.hasPickedCards) {
         if ($scope.pickedCards.indexOf(card.id) < 0) {
@@ -105,12 +109,30 @@ angular.module('mean.system')
 
     $scope.winnerPicked = () => game.winningCard !== -1;
 
+
+    $scope.$watch('game.state', () => {
+      if ($scope.isCzar() && game.state === 'pick black card' && game.table.length === 0 && game.state !== 'game dissolved' && game.state !== 'awaiting players') {
+        $('#czarModal').modal();
+      } else {
+        $('.czarModalClose').click();
+      }
+    });
+
     $scope.startAnyWay = () => {
       game.startGame();
       $scope.showFindUsersButton = false;
+      if (window.localStorage.email !== undefined) {
+        game.postStartRecords();
+      }
       $(() => {
         $('.gameModalClose').click();
       });
+    };
+
+    $scope.startNextRound = () => {
+      if ($scope.isCzar()) {
+        game.startNextRound();
+      }
     };
 
     $scope.startGame = () => {
