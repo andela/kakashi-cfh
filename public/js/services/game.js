@@ -74,8 +74,8 @@ angular.module('mean.system')
     });
 
     socket.on('gameUpdate', (data) => {
-    // Update gameID field only if it changed.
-    // That way, we don't trigger the $scope.$watch too often
+      // Update gameID field only if it changed.
+      // That way, we don't trigger the $scope.$watch too often
       if (game.gameID !== data.gameID) {
         game.gameID = data.gameID;
       }
@@ -84,7 +84,7 @@ angular.module('mean.system')
       clearTimeout(game.joinOverrideTimeout);
 
       let i;
-    // Cache the index of the player in the players array
+      // Cache the index of the player in the players array
       for (i = 0; i < data.players.length; i += 1) {
         if (game.id === data.players[i].socketID) {
           game.playerIndex = i;
@@ -93,9 +93,9 @@ angular.module('mean.system')
 
       const newState = (data.state !== game.state);
 
-    // Handle updating game.time
+      // Handle updating game.time
       if (data.round !== game.round && data.state !== 'awaiting players' &&
-      data.state !== 'game ended' && data.state !== 'game dissolved') {
+        data.state !== 'game ended' && data.state !== 'game dissolved') {
         game.time = game.timeLimits.stateChoosing - 1;
         timeSetViaUpdate = true;
       } else if (newState && data.state === 'waiting for czar to decide') {
@@ -106,7 +106,7 @@ angular.module('mean.system')
         timeSetViaUpdate = true;
       }
 
-    // Set these properties on each update
+      // Set these properties on each update
       game.round = data.round;
       game.winningCard = data.winningCard;
       game.winningCardPlayer = data.winningCardPlayer;
@@ -114,7 +114,7 @@ angular.module('mean.system')
       game.gameWinner = data.gameWinner;
       game.pointLimit = data.pointLimit;
 
-    // Handle updating game.table
+      // Handle updating game.table
       if (data.table.length === 0) {
         game.table = [];
       } else {
@@ -147,10 +147,10 @@ angular.module('mean.system')
       if (data.state === 'waiting for players to pick') {
         game.czar = data.czar;
         game.curQuestion = data.curQuestion;
-      // Extending the underscore within the question
+        // Extending the underscore within the question
         game.curQuestion.text = data.curQuestion.text.replace(/_/g, '<u></u>');
 
-      // Set notifications only when entering state
+        // Set notifications only when entering state
         if (newState) {
           if (game.czar === game.playerIndex) {
             addToNotificationQueue('You\'re the Card Czar! Please wait!');
@@ -167,7 +167,7 @@ angular.module('mean.system')
           addToNotificationQueue('The czar is contemplating...');
         }
       } else if (data.state === 'winner has been chosen' &&
-              game.curQuestion.text.indexOf('<u></u>') > -1) {
+        game.curQuestion.text.indexOf('<u></u>') > -1) {
         game.curQuestion = data.curQuestion;
       } else if (data.state === 'awaiting players') {
         joinOverrideTimeout = $timeout(() => {
@@ -176,7 +176,7 @@ angular.module('mean.system')
       } else if (data.state === 'game dissolved' || data.state === 'game ended') {
         if (game.state === 'game ended') {
           // Post to update game record
-        // const winner = game.gameWinner;
+          // const winner = game.gameWinner;
           const gamePlayers = [];
           Object.keys(game.players).map(index => gamePlayers.push(game.players[index].username));
           const gameWinner = game.players[game.gameWinner].username;
@@ -194,11 +194,11 @@ angular.module('mean.system')
           };
 
           $http.post(`/api/games/${gameInfo.gameOwnerId}/start`, gameInfo)
-          .then(() => {
-            // console.log('This game is has been recorded');
-          }, () => {
-            // console.log(error);
-          });
+            .then(() => {
+              // console.log('This game is has been recorded');
+            }, () => {
+              // console.log(error);
+            });
         } else {
           // console.log('Game abandoned');
         }
@@ -216,7 +216,15 @@ angular.module('mean.system')
       room = room || '';
       createPrivate = createPrivate || false;
       const userID = window.localStorage.userid ? window.localStorage.userid : 'unauthenticated';
-      socket.emit(mode, { userID, room, createPrivate });
+      socket.emit(mode, {
+        userID,
+        room,
+        createPrivate
+      });
+    };
+
+    game.sendRegion = (region) => {
+      socket.emit('region', region);
     };
 
     game.startGame = () => {
@@ -230,11 +238,15 @@ angular.module('mean.system')
     };
 
     game.pickCards = (cards) => {
-      socket.emit('pickCards', { cards });
+      socket.emit('pickCards', {
+        cards
+      });
     };
 
     game.pickWinning = (card) => {
-      socket.emit('pickWinning', { card: card.id });
+      socket.emit('pickWinning', {
+        card: card.id
+      });
     };
 
     decrementTime();
