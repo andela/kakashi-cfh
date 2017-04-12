@@ -1,8 +1,8 @@
 angular.module('mean.system')
 .controller('GameController', ['$scope', '$sce', 'game', '$timeout', '$location',
-  'MakeAWishFactsService', '$http', 'Users',
+  'MakeAWishFactsService', '$http', 'Users', 'toastr',
   function GameController($scope, $sce, game, $timeout,
-    $location, MakeAWishFactsService, $http, Users) {
+    $location, MakeAWishFactsService, $http, Users, toastr) {
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
@@ -306,16 +306,16 @@ angular.module('mean.system')
             game.gameOwner = game.playerIndex;
             game.gameOwnersId = window.localStorage.userid;
             setTimeout(() => {
-                const link = document.URL;
-                const txt = 'Give the following link to your friends so they can join your game: ';
-                $('#lobby-how-to-play').text(txt);
-                $('#oh-el').css({
-                  'text-align': 'center',
-                  'font-size': '22px',
-                  background: 'white',
-                  color: 'black'
-                }).text(link);
-              }, 200);
+              const link = document.URL;
+              const txt = 'Give the following link to your friends so they can join your game: ';
+              $('#lobby-how-to-play').text(txt);
+              $('#oh-el').css({
+                'text-align': 'center',
+                'font-size': '22px',
+                background: 'white',
+                color: 'black'
+              }).text(link);
+            }, 200);
             $scope.modalShown = true;
           }
         }
