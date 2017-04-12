@@ -4,15 +4,15 @@ div.modal {
 
 .modal-header {
     min-height: 16.428571429px;
-    padding: 15px !important;
-    background: #3E7293 !important;
-    border-bottom: 1px solid #e5e5e5 !important;
+    padding: 15px;
+    background: #3E7293;
+    border-bottom: 1px solid #e5e5e5;
     color: #fff;
 }
 
 .modal-header .close {
     margin-top: -2px;
-    color: white !important;
+    color: white;
 }
 
 .modal-footer {
@@ -20,29 +20,29 @@ div.modal {
     margin-top: 15px;
     text-align: right;
     border-top: 1px solid #e5e5e5;
-    background: #3E7293 !important;
+    background: #3E7293;
 }
 
 .btn-block {
-    border: none !important;
+    border: none;
 }
 
 .table-striped {
-    color: #333 !important;
-    text-align: left !important;
+    color: #333;
+    text-align: left;
     margin-top: 10px;
 }
 .table-striped tr th {
-    color: #F4781F !important;
+    color: #F4781F;
 }
 
 .alert-info {
     margin-top: 10px;
-    text-align: center !important;
+    text-align: center;
 }
 
 #start-game-button {
-    cursor: pointer !important;
+    cursor: pointer;
     border-radius: 50%;
     height: 150px;
     width: 150px;
@@ -120,16 +120,13 @@ div.modal {
 }
 
 .btn:focus:not(:active)::after {
-  animation: ripple 1s ease-out !important;
+  animation: ripple 1s ease-out;
 }
-
-
-
 
 .card-face {
   width: 200px;
   height: 220px;
-  margin-left: 40%;
+  margin-left: 35%;
   position: relative;
   perspective: 800px;
 }
@@ -149,7 +146,7 @@ div.modal {
   bottom: 0px;
 }
 .card-load {
-  background-image:url('../img/b_load.jpg');
+  background-image:url('../img/locader.gif');
   background-repeat:no-repeat;
   background-size:contain;
   background-position:center;
@@ -172,8 +169,7 @@ div.modal {
   display: block;
   width: 70%;
   height: 90%;
-  border-radius: 20px;
-  border: 1px solid #333;
+  border: none;
 }
 .card-stack.slide {
   opacity: 0;
@@ -227,13 +223,26 @@ div.modal {
 
 
 #czarModal {
-    background: rgba(0, 0, 0, .6);
+    background: rgba(0, 0, 0, .7);
 }
 
 #czarModal .modal-dialog .modal-content .modal-header {
-    background: rgba(255, 255, 255, 1) !important;
+    background: rgba(255, 255, 255, 1);
+    padding: 0;
+}
+#czarModal .modal-dialog .modal-content {
+  background: url('../img/deck2.jpg');
+  background-size: cover;
 }
 
 #czarModal .modal-dialog .modal-content .modal-footer {
-    background: rgba(255, 255, 255, 1) !important;
+    background: rgba(255, 255, 255, 0);
+    border: none;
+}
+
+#pickBlackCardNotice {
+  color: #ccc;
+  text-shadow: 1px 1px #000;
+  display: block;
+  text-align: center;
 }
