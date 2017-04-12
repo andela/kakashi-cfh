@@ -93,10 +93,10 @@ module.exports = (app, passport) => {
   app.param('answerId', answers.answer);
 
     // Question Routes
-  app.get('/questions', questions.all);
-  app.get('/questions/:questionId', questions.show);
-    // Finish with setting up the questionId param
-  app.param('questionId', questions.question);
+  // app.get('/questions', questions.all);
+  // app.get('/questions/:questionId', questions.show);
+  //   // Finish with setting up the questionId param
+  // app.param('questionId', questions.question);
 
 
   app.get('/avatars', avatars.allJSON);
