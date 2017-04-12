@@ -2,11 +2,12 @@
  * [Module dependencies.]
  * @type {[type]}
  */
-const mongoose = require('mongoose'),
-  User = mongoose.model('User');
-const avatars = require('./avatars')
-  .all();
+const mongoose = require('mongoose');
+const avatars = require('./avatars').all();
 const jwt = require('jsonwebtoken');
+const C4HMailer = require('../../config/mailer.js').C4HMailer;
+
+const User = mongoose.model('User');
 
 /**
  * [Auth callback]
@@ -25,6 +26,171 @@ exports.authCallback = (req, res) => {
  * @param  {[res]} res [response]
  * @return {[Path]}     [Path]
  */
+
+exports.findUsers = (req, res) => {
+  User.find({}).select('name email').then((allUsers) => {
+    res.status(200)
+      .json(allUsers);
+  });
+};
+
+exports.findUser = (req, res) => {
+  const userid = req.params.userid;
+  User.findById(userid, (err, oneUser) => {
+    if (!err) {
+      res.status(200)
+        .json(oneUser);
+    } else {
+      res.status(400)
+        .json('An error occured');
+    }
+  });
+};
+
+exports.getFriends = (req, res) => {
+  const userId = req.body.userId;
+  User.findById(userId, (err, user) => {
+    if (user) {
+      res.status(200)
+        .json(user.friends);
+    } else {
+      res.status(404)
+        .json('error getting friends list');
+    }
+  });
+};
+
+exports.addFriends = (req, res) => {
+  const userToAddEmail = req.body.user;
+  const userId = req.body.userId;
+  User.findOne({
+    email: userToAddEmail
+  }, (err, obj) => {
+    if (!err) {
+      res.status(200)
+        .json(obj.name);
+    } else {
+      res.status(400)
+        .json('error adding friend to friends list');
+    }
+  });
+  User.findOneAndUpdate({
+    _id: userId
+  }, {
+    $push: {
+      friends: userToAddEmail
+    }
+  }, {
+    safe: true,
+    upsert: true
+  }, (error) => {
+    if (error) {
+      res.status(500)
+        .json('error updating user friend list');
+    }
+  });
+
+  User.findById(userId, (err, user) => {
+    if (!user) {
+      res.status(404)
+        .json('error finding user');
+    }
+    user.friends = [...new Set(user.friends)];
+    user.save((err) => {
+      if (err) {
+        res.status(500)
+          .json('error saving user');
+      }
+    });
+  });
+};
+
+exports.deleteFriend = (req, res) => {
+  const email = req.body.user;
+  const userId = req.body.userId;
+  User.findById(userId, (err, user) => {
+    if (!user) {
+      res.status(404)
+        .json('error finding user');
+    }
+    const index = user.friends.indexOf(email);
+    if (index > -1) {
+      user.friends.splice(index, 1);
+    }
+    user.save((err) => {
+      if (err) {
+        res.status(500)
+          .json('error saving user');
+      }
+    });
+    User.findOne({
+      email,
+    }, (err, person) => {
+      if (person) {
+        res.status(200)
+          .json(person.name);
+      } else {
+        res.status(404)
+          .json('error finding user');
+      }
+    });
+  });
+};
+
+exports.inviteFriends = (req, res) => {
+  const userId = req.body.userId;
+  const url = req.body.gameUrl;
+  User.findById(userId, (err, user) => {
+    if (!(err)) {
+      user.friends.forEach((friendEmail) => {
+        C4HMailer('C4H-Kakashi Team',
+          friendEmail, 'Game invite at C4H',
+          `You have been invited to join a game at C4H. Use this link ${url}`,
+          `You have been invited to join a game at C4H.\nUse this link <a href="${url}">${url}</a>`);
+      });
+      res.status(200)
+        .json({
+          result: user.friends.length
+        });
+    } else {
+      res.status(500)
+        .json('error inviting friends');
+    }
+  });
+};
+
+exports.sendInvites = (req, res) => {
+  const url = decodeURIComponent(req.body.url);
+  const userToInvite = req.body.user;
+  try {
+    C4HMailer('C4H-Kakashi Team',
+      userToInvite, 'Game invite at C4H',
+      `You have been invited to join a game at C4H. Use this link ${url}`,
+      `You have been invited to join a game at C4H.\nUse this link <a href="${url}">${url}</a>`);
+    res.status(200)
+      .json(userToInvite);
+  } catch (error) {
+    res.status(500)
+      .json(error);
+  }
+};
+
+exports.isAuthenticated = (req, res, next) => {
+  const usertoken = req.headers['x-access-token'];
+  jwt.verify(usertoken, process.env.SECRETKEY, (error, decoded) => {
+    if (error) {
+      res.status(401)
+        .json({
+          success: false,
+          message: 'user not authenticated'
+        });
+    } else {
+      req.decodedUser = decoded;
+      next();
+    }
+  });
+};
+
 exports.signin = (req, res) => {
   if (req.body.email && req.body.password) {
     User.findOne({
@@ -58,6 +224,7 @@ exports.signin = (req, res) => {
             .json({
               success: true,
               message: 'User successfully logged in',
+              userid: existingUser.id,
               token: jwt.sign({
                 id: existingUser.id
               }, process.env.SECRETKEY, {
@@ -118,27 +285,19 @@ exports.create = (req, res) => {
                 message: 'Unable to save user'
               });
             }
-            req.logIn(user, (err) => {
-              if (err) {
-                res.json({
-                  success: false,
-                  message: 'Unable to login',
-                });
-              } else {
-                const token = jwt.sign({
-                  id: user.id
-                }, process.env.SECRETKEY, {
-                  expiresIn: 60 * 60 * 24 * 7
-                });
-
-                return res.status(200)
-                  .json({
-                    success: true,
-                    message: 'User successfully created',
-                    token
-                  });
-              }
+            const token = jwt.sign({
+              id: user.id
+            }, process.env.SECRETKEY, {
+              expiresIn: 60 * 60 * 24 * 7
             });
+
+            return res.status(200)
+              .json({
+                success: true,
+                userid: user.id,
+                message: 'User successfully created',
+                token
+              });
           });
         } else {
           return res.json({
@@ -252,7 +411,6 @@ exports.addDonation = (req, res) => {
  */
 exports.show = (req, res) => {
   const user = req.profile;
-
   res.render('users/show', {
     title: user.name,
     user

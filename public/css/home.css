@@ -12,6 +12,10 @@ body {
   color: #F4781F;
 }
 
+button {
+  border: 0px;
+}
+
 a:link,
 a:visited {
   color: #c6c6c6;
@@ -466,6 +470,11 @@ footer .github-foot img {
 
 .popover {
   min-width: 300px;
+}
+
+.popover .popover-title {
+  background-color: #3E7293;
+  color: #fff;
 }
 
 .col-xs-5ths,
