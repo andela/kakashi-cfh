@@ -5,6 +5,8 @@
     <span id="inviteFriendsMsg" style="color: orange"></span>
     <div id="notifications" ng-if="game.notification" ng-animate="{enter:'animated fadeInLeft', leave:'animated fadeOut'}">{{game.notification}}</div>
 
+    <!--<button ng-click="sendRegion()">Test region</button>-->
+
     <div id="startGame" ng-show="game.state === 'awaiting players'">
       <div id="finding-players" class="q-header">Finding Players</div>
       <div id="player-count-container" class="q-players">
@@ -48,7 +50,22 @@
             <h4 class="modal-title">Cards for Humanity - Kakashi</h4>
           </div>
           <div class="modal-body">
-            {{ gameInviteMessage }}
+            <div>
+              {{ gameInviteMessage }}
+            </div>
+            <div>
+              <h4 class="center">Please select a region</h4>
+              <select ng-change="sendRegion(region)" ng-model="region" class="dropdown">
+                <option value="africa" selected>Africa</option>
+                <option value="general">World wide</option>
+                <option value="asia">Asia</option>
+                <option value="antartica">Antartica</option>
+                <option value="americas">Americas</option>
+                <option value="europe">Europe</option>
+                <option value="northAmerica">North America</option>
+                <option value="southAmerica">South America</option>
+              </select>
+            </div>
           </div>
           <div class="modal-footer">
             <div class="col-md-6">
@@ -59,7 +76,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
