@@ -330,7 +330,6 @@ Game.prototype.pickCards = function pickCards(thisCardArray, thisPlayer) {
         }
       }
     }
-  } else {
   }
 };
 
@@ -401,9 +400,9 @@ Game.prototype.pickWinning = function pickWinning(thisCard, thisPlayer, autopick
     if (cardIndex !== -1) {
       this.winningCard = cardIndex;
       const winnerIndex = this.findPlayerIndexBySocket(this.table[cardIndex].player);
-      this.sendNotification(`${this.players[winnerIndex].username  } has won the round!`);
+      this.sendNotification(`${this.players[winnerIndex].username} has won the round!`);
       this.winningCardPlayer = winnerIndex;
-      this.players[winnerIndex].points++;
+      this.players[winnerIndex].points += 1;
       clearTimeout(this.judgingTimeout);
       this.winnerAutopicked = autopicked;
       this.stateResults(this);
