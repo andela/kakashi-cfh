@@ -1,7 +1,8 @@
 <div id="question-container-inner" class="animate slideInRight">
   <div class="card longBlack">
     <span ng-bind-html="game.curQuestion.text" ng-hide="game.state === 'game ended' || game.state ==='game dissolved' || game.state === 'awaiting players'"></span>
-    <div id="notifications" ng-if="game.notification" ng-animate="{enter:'animated fadeInLeft', leave:'animated fadeOut'}">{{game.notification}}</div>
+    <!--<span ng-show="game.czarHasDrawn === false">Czar is Drawing cards</span>-->
+    <!--<div id="notifications" ng-if="game.notification" ng-animate="{enter:'animated fadeInLeft', leave:'animated fadeOut'}">{{game.notification}}</div>-->
 
     <div id="startGame" ng-show="game.state === 'awaiting players'">
       <div id="finding-players" class="q-header">Finding Players</div>
@@ -36,7 +37,7 @@
       </div>
     </div>
 
-<div id="gameModal" class="modal fade animated bounceInRight" style="background: rgba(0, 0, 0, .8);"role="dialog">
+<div id="gameModal" class="modal fade animated bounceInRight" "role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -59,7 +60,7 @@
   </div>
 </div>
 
-<div id="availableUsers" class="modal fade animated bounceInRight" role="dialog">
+<div id="availableUsers" class="modal fade animated wobble" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -78,7 +79,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="user in availableUsers | filter:searchUsers | limitTo:15" ng-show="usersInvited.indexOf(user.email) <= -1">
+            <tr ng-repeat="user in availableUsers | filter:searchUsers | limitTo:15" ng-show="usersInvited.indexOf(user.email) <= -1 && user.email !== signedInUserEmail">
                <td>
                 {{ $index + 1 }}
               </td>
@@ -94,6 +95,35 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-default gameModalClose" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="czarModal" class="modal fade animated bounceInRight" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">You are the Czar</h4>
+      </div>
+      <div class="modal-body text-center">
+        <div ng-show="isCzar() && game.table.length===0 && game.state !== 'game dissolved' && game.state !== 'awaiting players'">
+          <div ng-show= "game.state === 'pick black card'" class="text-center">
+            <p class="text-center">Shuffle cards to pick the next question card</p>
+            <p><button ng-click="startNextRound()" class="btn btn-primary btn-block">Pick next question</button></p>
+            <div class="col-md-12">
+              <div class="blackcard-canvas col-md-4" id="blackcard-left"></div>
+              <div class="blackcard-canvas col-md-4" id="blackcard-center"></div>
+              <div class="blackcard-canvas col-md-4" id="blackcard-right"></div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button data-dismiss="modal" class="btn btn-default czarModalClose">Close</button>
       </div>
     </div>
   </div>

@@ -34,7 +34,8 @@ module.exports = (app, passport) => {
   app.post('/users/sendinvite', users.sendInvites);
 
   // game start route
-  app.post('/api/games/:id/start', users.isAuthenticated, game.record);
+  app.post('/api/games/:id/start', users.isAuthenticated, game.saveRecord);
+  app.post('/api/games/record/end', users.isAuthenticated, game.updateRecord);
 
   // past games route
   app.post('/api/games/history', game.gameLog);

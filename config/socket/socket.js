@@ -25,17 +25,13 @@ module.exports = function socketMethod(io) {
   io.sockets.on('connection', (socket) => {
     socket.on('issignedin', (signedinUserId) => {
       allSignedInUsers.push(signedinUserId);
-      // console.log(allSignedInUsers, ' are signed in');
     });
 
     socket.on('issignedout', (signedoutid) => {
       const index = allSignedInUsers.indexOf(signedoutid);
-      // console.log(signedoutid, ' is signed out');
       allSignedInUsers.splice(index, 1);
       socket.emit('currentusers', allSignedInUsers);
     });
-
-    // console.log(allSignedInUsers, ' are signed in');
 
     socket.emit('currentusers', allSignedInUsers);
 
@@ -94,6 +90,10 @@ module.exports = function socketMethod(io) {
     socket.on('disconnect', () => {
       // console.log('Rooms on Disconnect ', io.sockets.manager.rooms);
       exitGame(socket);
+    });
+
+    socket.on('selectBlackCard', () => {
+      allGames[socket.gameID].startNextRound(allGames[socket.gameID]);
     });
   });
 
@@ -159,7 +159,6 @@ module.exports = function socketMethod(io) {
             game.prepareGame();
           }
         } else {
-        // TODO: Send an error message back to this user saying the game has already started
           socket.emit('gamestarted', { msg: 'game started' });
         }
       } else {
