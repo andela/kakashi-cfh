@@ -98,14 +98,19 @@ exports.updateRecord = (req, res) => {
 // };
 
 exports.gameLog = (req, res) => {
-  // const userId = req.body.userId;
-  Game.findAll().sort({ _id: -1 })
-  .exec((err, result) => {
-    if (err) {
-      return res.status(500).json({
-        message: 'An error occured while trying to search for result'
-      });
+  Game.find({}, (error, allGames) => {
+    if (error) {
+      return res.status(404).send({ error });
     }
-    return res.status(200).json({ result });
+    return res.status(200).json(allGames);
+  });
+};
+
+exports.leaderboard = (req, res) => {
+  Game.find({}, (error, allGames) => {
+    if (error) {
+      return res.status(404).send({ error });
+    }
+    return res.status(200).json(allGames);
   });
 };

@@ -146,4 +146,43 @@ angular.module('mean.directives', [])
         }
       });
     },
+  })])
+  .directive('leaderboard', ['$http', $http => ({
+    restrict: 'EA',
+    link: (scope, element) => {
+      const getLeaderboard = () => new Promise((resolve, reject) => {
+        $http.post('/api/leaderboard').then((response) => {
+          const players = {};
+          const playerList = [];
+          response.data.forEach((game) => {
+            if (game.gameEndTime !== 'not completed') {
+              const score = players[game.gameWinner];
+              if (score) {
+                players[game.gameWinner] += 1;
+              } else {
+                players[game.gameWinner] = 1;
+                playerList.push(game.gameWinner);
+              }
+            }
+          });
+
+          let index = 1;
+          playerList.forEach((player) => {
+            element.append(
+              `<tr>
+                <th scope="row">${index}</th>
+                <td>${player}</td>
+                <td>${players[player]}</td>
+              </tr>`
+            );
+            index += 1;
+          });
+          resolve('done');
+        }, (error) => {
+          reject(error);
+        });
+      });
+
+      getLeaderboard();
+    },
   })]);

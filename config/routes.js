@@ -45,7 +45,7 @@ module.exports = (app, passport) => {
 
   // past games route
   app.post('/api/games/history', game.gameLog);
- // app.get('/api/leaderboard', );
+  app.post('/api/leaderboard', game.leaderboard);
   // app.get('/api/donations', users.donations);
 
     // Setting the facebook oauth routes
