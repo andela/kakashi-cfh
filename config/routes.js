@@ -40,7 +40,7 @@ module.exports = (app, passport) => {
   // past games route
   app.post('/api/games/history', game.gameLog);
  // app.get('/api/leaderboard', );
- // app.get('/api/donations', );
+  // app.get('/api/donations', users.donations);
 
     // Setting the facebook oauth routes
   app.get('/auth/facebook', passport.authenticate('facebook', {
