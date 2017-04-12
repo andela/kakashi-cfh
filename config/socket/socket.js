@@ -66,12 +66,11 @@ module.exports = function socketMethod(io) {
       joinGame(socket, data);
     });
 
+
     socket.on('startGame', () => {
       if (allGames[socket.gameID]) {
         const thisGame = allGames[socket.gameID];
-  // console.log('comparing', thisGame.players[0].socket.id, 'with', socket.id);
         if (thisGame.players.length >= thisGame.playerMinLimit) {
-  // Remove this game from gamesNeedingPlayers so new players can't join it.
           gamesNeedingPlayers.forEach((eachgame, index) => {
             if (eachgame.gameID === socket.gameID) {
               return gamesNeedingPlayers.splice(index, 1);
@@ -80,6 +79,16 @@ module.exports = function socketMethod(io) {
           thisGame.prepareGame();
           thisGame.sendNotification('The game has begun!');
         }
+      }
+    });
+
+    socket.on('region', (data) => {
+      if (allGames[socket.gameID]) {
+        const thisGame = allGames[socket.gameID];
+        thisGame.region = data;
+        console.log('This is an ', thisGame.region, ' game');
+      } else {
+        console.log('not working');
       }
     });
 

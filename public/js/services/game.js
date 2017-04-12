@@ -143,7 +143,7 @@ angular.module('mean.system')
       if (newState || game.curQuestion !== data.curQuestion) {
         game.state = data.state;
       }
-      
+
       if (data.state === 'pick black card') {
         game.czar = data.czar;
         if (game.czar === game.playerIndex) {
@@ -195,7 +195,7 @@ angular.module('mean.system')
             gameRounds,
             gameEndTime,
           };
-          $http.post('/api/games/record/end', gameInfo)
+          $http.post(`/api/games/${gameInfo.gameID}/end`, gameInfo)
             .then(success => success, error => error);
         } else {
           return 'game abandonned';
@@ -241,6 +241,10 @@ angular.module('mean.system')
       socket.emit('selectBlackCard');
     };
 
+    game.sendRegion = (argRegion) => {
+      socket.emit('region', argRegion);
+    };
+
     game.postStartRecords = () => {
       const gamePlayers = [];
       Object.keys(game.players).map(index => gamePlayers.push(game.players[index].username));
@@ -259,7 +263,7 @@ angular.module('mean.system')
         gameStartTime,
         gameEndTime,
       };
-      $http.post(`/api/games/${gameInfo.gameOwnerId}/start`, gameInfo)
+      $http.post(`/api/games/${gameInfo.gameID}/start`, gameInfo)
         .then(success => success, error => error);
     };
 

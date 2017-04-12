@@ -35,7 +35,7 @@ module.exports = (app, passport) => {
 
   // game start route
   app.post('/api/games/:id/start', users.isAuthenticated, game.saveRecord);
-  app.post('/api/games/record/end', users.isAuthenticated, game.updateRecord);
+  app.post('/api/games/:id/end', users.isAuthenticated, game.updateRecord);
 
     // Setting the facebook oauth routes
   app.get('/auth/facebook', passport.authenticate('facebook', {
@@ -74,7 +74,7 @@ module.exports = (app, passport) => {
     ]
   }), users.signin);
 
-  app.get('/auth/google/callback', passport.authenticate('google', {
+  app.get('/google/callback', passport.authenticate('google', {
     failureRedirect: '/signin'
   }), users.authCallback);
 

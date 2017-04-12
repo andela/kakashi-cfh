@@ -110,6 +110,10 @@ angular.module('mean.system')
     $scope.winnerPicked = () => game.winningCard !== -1;
 
 
+    $scope.sendRegion = () => {
+      game.sendRegion('Africa');
+    };
+
     $scope.$watch('game.state', () => {
       if ($scope.isCzar() && game.state === 'pick black card' && game.table.length === 0 && game.state !== 'game dissolved' && game.state !== 'awaiting players') {
         $('#czarModal').modal();
@@ -121,7 +125,7 @@ angular.module('mean.system')
     $scope.startAnyWay = () => {
       game.startGame();
       $scope.showFindUsersButton = false;
-      if (window.localStorage.email !== undefined) {
+      if ($scope.isCustomGame() === true) {
         game.postStartRecords();
       }
       $(() => {
@@ -133,6 +137,16 @@ angular.module('mean.system')
       if ($scope.isCzar()) {
         game.startNextRound();
       }
+    };
+
+    $scope.shuffleCards = () => {
+      const card = angular.element(document.getElementsByClassName('card-stack'));
+      card.addClass('slide');
+      $timeout(() => {
+        $scope.startNextRound();
+        card.removeClass('slide');
+        $('.czarModalClose').click();
+      }, 2000);
     };
 
     $scope.startGame = () => {
