@@ -349,9 +349,3 @@ angular.module('mean.system')
     }
   }
 ]);
-
-
-$('#czarModal').modal({
-  backdrop: 'static',
-  keyboard: false
-});
