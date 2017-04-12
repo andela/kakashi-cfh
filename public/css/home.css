@@ -12,10 +12,6 @@ body {
   color: #F4781F;
 }
 
-button {
-  border: 0px;
-}
-
 a:link,
 a:visited {
   color: #c6c6c6;
@@ -326,8 +322,6 @@ footer .github-foot img {
 }
 
 #player-container #above-czar-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 
@@ -554,4 +548,15 @@ footer .github-foot img {
     width: 20%;
     float: left;
   }
+}
+
+.nav-tabs li.active a:link,
+.nav-tabs li.active a:hover,
+.nav-tabs li.active a:visited {
+  background-color: #3E7293;
+  color: #fff;
+}
+
+.nav-tabs li a {
+  color: #000;
 }

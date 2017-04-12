@@ -1,5 +1,4 @@
 div.modal {
-    background: rgba(0, 0, 0, .7) !important;
     color: #333;
 }
 
@@ -122,4 +121,11 @@ div.modal {
 
 .btn:focus:not(:active)::after {
   animation: ripple 1s ease-out !important;
+}
+
+.blackcard-canvas {
+    background: url("../img/blackcard.jpg");
+    background-size: cover;
+    height: 50px;
+    width: 100%;
 }

@@ -25,8 +25,7 @@ const UserSchema = new Schema({
   twitter: {},
   github: {},
   google: {},
-  games: {},
-  friends: [],
+  games: [],
 });
 
 /**
@@ -39,6 +38,8 @@ UserSchema.virtual('password').set(function virtual(password) {
 
 /**
  * Validations
+ * @param {String} value
+ * @return {String} value
  */
 const validatePresenceOf = value => value && value.length;
 
@@ -89,7 +90,7 @@ UserSchema.methods = {
      * Authenticate - check if the passwords are the same
      *
      * @param {String} plainText
-     * @return {Boolean}
+     * @return {Boolean} bcrypt.compareSync
      * @api public
      */
   authenticate: function authenticate(plainText) {
@@ -103,7 +104,7 @@ UserSchema.methods = {
      * Encrypt password
      *
      * @param {String} password
-     * @return {String}
+     * @return {String} bcrypt.hashSync
      * @api public
      */
   encryptPassword: function encryptPassword(password) {

@@ -29,7 +29,7 @@ module.exports = (app, passport) => {
   app.get('/users/:userId', users.show);
 
     // API routes for user search
-  app.get('/api/search/users', users.isAuthenticated, users.findUsers);
+  app.get('/api/search/users', users.findUsers);
   app.get('/api/search/users/:userid', users.isAuthenticated, users.findUser);
   app.post('/users/sendinvite', users.sendInvites);
 
@@ -40,7 +40,13 @@ module.exports = (app, passport) => {
   app.post('/user/friends', users.getFriends);
 
   // game start route
-  app.post('/api/games/:id/start', users.isAuthenticated, game.record);
+  app.post('/api/games/:id/start', users.isAuthenticated, game.saveRecord);
+  app.post('/api/games/record/end', users.isAuthenticated, game.updateRecord);
+
+  // past games route
+  app.post('/api/games/history', game.gameLog);
+ // app.get('/api/leaderboard', );
+  // app.get('/api/donations', users.donations);
 
     // Setting the facebook oauth routes
   app.get('/auth/facebook', passport.authenticate('facebook', {
