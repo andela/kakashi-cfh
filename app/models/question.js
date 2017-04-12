@@ -28,6 +28,9 @@ var QuestionSchema = new Schema({
         type: String,
         default: '',
         trim: true
+    },
+    location: {
+        type: String
     }
 });
 
