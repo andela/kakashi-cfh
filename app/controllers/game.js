@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 mongoose.Promise = global.Promise;
 const Game = mongoose.model('Game');
 const User = mongoose.model('User');
@@ -81,15 +82,30 @@ exports.updateRecord = (req, res) => {
     });
 };
 
+// exports.gameLog = (req, res) => {
+//   const user = req.body.userId;
+//   // const games = req.body.games;
+//   // user.findById(gamesID, (error, games) => {
+//   //   if (error) {
+//   //     console.log(error);
+//   //     return res.status(404).send({ error });
+//   //   }
+//   //   games = user.games;
+//   //   console.log(user);
+//   //   console.log(games);
+//   //   return res.status(200).json({ games });
+//   // });
+// };
+
 exports.gameLog = (req, res) => {
-  const userId = req.body.userId;
-  User.findById(userId, (error, user) => {
-    if (error) {
-      console.log(error);
-      return res.status(404).send({ error });
+  // const userId = req.body.userId;
+  Game.findAll().sort({ _id: -1 })
+  .exec((err, result) => {
+    if (err) {
+      return res.status(500).json({
+        message: 'An error occured while trying to search for result'
+      });
     }
-    const games = user.games;
-    console.log(user);
-    return res.status(200).json({ games });
+    return res.status(200).json({ result });
   });
 };
