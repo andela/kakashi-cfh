@@ -110,9 +110,6 @@ module.exports = function socketMethod(io) {
       if (allGames[socket.gameID]) {
         const thisGame = allGames[socket.gameID];
         thisGame.region = data;
-        console.log('This is an ', thisGame.region, ' game');
-      } else {
-        console.log('not working');
       }
     });
 
