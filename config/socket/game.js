@@ -34,6 +34,7 @@ function Game(gameID, io) {
   this.questions = null;
   this.answers = null;
   this.curQuestion = null;
+  this.region = null;
   this.timeLimits = {
     stateChoosing: 21,
     stateJudging: 16,
@@ -117,19 +118,27 @@ Game.prototype.prepareGame = function() {
     });
 
   var self = this;
-  async.parallel([
-    this.getQuestions,
-    this.getAnswers
-    ],
-    function(err, results){
-      if (err) {
-        console.log(err);
-      }
-      self.questions = results[0];
-      self.answers = results[1];
+  // async.parallel([
+  //   this.getQuestions,
+  //   this.getAnswers
+  //   ],
+  //   function(err, results){
+  //     if (err) {
+  //       console.log(err);
+  //     }
+  //     self.questions = results[0];
+  //     self.answers = results[1];
 
+  //     self.startGame();
+  //   });
+  const gameRegion = self.region;
+  this.getQuestions(gameRegion).then((questionResponses) => {
+    self.questions = questionResponses;
+    this.getAnswers(gameRegion).then((answerResponses) => {
+      self.answers = answerResponses;
       self.startGame();
     });
+  });
 };
 
 Game.prototype.startGame = function() {
@@ -152,8 +161,8 @@ Game.prototype.stateChoosing = function(self) {
   self.winnerAutopicked = false;
   self.curQuestion = self.questions.pop();
   if (!self.questions.length) {
-    self.getQuestions(function(err, data) {
-      self.questions = data;
+    self.getQuestions(self.region).then((questionResponses) => {
+      self.question = questionResponses;
     });
   }
   self.round++;
@@ -232,15 +241,23 @@ Game.prototype.stateDissolveGame = function() {
   this.sendUpdate();
 };
 
-Game.prototype.getQuestions = function(cb) {
-  questions.allQuestionsForGame(function(data){
-    cb(null,data);
+Game.prototype.getRegion = function(self) {
+  return self.region;
+};
+
+Game.prototype.getQuestions = function(region) {
+  return new Promise((resolve, reject) => {
+    questions.allQuestionsForGame(region, function (data) {
+      resolve(data);
+    });
   });
 };
 
-Game.prototype.getAnswers = function(cb) {
-  answers.allAnswersForGame(function(data){
-    cb(null,data);
+Game.prototype.getAnswers = function(region) {
+  return new Promise((resolve, reject) => {
+    answers.allAnswersForGame(region, function (data) {
+      resolve(data);
+    });
   });
 };
 
@@ -261,14 +278,16 @@ Game.prototype.shuffleCards = function(cards) {
 
 Game.prototype.dealAnswers = function(maxAnswers) {
   maxAnswers = maxAnswers || 10;
-  var storeAnswers = function(err, data) {
-    this.answers = data;
-  };
+  // var storeAnswers = function(err, data) {
+  //   this.answers = data;
+  // };
   for (var i = 0; i < this.players.length; i++) {
     while (this.players[i].hand.length < maxAnswers) {
       this.players[i].hand.push(this.answers.pop());
       if (!this.answers.length) {
-        this.getAnswers(storeAnswers);
+        this.getAnswers(this.region).then((answersResponses) => {
+          this.answers = answersResponses;
+        });
       }
     }
   }
