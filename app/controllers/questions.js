@@ -8,10 +8,10 @@ const Question = mongoose.model('Question');
  * Find question by id
  */
 exports.question = function question(req, res, next, id) {
-  Question.load(id, (err, question) => {
+  Question.load(id, (err, newQuestion) => {
     if (err) return next(err);
-    if (!question) return next(new Error(`Failed to load question ${id}`));
-    req.question = question;
+    if (!newQuestion) return next(new Error(`Failed to load question ${id}`));
+    req.question = newQuestion;
     next();
   });
 };

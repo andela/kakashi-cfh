@@ -7,10 +7,10 @@ const Answer = mongoose.model('Answer');
  * Find answer by id
  */
 exports.answer = function answer(req, res, next, id) {
-  Answer.load(id, (err, answer) => {
+  Answer.load(id, (err, newAnswer) => {
     if (err) return next(err);
-    if (!answer) return next(new Error(`Failed to load answer ${id}`));
-    req.answer = answer;
+    if (!newAnswer) return next(new Error(`Failed to load answer ${id}`));
+    req.answer = newAnswer;
     next();
   });
 };
