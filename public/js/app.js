@@ -1,4 +1,4 @@
-angular.module('mean', ['ngCookies', 'ngSanitize', 'ngResource', 'ngRoute', 'ui.bootstrap', 'ui.route', 'mean.system', 'mean.directives'])
+angular.module('mean', ['ngCookies', 'ngSanitize', 'ngResource', 'ngRoute', 'ui.bootstrap', 'ui.route', 'mean.system', 'mean.directives', 'toastr'])
   .config(['$routeProvider',
     function mean($routeProvider) {
       $routeProvider

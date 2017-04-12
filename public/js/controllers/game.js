@@ -40,7 +40,9 @@ angular.module('mean.system')
 
     $scope.pointerCursorStyle = () => {
       if ($scope.isCzar() && $scope.game.state === 'waiting for czar to decide') {
-        return { cursor: 'pointer' };
+        return {
+          cursor: 'pointer'
+        };
       }
       return {};
     };
@@ -78,10 +80,11 @@ angular.module('mean.system')
       return false;
     };
 
-    $scope.showFirst = card => game.curQuestion.numAnswers > 1 && $scope.pickedCards[0] === card.id;
+    $scope.showFirst = card => game.curQuestion.numAnswers > 1 &&
+        $scope.pickedCards[0] === card.id;
 
     $scope.showSecond = card => game.curQuestion.numAnswers > 1 &&
-      $scope.pickedCards[1] === card.id;
+        $scope.pickedCards[1] === card.id;
 
     $scope.isCzar = () => game.czar === game.playerIndex;
 
@@ -109,7 +112,6 @@ angular.module('mean.system')
 
     $scope.winnerPicked = () => game.winningCard !== -1;
 
-
     $scope.sendRegion = () => {
       game.sendRegion('Africa');
     };
@@ -120,11 +122,17 @@ angular.module('mean.system')
       } else {
         $('.czarModalClose').click();
       }
+
+      if ($scope.isCzar() === false && game.state === 'pick black card') {
+        $scope.czarHasDrawn = 'Wait! Czar is drawing';
+      }
     });
+
 
     $scope.startAnyWay = () => {
       game.startGame();
       $scope.showFindUsersButton = false;
+      $scope.showInviteFriendsButton = false;
       if ($scope.isCustomGame() === true) {
         game.postStartRecords();
       }
@@ -174,6 +182,7 @@ angular.module('mean.system')
         $scope.gameInviteMessage = response.msg;
         if ($scope.usersInvited.length >= 11) {
           $scope.showFindUsersButton = false;
+          $scope.showInviteFriendsButton = true;
           $scope.gameInviteMessage = 'Maximum number (11) of users invited. Wait 5 seconds...';
           $('.sendInviteButton').attr('disabled', 'disabled').off('click');
           setTimeout(() => {
@@ -187,11 +196,51 @@ angular.module('mean.system')
         $scope.gameInviteMessage = error;
       });
     };
+
     $scope.findUsers = () => {
       Users.findUsers().then((resolvedusers) => {
         $scope.availableUsers = resolvedusers;
         $('#availableUsers').modal();
+        $scope.getFriends();
       });
+    };
+
+    $scope.getFriends = () => {
+      const userId = window.localStorage.userid;
+      Users.getFriends(userId).then((response) => {
+        $scope.isFriend = response;
+      })
+      .catch(() => {});
+    };
+
+    $scope.addAsFriend = (email) => {
+      const userId = window.localStorage.userid;
+      Users.addFriend(email, userId).then((response) => {
+        const friendName = response.friendName;
+        toastr.success(`${friendName} has been added`, 'Success');
+        $scope.getFriends();
+      })
+          .catch(() => {});
+    };
+
+    $scope.deleteFriend = (email) => {
+      const userId = window.localStorage.userid;
+      Users.deleteFriend(email, userId).then((response) => {
+        const friendDeletedMessage = response;
+        toastr.error(`${friendDeletedMessage} has been deleted`, 'Success');
+        $scope.getFriends();
+      })
+          .catch(() => {});
+    };
+
+    $scope.inviteFriends = () => {
+      const userId = window.localStorage.userid;
+      Users.inviteAllFriends(userId).then((response) => {
+        const msg = `Invite sent to ${response.result} friend(s)`;
+        document.getElementById('inviteFriendsBtn').style.display = 'none';
+        document.getElementById('inviteFriendsMsg').innerHTML = msg;
+      })
+          .catch(() => {});
     };
 
     $scope.$watch('Users.users.signedInusers', () => {
@@ -203,6 +252,7 @@ angular.module('mean.system')
     $scope.$watch('game.state', () => {
       if (game.state === 'gamestarted') {
         $scope.showFindUsersButton = false;
+        $scope.showInviteFriendsButton = false;
         $scope.gameInviteMessage = 'Oh No! \nYou are late. Game has already started\nYou will be redirected';
         $('#gameModal').modal();
         setTimeout(() => {
@@ -219,8 +269,8 @@ angular.module('mean.system')
       $location.path('/');
     };
 
-    // Catches changes to round to update when no players pick card
-    // (because game.state remains the same)
+      // Catches changes to round to update when no players pick card
+      // (because game.state remains the same)
     $scope.$watch('game.round', () => {
       $scope.hasPickedCards = false;
       $scope.showTable = false;
@@ -232,7 +282,7 @@ angular.module('mean.system')
       $scope.pickedCards = [];
     });
 
-    // In case player doesn't pick a card in time, show the table
+      // In case player doesn't pick a card in time, show the table
     $scope.$watch('game.state', () => {
       if (game.state === 'waiting for czar to decide' && $scope.showTable === false) {
         $scope.showTable = true;
@@ -240,38 +290,47 @@ angular.module('mean.system')
     });
 
     $scope.$watch('game.gameID', () => {
-      // if (!($window.localstorage)) $scope.showFindUsersButton = false;
+        // if (!($window.localstorage)) $scope.showFindUsersButton = false;
       if (game.gameID && game.state === 'awaiting players') {
         if (!$scope.isCustomGame() && $location.search().game) {
-          // If the player didn't successfully enter the request room,
-          // reset the URL so they don't think they're in the requested room.
+            // If the player didn't successfully enter the request room,
+            // reset the URL so they don't think they're in the requested room.
           $location.search({});
         } else if ($scope.isCustomGame() && !$location.search().game) {
-          // Once the game ID is set, update the URL if this is a game with friends,
-          // where the link is meant to be shared.
-          $location.search({ game: game.gameID });
+            // Once the game ID is set, update the URL if this is a game with friends,
+            // where the link is meant to be shared.
+          $location.search({
+            game: game.gameID
+          });
           if (!$scope.modalShown) {
             game.gameOwner = game.playerIndex;
             game.gameOwnersId = window.localStorage.userid;
             setTimeout(() => {
-              const link = document.URL;
-              const txt = 'Give the following link to your friends so they can join your game: ';
-              $('#lobby-how-to-play').text(txt);
-              $('#oh-el').css({ 'text-align': 'center', 'font-size': '22px', background: 'white', color: 'black' }).text(link);
-            }, 200);
+                const link = document.URL;
+                const txt = 'Give the following link to your friends so they can join your game: ';
+                $('#lobby-how-to-play').text(txt);
+                $('#oh-el').css({
+                  'text-align': 'center',
+                  'font-size': '22px',
+                  background: 'white',
+                  color: 'black'
+                }).text(link);
+              }, 200);
             $scope.modalShown = true;
           }
         }
         if (game.gameOwner === game.playerIndex) {
           $scope.showFindUsersButton = true;
+          $scope.showInviteFriendsButton = true;
         } else {
           $scope.showFindUsersButton = false;
+          $scope.showInviteFriendsButton = false;
         }
       }
     });
 
     if ($location.search().game && !(/^\d+$/).test($location.search().game)) {
-      // joining custom game;
+        // joining custom game;
       if (game.players.length >= game.playerMaxLimit) {
         $scope.gameInviteMessage = 'Maximum number of players for this game has been reached. You\'ll be redirected';
         $('#gameModal').modal(); // show message and redirect the user
@@ -288,4 +347,11 @@ angular.module('mean.system')
     } else {
       game.joinGame();
     }
-  }]);
+  }
+]);
+
+
+$('#czarModal').modal({
+  backdrop: 'static',
+  keyboard: false
+});

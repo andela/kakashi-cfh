@@ -22,11 +22,12 @@ $('body').on('click', '#closeChat', () => {
   $('#openChat').show();
   $('.chat-content').slideUp();
 });
-$('body').on('click', '#openChat', () => {
+$('body').on('click', '#openChat, .emojionearea-editor', () => {
   $('#openChat').hide();
   $('#closeChat').show();
   $('.chat-content').slideDown();
 });
+$('body').on('click', '.chatbox', () => $('#chatNotification').hide());
 
 $(window).ready(() => {
 // Instance the tour
@@ -85,17 +86,7 @@ $(window).ready(() => {
     tour.start();
   });
 
-  // Initialize emoji
   setTimeout(() => {
-    $('#chatInput').emojioneArea({
-      pickerPosition: 'top',
-      filtersPosition: 'top',
-      tones: false,
-      autocomplete: false,
-      inline: true,
-      hidePickerOnBlur: true
-    });
-
     // Initialize the tour
     tour.init();
   }, 300);

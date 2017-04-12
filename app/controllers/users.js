@@ -9,6 +9,8 @@ const C4HMailer = require('../../config/mailer.js').C4HMailer;
 
 const User = mongoose.model('User');
 
+mongoose.Promise = global.Promise;
+
 /**
  * [Auth callback]
  * @param  {[req]}   req  [request]
@@ -29,7 +31,8 @@ exports.authCallback = (req, res) => {
 
 exports.findUsers = (req, res) => {
   User.find({}).select('name email').then((allUsers) => {
-    res.send(allUsers);
+    res.status(200)
+      .json(allUsers);
   });
 };
 
@@ -37,9 +40,123 @@ exports.findUser = (req, res) => {
   const userid = req.params.userid;
   User.findById(userid, (err, oneUser) => {
     if (!err) {
-      res.send(oneUser);
+      res.status(200)
+        .json(oneUser);
     } else {
-      res.send('An error occurred');
+      res.status(400)
+        .json('An error occured');
+    }
+  });
+};
+
+exports.getFriends = (req, res) => {
+  const userId = req.body.userId;
+  User.findById(userId, (err, user) => {
+    if (user) {
+      res.status(200)
+        .json(user.friends);
+    } else {
+      res.status(404)
+        .json('error getting friends list');
+    }
+  });
+};
+
+exports.addFriends = (req, res) => {
+  const userToAddEmail = req.body.user;
+  const userId = req.body.userId;
+  User.findOne({
+    email: userToAddEmail
+  }, (err, obj) => {
+    if (!err) {
+      res.status(200)
+        .json(obj.name);
+    } else {
+      res.status(400)
+        .json('error adding friend to friends list');
+    }
+  });
+  User.findOneAndUpdate({
+    _id: userId
+  }, {
+    $push: {
+      friends: userToAddEmail
+    }
+  }, {
+    safe: true,
+    upsert: true
+  }, (error) => {
+    if (error) {
+      res.status(500)
+        .json('error updating user friend list');
+    }
+  });
+
+  User.findById(userId, (err, user) => {
+    if (!user) {
+      res.status(404)
+        .json('error finding user');
+    }
+    user.friends = [...new Set(user.friends)];
+    user.save((err) => {
+      if (err) {
+        res.status(500)
+          .json('error saving user');
+      }
+    });
+  });
+};
+
+exports.deleteFriend = (req, res) => {
+  const email = req.body.user;
+  const userId = req.body.userId;
+  User.findById(userId, (err, user) => {
+    if (!user) {
+      res.status(404)
+        .json('error finding user');
+    }
+    const index = user.friends.indexOf(email);
+    if (index > -1) {
+      user.friends.splice(index, 1);
+    }
+    user.save((err) => {
+      if (err) {
+        res.status(500)
+          .json('error saving user');
+      }
+    });
+    User.findOne({
+      email,
+    }, (err, person) => {
+      if (person) {
+        res.status(200)
+          .json(person.name);
+      } else {
+        res.status(404)
+          .json('error finding user');
+      }
+    });
+  });
+};
+
+exports.inviteFriends = (req, res) => {
+  const userId = req.body.userId;
+  const url = req.body.gameUrl;
+  User.findById(userId, (err, user) => {
+    if (!(err)) {
+      user.friends.forEach((friendEmail) => {
+        C4HMailer('C4H-Kakashi Team',
+          friendEmail, 'Game invite at C4H',
+          `You have been invited to join a game at C4H. Use this link ${url}`,
+          `You have been invited to join a game at C4H.\nUse this link <a href="${url}">${url}</a>`);
+      });
+      res.status(200)
+        .json({
+          result: user.friends.length
+        });
+    } else {
+      res.status(500)
+        .json('error inviting friends');
     }
   });
 };
@@ -52,9 +169,11 @@ exports.sendInvites = (req, res) => {
       userToInvite, 'Game invite at C4H',
       `You have been invited to join a game at C4H. Use this link ${url}`,
       `You have been invited to join a game at C4H.\nUse this link <a href="${url}">${url}</a>`);
-    res.send(userToInvite);
+    res.status(200)
+      .json(userToInvite);
   } catch (error) {
-    res.send(error);
+    res.status(500)
+      .json(error);
   }
 };
 
@@ -294,7 +413,6 @@ exports.addDonation = (req, res) => {
  */
 exports.show = (req, res) => {
   const user = req.profile;
-
   res.render('users/show', {
     title: user.name,
     user
