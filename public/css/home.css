@@ -470,6 +470,19 @@ footer .github-foot img {
   min-height: 220px;
   margin-top: 15px;
   margin-bottom: 15px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.answers .answer-card:hover {
+  margin-top: 8px;
+  margin-bottom: 22px;
+}
+
+.answers .answer-card #selection-number {
+  padding: 2px 5px 3px 5px;
+  border-radius: 5px;
+  border: 1px solid #F4781F;
 }
 
 .game-end {
