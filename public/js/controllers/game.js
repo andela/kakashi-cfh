@@ -14,6 +14,7 @@ angular.module('mean.system')
       $scope.makeAWishFact = makeAWishFacts.pop();
       $scope.usersInvited = Users.usersInvited || [];
       $scope.showStartButtonOverlay = false;
+      $scope.region = 'general';
 
       $scope.pickCard = (card) => {
         if (!$scope.hasPickedCards) {
@@ -32,6 +33,10 @@ angular.module('mean.system')
             $scope.pickedCards.pop();
           }
         }
+      };
+
+      $scope.sendRegion = (region) => {
+        game.sendRegion(region);
       };
 
       $scope.pointerCursorStyle = () => {
