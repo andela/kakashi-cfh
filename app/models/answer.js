@@ -24,6 +24,9 @@ var AnswerSchema = new Schema({
         type: String,
         default: '',
         trim: true
+    },
+    location: {
+        type: String
     }
 });
 
