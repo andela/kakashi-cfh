@@ -1,3 +1,4 @@
+/* eslint no-undef: 0 */
 angular.module('mean.system')
   .factory('game', ['socket', '$timeout', '$http', (socket, $timeout, $http) => {
     const game = {
@@ -26,16 +27,16 @@ angular.module('mean.system')
 
     const notificationQueue = [];
     let timeout = false;
-    let joinOverrideTimeout = 0;
+    // let joinOverrideTimeout = 0;
 
-    const addToNotificationQueue = function (msg) {
+    const addToNotificationQueue = function addToNotificationQueue(msg) {
       notificationQueue.push(msg);
       if (!timeout) { // Start a cycle if there isn't one
         setNotification();
       }
     };
 
-    const setNotification = function () {
+    const setNotification = function setNotification() {
       if (notificationQueue.length === 0) {
         // If notificationQueue is empty, stop
         clearInterval(timeout);
@@ -49,7 +50,7 @@ angular.module('mean.system')
     };
 
     let timeSetViaUpdate = false;
-    const decrementTime = function () {
+    const decrementTime = function decrementTime() {
       if (game.time > 0 && !timeSetViaUpdate) {
         game.time -= 1;
       } else {
