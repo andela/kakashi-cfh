@@ -62,48 +62,26 @@
     </div>
   </section>
 
-</div>
-
-<!--  ChatBox  -->
+  <!--  ChatBox  -->
 <div class="chatbox">
   <div class="chat-header">
-    <h3>ChatBox</h3>
+    <h3><i class="fa fa-circle" id="chatNotification"></i> ChatBox</h3>
     <fa class="fa-chevron-down fa" id="closeChat"></fa>
     <fa class="fa-chevron-up fa" id="openChat"></fa>
   </div>
-  <div class="chat-content">
-    <div class="chat">
-      <div class="chat-meta">
-        <img src="img/chosen/N04.png"> Jed <br> Jan 21, 7:02AM
-      </div>
-      <div class="clearfix"></div>
-      <div class="chat-message">Hello</div>
-    </div>
-    <div class="chat">
-      <div class="chat-meta">
-        <img src="img/chosen/N04.png"> Dingle Dangle <br> Jan 21, 7:02AM
-      </div>
-      <div class="clearfix"></div>
-      <div class="chat-message">This game is interesting</div>
-    </div>
-    <div class="chat">
-      <div class="chat-meta">
-        <img src="img/chosen/N04.png"> Jed <br> Jan 21, 7:02AM
-      </div>
-      <div class="clearfix"></div>
-      <div class="chat-message">Hello</div>
-    </div>
-    <div class="chat">
-      <div class="chat-meta">
-        <img src="img/chosen/N04.png"> Dingle Dangle <br> Jan 21, 7:02AM
-      </div>
-      <div class="clearfix"></div>
-      <div class="chat-message">This game is interesting</div>
+  <div class="chat-content" id="chatContent">
+    <div id="chatInner" chatbox>
+      <div class="chat-begin">This is the beginning of the game session chat</div>
     </div>
   </div>
-  <div class="input-field emoji-picker-container">
-    <input type="text" class="form-control" id="chatInput" placeholder="Type a message">
+    <div class="input-field emoji-picker-container">
+      <input type="text" class="form-control" id="chatInput" placeholder="Type a message">
+    </div>
+  <div class="text-right send-message">
+     <button class="btn-donate" ng-click="sendChatMessage()">Send</button>
   </div>
+</div>
+
 </div>
 
 <!--  Footer  -->
