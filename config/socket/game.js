@@ -236,15 +236,15 @@ Game.prototype.getRegion = function getRegion(self) {
 };
 
 Game.prototype.getQuestions = function getQuestions(region) {
-  return new Promise((resolve, reject) => {
-    questions.allQuestionsForGame(region, function (data){
+  return new Promise((resolve) => {
+    questions.allQuestionsForGame(region, (data) => {
       resolve(data);
     });
   });
 };
 
 Game.prototype.getAnswers = function getAnswers(region) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     answers.allAnswersForGame(region, (data) => {
       resolve(data);
     });
