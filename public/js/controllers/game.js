@@ -123,7 +123,7 @@ angular.module('mean.system')
         $('.czarModalClose').click();
       }
 
-      if ($scope.isCzar() === false && game.state === 'pick black card') {
+      if ($scope.isCzar() === false && game.state === 'pick black card' && game.state !== 'game dissolved' && game.state !== 'awaiting players') {
         $scope.czarHasDrawn = 'Wait! Czar is drawing';
       }
     });
