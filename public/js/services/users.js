@@ -43,6 +43,15 @@ angular.module('mean.system')
         });
     });
 
+    const socialAuth = () => new Promise((resolve, reject) => {
+      $http.get('/getDetails').then((response) => {
+        const data = response.data;
+        resolve(data);
+      }, (error) => {
+        reject(error);
+      });
+    });
+
     const findUsers = () => new Promise((resolve, reject) => {
       $http.get('/api/search/users').then((response) => {
         const userList = response.data;
@@ -138,6 +147,7 @@ angular.module('mean.system')
       findUsers,
       signup,
       signin,
+      socialAuth,
       sendInvite,
       usersInvited,
       users,
