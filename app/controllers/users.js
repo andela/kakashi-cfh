@@ -370,7 +370,7 @@ exports.getDetails = (req, res) => {
           }, process.env.SECRETKEY, {
             expiresIn: 60 * 60 * 24 * 7
           });
-          const user = {
+          user = {
             email: res.req.user.email || '',
             username: res.req.user.username,
             userid: res.req.user._id,
