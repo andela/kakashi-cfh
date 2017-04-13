@@ -113,21 +113,6 @@ exports.updateRecord = (req, res) => {
 //   });
 // };
 
-exports.donations = (req, res) => {
-  const user = req.body.Id;
-  // gameOwnerId" : "58ea7518670e010577212139
-  user.findById(user, (error, donations) => {
-    if (error) {
-      console.log(error);
-      return res.status(404).send({ error });
-    }
-    donations = user.donations;
-    console.log(user);
-    console.log(donations);
-    return res.status(200).json({ donations });
-  });
-};
-
 exports.leaderboard = (req, res) => {
   Game.find({}, (error, allGames) => {
     if (error) {

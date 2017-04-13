@@ -16,6 +16,10 @@ $('body').on('click', '#scroll-to-home', () => {
   }, 1000);
 });
 
+$('body').on('click', '.nav-tabs', () => {
+  $('#Game').removeClass('show-game-log');
+});
+
 // Show or hide ChatBox
 $('body').on('click', '#closeChat', () => {
   $('#closeChat').hide();

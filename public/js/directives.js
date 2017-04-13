@@ -148,7 +148,7 @@ angular.module('mean.directives', [])
           const currentPlayer = window.localStorage.getItem('username');
           const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
           response.data.forEach((game) => {
-            // gamelog
+            // save game data for gamelog
             if (game.gamePlayers.indexOf(currentPlayer) !== -1) {
               let date = new Date(parseInt(game.gameEndTime, 10));
               if (game.gameEndTime !== 'not completed') {
@@ -161,7 +161,7 @@ angular.module('mean.directives', [])
               playerGameLog.push(game);
             }
 
-            // leaderboard
+            // save game data for leaderboard
             if (game.gameEndTime !== 'not completed') {
               const score = players[game.gameWinner];
               if (score) {
@@ -171,6 +171,7 @@ angular.module('mean.directives', [])
               }
             }
           });
+          $('#Game').addClass('show-game-log');
           scope.leaderboard = players;
           scope.playerGameLog = playerGameLog;
         });
@@ -180,7 +181,31 @@ angular.module('mean.directives', [])
     },
     template: '<tr ng-repeat="(player, score) in leaderboard"><th>{{$index + 1}}</th><td>{{player}}</td><td>{{score}}</td></tr>',
   })])
- .directive('gameLog', () => ({
+   .directive('gameLog', () => ({
+     restrict: 'EA',
+     templateUrl: '/views/gameLog.html',
+   }))
+ .directive('donations', ['$http', $http => ({
    restrict: 'EA',
-   templateUrl: '/views/gameLog.html',
- }));
+   link: (scope) => {
+     const getUserDonations = () => {
+       $http.post('/api/donations').then((response) => {
+        // const userData = {};
+         let userDonations = 0;
+         response.data.forEach((users) => {
+            // get no of donations for user
+           scope.userName = window.localStorage.getItem('username');
+           if (users.donations.length < 1) {
+             userDonations = users.donations.length;
+             scope.donationMsg = `You have made ${userDonations} donations till now`;
+           } else {
+             scope.donationMsg = `You have made ${userDonations} donations till now`;
+           }
+         });
+       });
+     };
+     getUserDonations();
+   },
+   template: '<p>Hello {{userName}}</p><p>{{donationMsg}}</p>',
+  //  templateUrl: '/views/donations.html',
+ })]);
