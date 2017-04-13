@@ -82,37 +82,6 @@ exports.updateRecord = (req, res) => {
     });
 };
 
-// exports.gameLog = (req, res) => {
-//   const user = req.body.userId;
-//   // const games = req.body.games;
-//   // user.findById(gamesID, (error, games) => {
-//   //   if (error) {
-//   //     console.log(error);
-//   //     return res.status(404).send({ error });
-//   //   }
-//   //   games = user.games;
-//   //   console.log(user);
-//   //   console.log(games);
-//   //   return res.status(200).json({ games });
-//   // });
-// };
-
-// exports.gameLog = (req, res) => {
-//   // const userId = req.body.userId;
-//   // gameOwnerId" : "58ea7518670e010577212139
-//   Game.find({
-//     gamePlayers: { $in: ['Oiza'] }
-//   }).sort({ _id: -1 })
-//   .exec((err, result) => {
-//     if (err) {
-//       return res.status(500).json({
-//         message: 'An error occured while trying to get the games you played'
-//       });
-//     }
-//     return res.status(200).json({ result });
-//   });
-// };
-
 exports.leaderboard = (req, res) => {
   Game.find({}, (error, allGames) => {
     if (error) {

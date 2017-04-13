@@ -44,10 +44,9 @@ module.exports = (app, passport) => {
   app.post('/api/games/record/end', users.isAuthenticated, game.updateRecord);
 
   // past games route
-  app.post('/api/games/history', game.gameLog);
-  app.post('/api/leaderboard', game.leaderboard);
-  app.post('/api/donations', users.donations);
-
+  app.post('/api/games/history', users.isAuthenticated, game.gameLog);
+  app.post('/api/leaderboard', users.isAuthenticated, game.leaderboard);
+  app.post('/api/donations', users.isAuthenticated, users.donations);
     // Setting the facebook oauth routes
   app.get('/auth/facebook', passport.authenticate('facebook', {
     scope: ['email'],
