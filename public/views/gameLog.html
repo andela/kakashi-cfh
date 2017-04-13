@@ -1,4 +1,4 @@
-
+<div ng-if="playerGameLog.length === 0">You have no games</div>
 <div class="gamelog-div" ng-repeat="game in playerGameLog">
     <p>Game ID: {{game.gameID}}</p>
     <p>Game State: {{game.gameEndTime}}<p>

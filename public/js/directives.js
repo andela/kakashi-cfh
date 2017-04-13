@@ -142,7 +142,7 @@ angular.module('mean.directives', [])
     restrict: 'EA',
     link: (scope) => {
       const getLeaderboard = () => {
-        $http.post('/api/leaderboard').then((response) => {
+        $http.get('/api/leaderboard').then((response) => {
           const players = {};
           const playerGameLog = [];
           const currentPlayer = window.localStorage.getItem('username');
@@ -189,7 +189,7 @@ angular.module('mean.directives', [])
    restrict: 'EA',
    link: (scope) => {
      const getUserDonations = () => {
-       $http.post('/api/donations').then((response) => {
+       $http.get('/api/donations').then((response) => {
         // const userData = {};
          let userDonations = 0;
          response.data.forEach((users) => {
