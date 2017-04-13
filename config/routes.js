@@ -10,6 +10,7 @@ module.exports = (app, passport) => {
   app.get('/signin', users.signin);
   app.get('/signup', users.signup);
   app.get('/chooseavatars', users.checkAvatar);
+  app.get('/getDetails', users.getDetails);
   app.get('/signout', users.signout);
 
     // Setting up the users api
