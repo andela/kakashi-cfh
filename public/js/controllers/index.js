@@ -51,7 +51,7 @@ angular.module('mean.system')
     };
 
     $scope.socialAuth = () => {
-      Users.findUsers().then((data) => {
+      Users.socialAuth().then((data) => {
         storeUserAndRedirect(data);
       });
     };
