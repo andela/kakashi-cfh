@@ -1,0 +1,25 @@
+
+<div class="gamelog-div" ng-repeat="game in playerGameLog">
+    <p>Game ID: {{game.gameID}}</p>
+    <p>Game State: {{game.gameEndTime}}<p>
+    <p>Date: {{game.date}}</p>
+  <table class="table table-stripped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Player Name</th>
+      <th>Number of Rounds</th>
+      <th>Winner</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat= "player in game.gamePlayers track by $index">
+      <th scope="row">{{$index + 1}}</th>
+      <td>{{player}}</td>
+      <td>{{game.gameRounds}}</td>
+      <td ng-if="player === game.gameWinner"><i class="fa fa-check"></i></td>
+    </tr>
+ 
+  </tbody>
+</table>
+</div>    

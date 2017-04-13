@@ -29,50 +29,19 @@
     <div class= "tabs">
   <h3><i class="fa fa-dashboard"></i> My Dashboard</h3>
   <ul class="nav nav-tabs">
-<!--     <li><a href ="dashboard.html">Home</a></li>-->
-    <li class="active"><a href="javascript:void(0)#Game" data-toggle= "tab">Game Log</a></li>
+     <li class="active"><a href ="#!index.html">Home</a></li>
+    <li><a href="javascript:void(0)#Game" data-toggle= "tab">Game Log</a></li>
     <li><a href="javascript:void(0)#Leaderboard" data-toggle= "tab">Leaderboard</a></li>
     <li><a href= "javascript:void(0)#Donations" data-toggle= "tab">Donations</a></li>
   </ul>
   <br>
 </div>
 <div class="tab-content">
-  <div class="tab-pane" id="Game">
-    <p>Game ID: ZPaFyJ</p>
-    <p>Date: Monday, 10 April 2017</p>
-    <table class="table table-sm">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Player Name</th>
-      <th>Number of Rounds</th>
-      <th>Winner</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Oiza</td>
-      <td>5</td>
-      <td></td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Joshua</td>
-      <td>5</td>
-      <td><i class="fa fa-check"></i></td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Tracy</td>
-      <td>5</td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
+  <div class="tab-pane" id="Game" game-log>
+
   </div>
   <div class="tab-pane" id="Leaderboard">
-    <p>View the leaderboard here!</p>
+    <p></p>
     <table class="table table-sm">
   <thead>
     <tr>
@@ -81,28 +50,21 @@
       <th>Score</th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Oiza</td>
-      <td>5</td>
-    
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Joshua</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Stacy</td>
-      <td>3</td>
-     </tr>
+     <tbody leaderboard>
      </tbody>
      </table>
   </div>
   <div class="tab-pane" id="Donations">
-    <p>You have made 0 donations so far</p>
+    <table class="table table-sm">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Donations</th>
+    </tr>
+  </thead>
+  <tbody donations>
+     </tbody>
+     </table>
   </div>
 </div>
   </div>

@@ -97,15 +97,51 @@ exports.updateRecord = (req, res) => {
 //   // });
 // };
 
-exports.gameLog = (req, res) => {
-  // const userId = req.body.userId;
-  Game.findAll().sort({ _id: -1 })
-  .exec((err, result) => {
-    if (err) {
-      return res.status(500).json({
-        message: 'An error occured while trying to search for result'
-      });
+// exports.gameLog = (req, res) => {
+//   // const userId = req.body.userId;
+//   // gameOwnerId" : "58ea7518670e010577212139
+//   Game.find({
+//     gamePlayers: { $in: ['Oiza'] }
+//   }).sort({ _id: -1 })
+//   .exec((err, result) => {
+//     if (err) {
+//       return res.status(500).json({
+//         message: 'An error occured while trying to get the games you played'
+//       });
+//     }
+//     return res.status(200).json({ result });
+//   });
+// };
+
+exports.donations = (req, res) => {
+  const user = req.body.Id;
+  // gameOwnerId" : "58ea7518670e010577212139
+  user.findById(user, (error, donations) => {
+    if (error) {
+      console.log(error);
+      return res.status(404).send({ error });
     }
-    return res.status(200).json({ result });
+    donations = user.donations;
+    console.log(user);
+    console.log(donations);
+    return res.status(200).json({ donations });
+  });
+};
+
+exports.leaderboard = (req, res) => {
+  Game.find({}, (error, allGames) => {
+    if (error) {
+      return res.status(404).send({ error });
+    }
+    return res.status(200).json(allGames);
+  });
+};
+
+exports.gameLog = (req, res) => {
+  Game.find({}, (error, allGames) => {
+    if (error) {
+      return res.status(404).send({ error });
+    }
+    return res.status(200).json(allGames);
   });
 };
