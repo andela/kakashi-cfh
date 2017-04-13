@@ -241,8 +241,8 @@ div.modal {
 }
 
 #pickBlackCardNotice {
-  color: #ccc;
-  text-shadow: 1px 1px #000;
+  color: #3E7293;
+  text-shadow: 1px 1px rgba(0,0,0,.2);
   display: block;
   text-align: center;
 }
