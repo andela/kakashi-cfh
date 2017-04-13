@@ -83,7 +83,8 @@ angular.module('mean.system')
           if (friendsAdded.indexOf(response.data) <= -1) {
             friendsAdded.push(response.data);
           }
-          const msg = `${response.data} has recently been added to friends list`;
+          const msg = `${response.data} has recently ` +
+                    'been added to friends list';
           const friendName = response.data;
           resolve({
             msg,

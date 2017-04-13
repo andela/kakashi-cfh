@@ -10,7 +10,7 @@ const mongoose = require('mongoose'),
   config = require('./config');
 
 
-module.exports = function (passport) {
+module.exports = (passport) => {
     // Serialize sessions
   passport.serializeUser((user, done) => {
     done(null, user.id);
@@ -56,7 +56,8 @@ module.exports = function (passport) {
     // Use twitter strategy
   passport.use(new TwitterStrategy({
     consumerKey: process.env.TWITTER_CONSUMER_KEY || config.twitter.clientID,
-    consumerSecret: process.env.TWITTER_CONSUMER_SECRET || config.twitter.clientSecret,
+    consumerSecret: process.env.TWITTER_CONSUMER_SECRET
+        || config.twitter.clientSecret,
     callbackURL: config.twitter.callbackURL
   },
         (token, tokenSecret, profile, done) => {
@@ -73,8 +74,7 @@ module.exports = function (passport) {
                 provider: 'twitter',
               });
               user.save((err) => {
-                if (err) console.log(err);
-                return done(err, user);
+                if (err) { return done(err, user); }
               });
             } else {
               return done(err, user);
@@ -103,8 +103,7 @@ module.exports = function (passport) {
                 provider: 'facebook',
               });
               user.save((err) => {
-                if (err) console.log(err);
-                return done(err, user);
+                if (err) { return done(err, user); }
               });
             } else {
               return done(err, user);
@@ -116,7 +115,8 @@ module.exports = function (passport) {
     // Use github strategy
   passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID || config.github.clientID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET || config.github.clientSecret,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET
+        || config.github.clientSecret,
     callbackURL: config.github.callbackURL
   },
         (accessToken, refreshToken, profile, done) => {
@@ -134,8 +134,7 @@ module.exports = function (passport) {
                 provider: 'github',
               });
               user.save((err) => {
-                if (err) console.log(err);
-                return done(err, user);
+                if (err) { return done(err, user); }
               });
             } else {
               return done(err, user);
@@ -147,7 +146,8 @@ module.exports = function (passport) {
     // Use google strategy
   passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID || config.google.clientID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET || config.google.clientSecret,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET
+        || config.google.clientSecret,
     callbackURL: config.google.callbackURL
   },
         (accessToken, refreshToken, profile, done) => {
@@ -165,8 +165,7 @@ module.exports = function (passport) {
                 provider: 'google',
               });
               user.save((err) => {
-                if (err) console.log(err);
-                return done(err, user);
+                if (err) { return done(err, user); }
               });
             } else {
               return done(err, user);

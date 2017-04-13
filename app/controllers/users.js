@@ -146,7 +146,8 @@ exports.inviteFriends = (req, res) => {
         C4HMailer('C4H-Kakashi Team',
           friendEmail, 'Game invite at C4H',
           `You have been invited to join a game at C4H. Use this link ${url}`,
-          `You have been invited to join a game at C4H.\nUse this link <a href="${url}">${url}</a>`);
+          `You have been invited to join a game at C4H.\n
+            Use this link <a href="${url}">${url}</a>`);
       });
       res.status(200)
         .json({
@@ -166,7 +167,8 @@ exports.sendInvites = (req, res) => {
     C4HMailer('C4H-Kakashi Team',
       userToInvite, 'Game invite at C4H',
       `You have been invited to join a game at C4H. Use this link ${url}`,
-      `You have been invited to join a game at C4H.\nUse this link <a href="${url}">${url}</a>`);
+      `You have been invited to join a game at C4H.\n
+        Use this link <a href="${url}">${url}</a>`);
     res.status(200)
       .json(userToInvite);
   } catch (error) {
@@ -417,7 +419,8 @@ exports.avatars = (req, res) => {
 exports.addDonation = (req, res) => {
   if (req.body && req.user && req.user._id) {
     // Verify that the object contains crowdrise data
-    if (req.body.amount && req.body.crowdrise_donation_id && req.body.donor_name) {
+    if (req.body.amount && req.body.crowdrise_donation_id
+        && req.body.donor_name) {
       User.findOne({
         _id: req.user._id
       })
@@ -425,7 +428,8 @@ exports.addDonation = (req, res) => {
           // Confirm that this object hasn't already been entered
           let duplicate = false;
           for (let i = 0; i < user.donations.length; i += 1) {
-            if (user.donations[i].crowdrise_donation_id === req.body.crowdrise_donation_id) {
+            if (user.donations[i].crowdrise_donation_id
+                === req.body.crowdrise_donation_id) {
               duplicate = true;
             }
           }
