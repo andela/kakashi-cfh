@@ -351,6 +351,43 @@ exports.checkAvatar = (req, res) => {
 };
 
 /**
+ * Get details for social login
+ * @param  {[req]} req [request]
+ * @param  {[res]} res [response]
+ * @return {Object|[Path]} [Path]
+ */
+exports.getDetails = (req, res) => {
+  if (req.user && req.user._id) {
+    User.findOne({
+      _id: req.user._id
+    })
+      .exec((err, user) => {
+        if (user.avatar !== undefined) {
+          res.redirect('/#!/');
+        } else {
+          const token = jwt.sign({
+            id: res.req.user._id
+          }, process.env.SECRETKEY, {
+            expiresIn: 60 * 60 * 24 * 7
+          });
+          const user = {
+            email: res.req.user.email || '',
+            username: res.req.user.username,
+            userid: res.req.user._id,
+            token,
+          };
+          res.status(200)
+          .json(user);
+          // res.redirect('/#!/choose-avatar').json(user);
+        }
+      });
+  } else {
+    // If user doesn't even exist, redirect to /
+    res.redirect('/');
+  }
+};
+
+/**
  * [Assign avatar to user]
  * @param  {[req]} req [request]
  * @param  {[res]} res [response]
