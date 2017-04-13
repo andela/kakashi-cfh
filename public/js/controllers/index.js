@@ -50,6 +50,12 @@ angular.module('mean.system')
       });
     };
 
+    $scope.socialAuth = () => {
+      Users.findUsers().then((data) => {
+        storeUserAndRedirect(data);
+      });
+    };
+
     $scope.logout = () => {
       socket.emit('issignedout', window.localStorage.getItem('userid'));
       window.localStorage.removeItem('token');
