@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const mongoose = require('mongoose'),
   LocalStrategy = require('passport-local').Strategy,
   TwitterStrategy = require('passport-twitter').Strategy,
@@ -8,7 +10,7 @@ const mongoose = require('mongoose'),
   config = require('./config');
 
 
-module.exports = (passport) => {
+module.exports = function (passport) {
     // Serialize sessions
   passport.serializeUser((user, done) => {
     done(null, user.id);
@@ -18,9 +20,6 @@ module.exports = (passport) => {
     User.findOne({
       _id: id
     }, (err, user) => {
-      user.email = null;
-      user.facebook = null;
-      user.hashed_password = null;
       done(err, user);
     });
   });
@@ -58,7 +57,7 @@ module.exports = (passport) => {
   passport.use(new TwitterStrategy({
     consumerKey: process.env.TWITTER_CONSUMER_KEY || config.twitter.clientID,
     consumerSecret: process.env.TWITTER_CONSUMER_SECRET || config.twitter.clientSecret,
-    callbackURL: config.twitter.callbackURL,
+    callbackURL: config.twitter.callbackURL
   },
         (token, tokenSecret, profile, done) => {
           User.findOne({
@@ -72,10 +71,10 @@ module.exports = (passport) => {
                 name: profile.displayName,
                 username: profile.username,
                 provider: 'twitter',
-                twitter: profile._json
               });
               user.save((err) => {
-                if (err) { return done(err, user); }
+                if (err) console.log(err);
+                return done(err, user);
               });
             } else {
               return done(err, user);
@@ -89,7 +88,6 @@ module.exports = (passport) => {
     clientID: process.env.FB_CLIENT_ID || config.facebook.clientID,
     clientSecret: process.env.FB_CLIENT_SECRET || config.facebook.clientSecret,
     callbackURL: config.facebook.callbackURL,
-    profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified']
   },
         (accessToken, refreshToken, profile, done) => {
           User.findOne({
@@ -101,19 +99,14 @@ module.exports = (passport) => {
             if (!user) {
               user = new User({
                 name: profile.displayName,
-                email: (profile.emails && profile.emails[0].value) || '',
                 username: profile.username,
                 provider: 'facebook',
-                facebook: profile._json
               });
               user.save((err) => {
-                if (err) {
-                  user.facebook = null;
-                  return done(err, user);
-                }
+                if (err) console.log(err);
+                return done(err, user);
               });
             } else {
-              user.facebook = null;
               return done(err, user);
             }
           });
@@ -124,11 +117,9 @@ module.exports = (passport) => {
   passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID || config.github.clientID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET || config.github.clientSecret,
-    callbackURL: config.github.callbackURL,
-    passReqToCallback: true, // req object on auth is passed as first arg
-    scope: ['user:email']
+    callbackURL: config.github.callbackURL
   },
-        (req, accessToken, refreshToken, profile, done) => {
+        (accessToken, refreshToken, profile, done) => {
           User.findOne({
             'github.id': profile.id
           }, (err, user) => {
@@ -138,10 +129,9 @@ module.exports = (passport) => {
             if (!user) {
               user = new User({
                 name: profile.displayName,
-                email: req.user.github.email,
+                email: profile.emails[0].value,
                 username: profile.username,
                 provider: 'github',
-                github: profile._json
               });
               user.save((err) => {
                 if (err) console.log(err);
@@ -160,26 +150,28 @@ module.exports = (passport) => {
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || config.google.clientSecret,
     callbackURL: config.google.callbackURL
   },
-    (accessToken, refreshToken, profile, done) => {
-      process.nextTick(() => {
-        User.findOne({ 'google.id': profile.id }, (err, user) => {
-          if (err) {
-            return done(err);
-          }
-          if (!user) {
-            user = new User({
-              name: profile.displayName,
-              email: profile.emails[0].value,
-              username: profile.username,
-              provider: 'google',
-              google: profile._json
-            });
-            user.save((err) => {
-              if (err) throw err;
+        (accessToken, refreshToken, profile, done) => {
+          User.findOne({
+            'google.id': profile.id
+          }, (err, user) => {
+            if (err) {
+              return done(err);
+            }
+            if (!user) {
+              user = new User({
+                name: profile.displayName,
+                email: profile.emails[0].value,
+                username: profile.displayName,
+                provider: 'google',
+              });
+              user.save((err) => {
+                if (err) console.log(err);
+                return done(err, user);
+              });
+            } else {
               return done(err, user);
-            });
-          }
-        });
-      });
-    }));
+            }
+          });
+        }
+    ));
 };
