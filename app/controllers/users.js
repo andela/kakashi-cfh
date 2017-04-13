@@ -280,7 +280,7 @@ exports.create = (req, res) => {
           User.findOne({
             name: req.body.name
           }).exec((err, userExist) => {
-            if(!(userExist)) {
+            if (!(userExist)) {
               const user = new User(req.body);
           // Switch the user's avatar index to an actual avatar url
               user.avatar = avatars[user.avatar];
@@ -305,12 +305,11 @@ exports.create = (req, res) => {
                   message: 'User successfully created',
                   token
                 });
-            } else {
-              return res.json({
-                success: false,
-                message: 'User already exists'
-              });
             }
+            return res.json({
+              success: false,
+              message: 'User already exists'
+            });
           });
         } else {
           return res.json({
