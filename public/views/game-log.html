@@ -1,0 +1,22 @@
+<div ng-if="playerGameLog.length === 0">You have no games</div>
+<div class="gamelog-div" ng-repeat="game in playerGameLog">
+    <p>Game Rounds: {{game.gameRounds}}</p>
+    <p>Game State: {{game.gameEndTime}}<p>
+    <p>Date: {{game.date}}</p>
+  <table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Player Name</th>
+      <th>Winner</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat= "player in game.gamePlayers track by $index">
+      <td scope="row">{{$index + 1}}</td>
+      <td >{{player}}</td>
+      <td><i ng-if="player === game.gameWinner" class="fa fa-check"></i></td>
+    </tr>
+  </tbody>
+</table>
+</div>
