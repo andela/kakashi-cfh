@@ -1,5 +1,5 @@
 </script>
-<div id="app-container">
+<div id="app-container" ng-controller="GameController">
 
   <!--  Navigation  -->
   <nav class="navbar navbar-default navbar-fixed-top">
@@ -15,6 +15,7 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
+          <li><a id="" href="/play">Gaming Screen</a></li>
           <li><a id="startTour" href="javascript:void(0)">Tour</a></li>
           <li><a href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw&related=CFH_App&text=Cards%20for%20Humanity%3A%20A%20Game%20for%20Horrible%20People%20Desperately%20Trying%20to%20do%20Good&tw_p=tweetbutton&url=http%3A%2F%2Fcfh.io">Tweet</a></li>
           <li><a id="abandon-game" href="#" ng-click="abandonGame()">Abandon Game</a></li>
@@ -54,7 +55,7 @@
      </table>
   </div>
   <div class="tab-pane" id="Donations">
-  <div donations>
+  <div class="alert alert-warning" role="alert" donations>
      </div>
   </div>
 </div>

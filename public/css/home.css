@@ -564,3 +564,7 @@ footer .github-foot img {
 .show-game-log{
   display: block !important
 }
+
+.logPager{
+  float: right
+}
