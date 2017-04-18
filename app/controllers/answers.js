@@ -50,7 +50,7 @@ exports.allAnswersForGame = (region, cb) => {
                 { official: true, location: region };
   Answer.find(query).select('-_id').exec((err, answers) => {
     if (err) {
-      console.log(err);
+      // console.log(err);
     } else {
       cb(answers);
     }
