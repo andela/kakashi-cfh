@@ -555,3 +555,22 @@ footer .github-foot img {
     float: left;
   }
 }
+
+.nav-tabs li.active a:link,
+.nav-tabs li.active a:hover,
+.nav-tabs li.active a:visited {
+  background-color: #3E7293;
+  color: #fff;
+}
+
+.nav-tabs li a {
+  color: #000;
+}
+
+.show-game-log{
+  display: block !important
+}
+
+.logPager{
+  float: right
+}
