@@ -1,55 +1,50 @@
-/**
- * Module dependencies.
- */
-var mongoose = require('mongoose'),
-    async = require('async'),
-    Answer = mongoose.model('Answer'),
-    _ = require('underscore');
+const mongoose = require('mongoose');
+
+const Answer = mongoose.model('Answer');
 
 
 /**
  * Find answer by id
  */
-exports.answer = function(req, res, next, id) {
-    Answer.load(id, function(err, answer) {
-        if (err) return next(err);
-        if (!answer) return next(new Error('Failed to load answer ' + id));
-        req.answer = answer;
-        next();
-    });
+exports.answer = function answer(req, res, next, id) {
+  Answer.load(id, (err, newAnswer) => {
+    if (err) return next(err);
+    if (!newAnswer) return next(new Error(`Failed to load answer ${id}`));
+    req.answer = newAnswer;
+    next();
+  });
 };
 
 /**
  * Show an answer
  */
-exports.show = function(req, res) {
-    res.jsonp(req.answer);
+exports.show = function show(req, res) {
+  res.jsonp(req.answer);
 };
 
 /**
  * List of Answers
  */
-exports.all = function(req, res) {
-    Answer.find({official:true}).select('-_id').exec(function(err, answers) {
-        if (err) {
-            res.render('error', {
-                status: 500
-            });
-        } else {
-            res.jsonp(answers);
-        }
-    });
+exports.all = function all(req, res) {
+  Answer.find({ official: true }).select('-_id').exec((err, answers) => {
+    if (err) {
+      res.render('error', {
+        status: 500
+      });
+    } else {
+      res.jsonp(answers);
+    }
+  });
 };
 
 /**
  * List of Answers (for Game class)
  */
-exports.allAnswersForGame = function(cb) {
-    Answer.find({official:true}).select('-_id').exec(function(err, answers) {
-        if (err) {
-            console.log(err);
-        } else {
-            cb(answers);
-        }
-    });
+exports.allAnswersForGame = function allAnswersForGame(region, cb) {
+  Answer.find({ official: true, location: region }).select('-_id').exec((err, answers) => {
+    if (err) {
+      return err;
+    }
+    cb(answers);
+  });
 };
