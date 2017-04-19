@@ -23,6 +23,9 @@ angular.module('mean', ['ngCookies', 'ngSanitize', 'ngResource', 'ngRoute', 'ui.
         .when('/choose-avatar', {
           templateUrl: '/views/choose-avatar.html'
         })
+        .when('/welcome', {
+          templateUrl: '/views/welcome.html'
+        })
         .otherwise({
           redirectTo: '/'
         });
