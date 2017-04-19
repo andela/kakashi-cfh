@@ -72,9 +72,12 @@ module.exports = (passport) => {
                 name: profile.displayName,
                 username: profile.username,
                 provider: 'twitter',
+                twitter: {
+                  id_str: profile.id
+                }
               });
               user.save((err) => {
-                if (err) { return done(err, user); }
+                if (!err) { return done(err, user); }
               });
             } else {
               return done(err, user);
@@ -101,9 +104,12 @@ module.exports = (passport) => {
                 name: profile.displayName,
                 username: profile.username,
                 provider: 'facebook',
+                facebook: {
+                  id: profile.id
+                }
               });
               user.save((err) => {
-                if (err) { return done(err, user); }
+                if (!err) { return done(err, user); }
               });
             } else {
               return done(err, user);
@@ -132,9 +138,12 @@ module.exports = (passport) => {
                 email: profile.emails[0].value,
                 username: profile.username,
                 provider: 'github',
+                github: {
+                  id: profile.id
+                }
               });
               user.save((err) => {
-                if (err) { return done(err, user); }
+                if (!err) { return done(err, user); }
               });
             } else {
               return done(err, user);
@@ -163,9 +172,12 @@ module.exports = (passport) => {
                 email: profile.emails[0].value,
                 username: profile.displayName,
                 provider: 'google',
+                google: {
+                  id: profile.id
+                }
               });
               user.save((err) => {
-                if (err) { return done(err, user); }
+                if (!err) { return done(err, user); }
               });
             } else {
               return done(err, user);
