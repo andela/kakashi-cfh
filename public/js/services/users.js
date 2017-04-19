@@ -54,16 +54,6 @@ angular.module('mean.system')
         });
     });
 
-    const socialSignin = () => new Promise((resolve, reject) => {
-      $http.get('/socialSignin')
-        .then((response) => {
-          const data = response.data;
-          resolve(data);
-        }, (error) => {
-          reject(error);
-        });
-    });
-
     const findUsers = () => new Promise((resolve, reject) => {
       $http.get('/api/search/users').then((response) => {
         const userList = response.data;
@@ -168,7 +158,6 @@ angular.module('mean.system')
       addFriend,
       inviteAllFriends,
       deleteFriend,
-      getFriends,
-      socialSignin,
+      getFriends
     };
   }]);
