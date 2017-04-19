@@ -64,7 +64,7 @@ exports.updateRecord = (req, res) => {
 exports.leaderboard = (req, res) => {
   Game.find({}, (error, allGames) => {
     if (error) {
-      return res.status(404).send({ error });
+      return res.status(500).send({ error });
     }
     return res.status(200).json(allGames);
   });
@@ -73,7 +73,7 @@ exports.leaderboard = (req, res) => {
 exports.gameLog = (req, res) => {
   Game.find({}, (error, allGames) => {
     if (error) {
-      return res.status(404).send({ error });
+      return res.status(500).send({ error });
     }
     return res.status(200).json(allGames);
   });
