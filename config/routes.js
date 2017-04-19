@@ -10,13 +10,14 @@ module.exports = (app, passport) => {
   app.get('/signin', users.signin);
   app.get('/signup', users.signup);
   app.get('/chooseavatars', users.checkAvatar);
-  app.get('/getDetails', users.getDetails);
   app.get('/signout', users.signout);
+  app.get('/socialSignin', users.socialSignin);
 
   // Setting up the users api
   app.post('/api/auth/signin', users.signin);
   app.post('/api/auth/signup', users.create);
   app.post('/users/avatars', users.avatars);
+  app.post('/getDetails', users.getDetails);
 
   // Donation Routes
   app.post('/donations', users.addDonation);
