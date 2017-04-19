@@ -156,17 +156,21 @@ angular.module('mean.directives', [])
           const leaderboard = [];
           const playerGameLog = [];
           const currentPlayer = window.localStorage.getItem('username');
-          const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+          const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
+            'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
           response.data.forEach((game) => {
             // save game data for gamelog
             if (game.gamePlayers.indexOf(currentPlayer) !== -1) {
               let date = new Date(parseInt(game.gameEndTime, 10));
               if (game.gameEndTime !== 'not completed') {
-                game.date = `${date.getDate()} ${month[date.getMonth()]}, ${date.getFullYear()}`;
-                game.gameEndTime = 'completed';
+                game.date = `${date.getDate()} ${month[date.getMonth()]}, 
+                ${date.getFullYear()}`;
+                game.gameStatus = 'completed';
               } else {
                 date = new Date(parseInt(game.gameStartTime, 10));
-                game.date = `${date.getDate()} ${month[date.getMonth()]}, ${date.getFullYear()}`;
+                game.date = `${date.getDate()} ${month[date.getMonth()]}, 
+                ${date.getFullYear()}`;
+                game.gameStatus = 'not completed';
               }
               playerGameLog.push(game);
             }
