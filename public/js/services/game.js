@@ -216,6 +216,9 @@ angular.module('mean.system')
       createPrivate = createPrivate || false;
       const userID = window.localStorage.userid ? window.localStorage.userid : 'unauthenticated';
       socket.emit(mode, { userID, room, createPrivate });
+      game.sendRegion = (region) => {
+        socket.emit('region', region);
+      };
     };
 
     game.startGame = () => {
@@ -242,9 +245,6 @@ angular.module('mean.system')
       socket.emit('selectBlackCard');
     };
 
-    game.sendRegion = (argRegion) => {
-      socket.emit('region', argRegion);
-    };
 
     game.postStartRecords = () => {
       const gamePlayers = [];
