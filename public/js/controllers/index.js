@@ -74,18 +74,13 @@ angular.module('mean.system')
       });
     };
 
-    $scope.socialSignin = () => {
-      Users.socialSignin()
-        .then((data) => {
-          storeUserAndRedirect(data);
-        });
-    };
-
     $scope.logout = () => {
       socket.emit('issignedout', window.localStorage.getItem('userid'));
       window.localStorage.removeItem('token');
       window.localStorage.removeItem('userid');
       window.localStorage.removeItem('email');
+      window.localStorage.removeItem('avatar');
+      window.localStorage.removeItem('username');
       $scope.showOptions = true;
       $location.path('/');
     };
