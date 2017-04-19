@@ -41,11 +41,26 @@ exports.all = function all(req, res) {
 /**
  * List of Questions (for Game class)
  */
-exports.allQuestionsForGame = function allQuestionsForGame(region, cb) {
-  Question.find({ official: true, location: region, numAnswers: { $lt: 3 } }).select('-_id').exec((err, questions) => {
-    if (err) {
-      return err;
+exports.allQuestionsForGame = (region, cb) => {
+  const query = (region === 'general') ? {
+    official: true,
+    numAnswers: {
+      $lt: 3
     }
-    cb(questions);
+  } :
+  {
+    official: true,
+    location: region,
+    numAnswers: {
+      $lt: 3
+    }
+  };
+
+  Question.find(query).select('-_id').exec((err, questions) => {
+    if (err) {
+      // console.log(err);
+    } else {
+      cb(questions);
+    }
   });
 };

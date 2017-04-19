@@ -4,7 +4,10 @@
     <button class="btn btn-donate" id="inviteFriendsBtn" ng-click="inviteFriends()" ng-show="showInviteFriendsButton">Invite Friends</button>
     <span id="inviteFriendsMsg" style="color: orange"></span>
     <div id="notifications" ng-if="game.notification" ng-animate="{enter:'animated fadeInLeft', leave:'animated fadeOut'}">{{game.notification}}</div>
-    <br><p> <center> {{ czarHasDrawn }} </center></p>
+    <br>
+    <p>
+      <center> {{ czarHasDrawn }} </center>
+    </p>
 
     <div id="startGame" ng-show="game.state === 'awaiting players'">
       <div id="finding-players" class="q-header">Finding Players</div>
@@ -42,64 +45,81 @@
     </div>
 
 
-<div id="gameModal" data-controls-modal="gameModal" data-backdrop="static" data-keyboard="false" class="modal fade animated bounceInRight" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Cards for Humanity - Kakashi</h4>
-      </div>
-      <div class="modal-body">
-        {{ gameInviteMessage }}
-      </div>
-      <div class="modal-footer">
-        <div class="col-md-6">
-          <button class="btn btn-primary btn-block" ng-show="showStartButtonOverlay" ng-click="startAnyWay()">Start anyway</button>
-        </div>
-        <div class="col-md-6">
-          <button type="button" class="btn btn-default btn-block gameModalClose" data-dismiss="modal">Close</button>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-</div>
-
-
-<div id="czarModal" data-controls-modal="czarModal" data-backdrop="static" data-keyboard="false" class="modal animated bounceInRight" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title" style="color: #333">You are the Czar</h4>
-          <p id="pickBlackCardNotice">Click cards to pick the next question</p>
-        </div>
-        <div class="modal-body">
-          <div ng-show="isCzar() && game.table.length===0 && game.state !== 'game dissolved' && game.state !== 'awaiting players'">
-            <div ng-show= "game.state === 'pick black card'" class="text-center">
-                <div class="" id="reveal" ng-click="shuffleCards()" ng-style="{'cursor':'pointer'}">
-                    <div class="col-md-3 card-face">
-                      <div class="text-center flip">
-                        <div class="cards-group">
-                          <div class="card-stack right" id="flip-card"></div>
-                          <div class="card-stack left"></div>
-                          <div class="card-stack right"></div>
-                          <div class="card-stack left"></div>
-                          <div class="card-stack right"></div>
-                          <div class="card-stack left"></div>
-                        </div>
-                      </div>
-                    </div>
-                </div>
+    <div id="gameModal" data-controls-modal="gameModal" data-backdrop="static" data-keyboard="false" class="modal fade animated bounceInRight"
+      role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Cards for Humanity - Kakashi</h4>
+          </div>
+          <div class="modal-body">
+            <div>
+              {{ gameInviteMessage }}
+            </div>
+            <div>
+              <h4 class="center">Please select a region</h4>
+              <select ng-change="sendRegion(region)" ng-model="region" class="dropdown">
+                <option value="general">World wide</option>
+                <option value="africa" selected>Africa</option>
+                <option value="asia">Asia</option>
+                <option value="antartica">Antartica</option>
+                <option value="americas">Americas</option>
+                <option value="europe">Europe</option>
+                <option value="northAmerica">North America</option>
+                <option value="southAmerica">South America</option>
+              </select>
             </div>
           </div>
+          <div class="modal-footer">
+            <div class="col-md-6">
+              <button class="btn btn-primary btn-block" ng-show="showStartButtonOverlay" ng-click="startAnyWay()">Start anyway</button>
+            </div>
+            <div class="col-md-6">
+              <button type="button" class="btn btn-default btn-block gameModalClose" data-dismiss="modal">Close</button>
+            </div>
+
+          </div>
         </div>
-        <div class="modal-footer" style="border: none;">
-          <button class="btn btn-primary czarModalClose" data-dismiss="modal" style="display:none; ">Close</button>
+
+      </div>
+    </div>
+
+
+    <div id="czarModal" data-controls-modal="czarModal" data-backdrop="static" data-keyboard="false" class="modal animated bounceInRight"
+      role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" style="color: #333">You are the Czar</h4>
+            <p id="pickBlackCardNotice">Click cards to pick the next question</p>
+          </div>
+          <div class="modal-body">
+            <div ng-show="isCzar() && game.table.length===0 && game.state !== 'game dissolved' && game.state !== 'awaiting players'">
+              <div ng-show="game.state === 'pick black card'" class="text-center">
+                <div class="" id="reveal" ng-click="shuffleCards()" ng-style="{'cursor':'pointer'}">
+                  <div class="col-md-3 card-face">
+                    <div class="text-center flip">
+                      <div class="cards-group">
+                        <div class="card-stack right" id="flip-card"></div>
+                        <div class="card-stack left"></div>
+                        <div class="card-stack right"></div>
+                        <div class="card-stack left"></div>
+                        <div class="card-stack right"></div>
+                        <div class="card-stack left"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer" style="border: none;">
+            <button class="btn btn-primary czarModalClose" data-dismiss="modal" style="display:none; ">Close</button>
+          </div>
         </div>
       </div>
     </div>
-</div>
 
 
     <div id="availableUsers" class="modal fade animated bounceInRight" role="dialog">

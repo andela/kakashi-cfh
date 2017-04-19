@@ -90,7 +90,6 @@ module.exports = function socketMethod(io) {
       joinGame(socket, data);
     });
 
-
     socket.on('startGame', () => {
       if (allGames[socket.gameID]) {
         const thisGame = allGames[socket.gameID];
