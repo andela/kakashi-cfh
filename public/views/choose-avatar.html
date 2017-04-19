@@ -33,9 +33,15 @@
             <p class="avatar-choice">Just pick an avatar from the options below!</p>
 
             <div class="row">
+              <div class="col-md-12">
+                <input type='email' ng-model="socialEmail" placeholder="Enter your email" class="form-control"/>
+              </div>
+            </div>
+
+            <div class="row">
               <div class="col-xs-3 col-sm-3 col-md-2 img-thumbnail" ng-repeat="avatar in avatars">
                 <img ng-src="{{avatar}}" class="img-responsive">
-                <input name="avatar" type='radio' value="{{$index}}" required/>
+                <input name="avatar" type='radio' value="avatar" ng-model="selectedAvatar" ng-change="getAvatar(avatar)"/>
               </div>
             </div>
 
