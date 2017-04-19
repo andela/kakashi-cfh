@@ -289,7 +289,7 @@ exports.create = (req, res) => {
             if (!(userExist)) {
               const user = new User(req.body);
           // Switch the user's avatar index to an actual avatar url
-              user.avatar = req.body.userAvatar || avatars[user.avatar];
+              user.avatar = req.body.userAvatar;
               user.provider = 'local';
               user.save((err) => {
                 if (err) {
@@ -364,7 +364,7 @@ exports.checkAvatar = (req, res) => {
       });
   } else {
     // If user doesn't even exist, redirect to /
-    res.redirect('/checkk');
+    res.redirect('/');
   }
 };
 
@@ -374,7 +374,7 @@ exports.checkAvatar = (req, res) => {
  * @param  {[res]} res [response]
  * @return {Object|[Path]} [Path]
  */
-exports.getDetails = (req, res) => {
+exports.updateDetails = (req, res) => {
   const userAvatar = req.body.userDetails.userAvatar;
   const email = req.body.userDetails.email;
 
@@ -393,9 +393,9 @@ exports.getDetails = (req, res) => {
         expiresIn: 60 * 60 * 24 * 7
       });
       user = {
-        email: res.req.user.email || '',
-        username: res.req.user.username,
-        userid: res.req.user._id,
+        email: user.email,
+        username: user.username,
+        userid: user._id,
         token,
       };
       res.status(200)
@@ -403,7 +403,7 @@ exports.getDetails = (req, res) => {
     });
   } else {
     // If user doesn't even exist, redirect to /
-    res.redirect('/totter');
+    res.redirect('/');
   }
 };
 
@@ -418,9 +418,9 @@ exports.socialSignin = (req, res) => {
         expiresIn: 60 * 60 * 24 * 7
       });
       user = {
-        email: res.req.user.email || '',
-        username: res.req.user.username,
-        userid: res.req.user._id,
+        email: user.email,
+        username: user.username,
+        userid: user._id,
         token,
       };
       res.status(200)

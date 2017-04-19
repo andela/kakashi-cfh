@@ -102,7 +102,7 @@ module.exports = (passport) => {
             if (!user) {
               user = new User({
                 name: profile.displayName,
-                username: profile.username,
+                username: profile.displayName,
                 provider: 'facebook',
                 facebook: {
                   id: profile.id

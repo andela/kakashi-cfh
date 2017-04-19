@@ -45,7 +45,7 @@ angular.module('mean.system')
     });
 
     const socialAuth = userDetails => new Promise((resolve, reject) => {
-      $http.post('/getDetails', { userDetails })
+      $http.put('/updateDetails', { userDetails })
         .then((response) => {
           const data = response.data;
           resolve(data);
