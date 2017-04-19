@@ -11,6 +11,8 @@ const C4HMailer = require('../../config/mailer.js').C4HMailer;
 
 const User = mongoose.model('User');
 
+mongoose.Promise = global.Promise;
+
 /**
  * [Auth callback]
  * @param  {[req]}   req  [request]
@@ -198,7 +200,7 @@ exports.isAuthenticated = (req, res, next) => {
 exports.signin = (req, res) => {
   if (req.body.email && req.body.password) {
     User.findOne({
-      email: req.body.email
+      email: req.body.email,
     })
       .exec((err, existingUser) => {
         if (err) throw err;
@@ -272,36 +274,46 @@ exports.signout = (req, res) => {
  * @return {[Path]}     [Path]
  */
 exports.create = (req, res) => {
+    // return console.log(req.body);
   if (req.body.name && req.body.password && req.body.email) {
     User.findOne({
-      email: req.body.email
+      email: req.body.email,
     })
       .exec((err, existingUser) => {
         if (!existingUser) {
-          const user = new User(req.body);
+          User.findOne({
+            name: req.body.name
+          }).exec((err, userExist) => {
+            if (!(userExist)) {
+              const user = new User(req.body);
           // Switch the user's avatar index to an actual avatar url
-          user.avatar = avatars[user.avatar];
-          user.provider = 'local';
-          user.save((err) => {
-            if (err) {
-              return res.json({
-                success: false,
-                message: 'Unable to save user'
+              user.avatar = avatars[user.avatar];
+              user.provider = 'local';
+              user.save((err) => {
+                if (err) {
+                  return res.json({
+                    success: false,
+                    message: 'Unable to save user'
+                  });
+                }
               });
+              const token = jwt.sign({
+                id: user.id
+              }, process.env.SECRETKEY, {
+                expiresIn: 60 * 60 * 24 * 7
+              });
+              return res.status(200)
+                .json({
+                  success: true,
+                  userid: user.id,
+                  message: 'User successfully created',
+                  token
+                });
             }
-            const token = jwt.sign({
-              id: user.id
-            }, process.env.SECRETKEY, {
-              expiresIn: 60 * 60 * 24 * 7
+            return res.json({
+              success: false,
+              message: 'User already exists'
             });
-
-            return res.status(200)
-              .json({
-                success: true,
-                userid: user.id,
-                message: 'User successfully created',
-                token
-              });
           });
         } else {
           return res.json({

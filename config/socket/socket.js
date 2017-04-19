@@ -49,17 +49,13 @@ module.exports = function socketMethod(io) {
 
     socket.on('issignedin', (signedinUserId) => {
       allSignedInUsers.push(signedinUserId);
-      // console.log(allSignedInUsers, ' are signed in');
     });
 
     socket.on('issignedout', (signedoutid) => {
       const index = allSignedInUsers.indexOf(signedoutid);
-      // console.log(signedoutid, ' is signed out');
       allSignedInUsers.splice(index, 1);
       socket.emit('currentusers', allSignedInUsers);
     });
-
-    // console.log(allSignedInUsers, ' are signed in');
 
     socket.emit('currentusers', allSignedInUsers);
 
@@ -94,12 +90,11 @@ module.exports = function socketMethod(io) {
       joinGame(socket, data);
     });
 
+
     socket.on('startGame', () => {
       if (allGames[socket.gameID]) {
         const thisGame = allGames[socket.gameID];
-  // console.log('comparing', thisGame.players[0].socket.id, 'with', socket.id);
         if (thisGame.players.length >= thisGame.playerMinLimit) {
-  // Remove this game from gamesNeedingPlayers so new players can't join it.
           gamesNeedingPlayers.forEach((eachgame, index) => {
             if (eachgame.gameID === socket.gameID) {
               return gamesNeedingPlayers.splice(index, 1);
@@ -111,6 +106,13 @@ module.exports = function socketMethod(io) {
       }
     });
 
+    socket.on('region', (data) => {
+      if (allGames[socket.gameID]) {
+        const thisGame = allGames[socket.gameID];
+        thisGame.region = data;
+      }
+    });
+
     socket.on('leaveGame', () => {
       exitGame(socket);
     });
@@ -118,6 +120,10 @@ module.exports = function socketMethod(io) {
     socket.on('disconnect', () => {
       // console.log('Rooms on Disconnect ', io.sockets.manager.rooms);
       exitGame(socket);
+    });
+
+    socket.on('selectBlackCard', () => {
+      allGames[socket.gameID].startNextRound(allGames[socket.gameID]);
     });
   });
 
@@ -183,7 +189,6 @@ module.exports = function socketMethod(io) {
             game.prepareGame();
           }
         } else {
-        // TODO: Send an error message back to this user saying the game has already started
           socket.emit('gamestarted', { msg: 'game started' });
         }
       } else {

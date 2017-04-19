@@ -3,12 +3,11 @@
   <div id="cards" class='hand answers'>
     <div id="answers-div">
       <span ng-show="winnerPicked()"></span>
-
       <div class="row" ng-repeat="number in [[0,5], [5,10]]">
       <div ng-style="{'cursor':'pointer'}" class="card smallest col-sm-5ths" id='answers' 
       ng-click="pickCard(card)" ng-hide="showTable || isCzar()" ng-repeat="card in game.players[game.playerIndex].hand" 
       ng-animate="{enter:'animated fadeInUp', leave: 'animated fadeInOut'}" ng-if="$index >= number[0] && $index < number[1]">
-        <div class="answer-card">
+        <div class="answer-card animate wobble">
           <span ng-bind="card.text"></span>
           <span id='selection-number' ng-show="showFirst(card)"> 1 </span>
           <span id='selection-number' ng-show="showSecond(card)"> 2 </span>
@@ -18,19 +17,15 @@
 
       <div class="row">
       <div ng-repeat="answer in game.table" class="col-sm-5ths">
-        <div class="card smallest answer-card" ng-style="pointerCursorStyle()" id='table' ng-click="pickWinning(answer)" ng-show="showTable || isCzar()" ng-repeat="card in answer.card" ng-animate="{enter:'animated bounceInLeft'}" style="background-color:{{winningColor($parent.$index)}}">
+        <div class="card smallest answer-card animate wobble" ng-style="pointerCursorStyle()" id='table' ng-click="pickWinning(answer)" ng-show="showTable || isCzar()" ng-repeat="card in answer.card" ng-animate="{enter:'animated bounceInLeft'}" style="background-color:{{winningColor($parent.$index)}}">
           <span ng-bind="card.text"></span>
           <span id='selection-number' ng-show="firstAnswer($index)"> 1 </span>
           <span id='selection-number' ng-show="secondAnswer($index)"> 2 </span>
         </div>
       </div>
-      </div>
-
     </div>
   </div>
-
 </div>
-
 
 
 <div id="info-container" ng-show="game.state === 'awaiting players'" class="how-to-play">
