@@ -15,6 +15,7 @@ angular.module('mean.system')
 
     /**
      * @param {Object} data - user details token and id
+     * @param {Srting} email - add user email to localStorage
      * @return {Null} no-return value
      */
     function storeUserAndRedirect(data, email) {
@@ -74,13 +75,9 @@ angular.module('mean.system')
     };
 
     $scope.socialSignin = () => {
-      console.log('social signin');
       Users.socialSignin()
         .then((data) => {
           storeUserAndRedirect(data);
-        })
-        .catch((error) => {
-          console.log(error);
         });
     };
 
