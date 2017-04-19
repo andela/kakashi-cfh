@@ -14,11 +14,12 @@ angular.module('mean.system')
       });
     }());
 
-    const signup = (name, email, password) => new Promise((resolve, reject) => {
+    const signup = (name, email, password, userAvatar) => new Promise((resolve, reject) => {
       const newuser = {
         name,
         email,
-        password
+        password,
+        userAvatar
       };
       $http.post('/api/auth/signup', newuser)
         .then((response) => {
@@ -43,13 +44,24 @@ angular.module('mean.system')
         });
     });
 
-    const socialAuth = () => new Promise((resolve, reject) => {
-      $http.get('/getDetails').then((response) => {
-        const data = response.data;
-        resolve(data);
-      }, (error) => {
-        reject(error);
-      });
+    const socialAuth = userDetails => new Promise((resolve, reject) => {
+      $http.post('/getDetails', { userDetails })
+        .then((response) => {
+          const data = response.data;
+          resolve(data);
+        }, (error) => {
+          reject(error);
+        });
+    });
+
+    const socialSignin = () => new Promise((resolve, reject) => {
+      $http.get('/socialSignin')
+        .then((response) => {
+          const data = response.data;
+          resolve(data);
+        }, (error) => {
+          reject(error);
+        });
     });
 
     const findUsers = () => new Promise((resolve, reject) => {
@@ -157,5 +169,6 @@ angular.module('mean.system')
       inviteAllFriends,
       deleteFriend,
       getFriends,
+      socialSignin,
     };
   }]);
