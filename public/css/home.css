@@ -574,3 +574,13 @@ footer .github-foot img {
 .logPager{
   float: right
 }
+
+.tab-pane {
+  height: 50vh;
+  overflow: auto;
+}
+
+.gray-link {
+   pointer-events: none;
+   color: grey !important;
+}
