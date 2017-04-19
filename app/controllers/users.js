@@ -9,6 +9,8 @@ const avatars = require('./avatars').all();
 const jwt = require('jsonwebtoken');
 const C4HMailer = require('../../config/mailer.js').C4HMailer;
 
+mongoose.Promise = global.Promise;
+
 const User = mongoose.model('User');
 
 mongoose.Promise = global.Promise;
@@ -274,8 +276,8 @@ exports.signout = (req, res) => {
  * @return {[Path]}     [Path]
  */
 exports.create = (req, res) => {
-    // return console.log(req.body);
-  if (req.body.name && req.body.password && req.body.email) {
+  if (req.body.name && req.body.password && req.body.email
+    && req.body.userAvatar) {
     User.findOne({
       email: req.body.email,
     })
@@ -287,7 +289,7 @@ exports.create = (req, res) => {
             if (!(userExist)) {
               const user = new User(req.body);
           // Switch the user's avatar index to an actual avatar url
-              user.avatar = avatars[user.avatar];
+              user.avatar = req.body.userAvatar || avatars[user.avatar];
               user.provider = 'local';
               user.save((err) => {
                 if (err) {
@@ -354,15 +356,15 @@ exports.checkAvatar = (req, res) => {
       _id: req.user._id
     })
       .exec((err, user) => {
-        if (user.avatar !== undefined) {
-          res.redirect('/#!/');
+        if (user.avatar !== undefined && user.email !== undefined) {
+          res.redirect('/#!/welcome');
         } else {
           res.redirect('/#!/choose-avatar');
         }
       });
   } else {
     // If user doesn't even exist, redirect to /
-    res.redirect('/');
+    res.redirect('/checkk');
   }
 };
 
@@ -373,33 +375,57 @@ exports.checkAvatar = (req, res) => {
  * @return {Object|[Path]} [Path]
  */
 exports.getDetails = (req, res) => {
+  const userAvatar = req.body.userDetails.userAvatar;
+  const email = req.body.userDetails.email;
+
   if (req.user && req.user._id) {
-    User.findOne({
-      _id: req.user._id
-    })
-      .exec((err, user) => {
-        if (user.avatar !== undefined) {
-          res.redirect('/#!/');
-        } else {
-          const token = jwt.sign({
-            id: res.req.user._id
-          }, process.env.SECRETKEY, {
-            expiresIn: 60 * 60 * 24 * 7
-          });
-          user = {
-            email: res.req.user.email || '',
-            username: res.req.user.username,
-            userid: res.req.user._id,
-            token,
-          };
-          res.status(200)
-          .json(user);
-          // res.redirect('/#!/choose-avatar').json(user);
-        }
+    User.findByIdAndUpdate(
+      req.user._id
+    , {
+      avatar: userAvatar,
+      email: req.user.email || email
+    }, {
+      upsert: true
+    }, (err, user) => {
+      const token = jwt.sign({
+        id: res.req.user._id
+      }, process.env.SECRETKEY, {
+        expiresIn: 60 * 60 * 24 * 7
       });
+      user = {
+        email: res.req.user.email || '',
+        username: res.req.user.username,
+        userid: res.req.user._id,
+        token,
+      };
+      res.status(200)
+        .json(user);
+    });
   } else {
     // If user doesn't even exist, redirect to /
-    res.redirect('/');
+    res.redirect('/totter');
+  }
+};
+
+exports.socialSignin = (req, res) => {
+  if (req.user && req.user._id) {
+    User.findOne(
+      req.user._id
+    , (err, user) => {
+      const token = jwt.sign({
+        id: res.req.user._id
+      }, process.env.SECRETKEY, {
+        expiresIn: 60 * 60 * 24 * 7
+      });
+      user = {
+        email: res.req.user.email || '',
+        username: res.req.user.username,
+        userid: res.req.user._id,
+        token,
+      };
+      res.status(200)
+        .json(user);
+    });
   }
 };
 
