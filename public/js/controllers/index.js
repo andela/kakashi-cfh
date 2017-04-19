@@ -25,8 +25,13 @@ angular.module('mean.system')
       $location.path('/');
     }
 
+    let userAvatar = null;
+    $scope.getAvatar = (selectedAvatar) => {
+      userAvatar = selectedAvatar;
+    };
+
     $scope.signup = () => {
-      Users.signup($scope.name, $scope.email, $scope.password)
+      Users.signup($scope.name, $scope.email, $scope.password, userAvatar)
       .then((response) => {
         const data = response.data;
         if (data.success) {
@@ -55,9 +60,28 @@ angular.module('mean.system')
     };
 
     $scope.socialAuth = () => {
-      Users.socialAuth().then((data) => {
+      if (!($scope.socialEmail) || !(userAvatar)) {
+        return false;
+      }
+      const userDetails = {
+        email: $scope.socialEmail,
+        userAvatar,
+      };
+      Users.socialAuth(userDetails)
+      .then((data) => {
         storeUserAndRedirect(data);
       });
+    };
+
+    $scope.socialSignin = () => {
+      console.log('social signin');
+      Users.socialSignin()
+        .then((data) => {
+          storeUserAndRedirect(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     };
 
     $scope.logout = () => {
