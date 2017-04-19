@@ -147,11 +147,11 @@ angular.module('mean.directives', [])
       });
     },
   })])
-  .directive('leaderboard', ['$http', $http => ({
+  .directive('leaderboard', ['dashboard', dashboard => ({
     restrict: 'EA',
     link: (scope) => {
       const getLeaderboard = () => {
-        $http.get('/api/leaderboard').then((response) => {
+        dashboard.getGames.then((response) => {
           const players = {};
           const leaderboard = [];
           const playerGameLog = [];
@@ -198,11 +198,11 @@ angular.module('mean.directives', [])
      restrict: 'EA',
      templateUrl: '/views/game-log.html',
    }))
- .directive('donations', ['$http', $http => ({
+ .directive('donations', ['dashboard', dashboard => ({
    restrict: 'EA',
    link: (scope) => {
      const getUserDonations = () => {
-       $http.get('/api/donations').then((response) => {
+       dashboard.getDonations.then((response) => {
         // const userData = {};
          let userDonations = 0;
          response.data.forEach((users) => {
