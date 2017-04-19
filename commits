@@ -1,0 +1,19 @@
+feature(index.js): pass userAvatar to http call
+
+pass userAvatar to backend, create handler for welcome page
+#141404659
+
+feature(package.json): add dotenv
+
+add dotenv to dependencies.
+#141404659
+
+feature(signin.html): minor changes
+
+correct the href for social login
+#141404659
+
+feature(routes.js): add new route for siginin
+
+add new route for siginin and modify getDetails to be a post request
+#141404659

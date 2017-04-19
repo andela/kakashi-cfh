@@ -6,8 +6,7 @@
     "es6": true,
     "mocha": true,
     "jquery": true,
-    "jasmine": true,
-    "browser": true
+    "jasmine": true
   },
   "globals": {
     "angular": true
@@ -21,7 +20,7 @@
     "no-use-before-define": 0,
     "comma-dangle": 0,
     "curly": ["error", "multi-line"],
-    "import/no-unresolved": 0,
+    "import/no-unresolved": [2, { "commonjs": true }],
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
     "valid-jsdoc": ["error", {
       "requireReturn": true,
