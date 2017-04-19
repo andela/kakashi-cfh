@@ -356,7 +356,7 @@ exports.checkAvatar = (req, res) => {
       _id: req.user._id
     })
       .exec((err, user) => {
-        if (user.avatar !== undefined && user.email !== undefined) {
+        if (user.avatar && user.email) {
           res.redirect('/#!/welcome');
         } else {
           res.redirect('/#!/choose-avatar');
@@ -421,6 +421,7 @@ exports.socialSignin = (req, res) => {
         email: user.email,
         username: user.username,
         userid: user._id,
+        avatar: user.avatar,
         token,
       };
       res.status(200)
