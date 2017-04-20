@@ -207,9 +207,9 @@ angular.module('mean.directives', [])
            scope.userName = window.localStorage.getItem('username');
            if (users.donations.length > 0) {
              userDonations = users.donations.length;
-             scope.donationMsg = `You have made ${userDonations} donations till now`;
+             scope.donationMsg = `You have made ${userDonations} donation(s) till now`;
            } else {
-             scope.donationMsg = `You have made ${userDonations} donations till now`;
+             scope.donationMsg = `You have made ${userDonations} donation(s) till now`;
            }
          });
        });
