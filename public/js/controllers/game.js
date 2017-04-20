@@ -10,6 +10,7 @@ angular.module('mean.system')
     $scope.game = game;
     $scope.pickedCards = [];
     $scope.showFindUsersButton = true;
+    $scope.region = 'general';
     let makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
     $scope.makeAWishFact = makeAWishFacts.pop();
     $scope.usersInvited = Users.usersInvited || [];
@@ -36,6 +37,10 @@ angular.module('mean.system')
           $scope.pickedCards.pop();
         }
       }
+    };
+
+    $scope.sendRegion = (region) => {
+      game.sendRegion(region);
     };
 
     $scope.pointerCursorStyle = () => {
@@ -112,10 +117,6 @@ angular.module('mean.system')
 
     $scope.winnerPicked = () => game.winningCard !== -1;
 
-    $scope.sendRegion = () => {
-      game.sendRegion('Africa');
-    };
-
     $scope.$watch('game.state', () => {
       if ($scope.isCzar() && game.state === 'pick black card' && game.table.length === 0 && game.state !== 'game dissolved' && game.state !== 'awaiting players') {
         $('#czarModal').modal();
@@ -160,6 +161,7 @@ angular.module('mean.system')
     $scope.startGame = () => {
       if ((game.playerIndex === 0 || game.joinOverride) &&
         (game.players.length >= game.playerMinLimit)) {
+        game.sendRegion('general');
         if (game.players.length < game.playerMaxLimit) {
           $('#gameModal').modal();
           $scope.gameInviteMessage = `${game.playerMaxLimit - game.players.length} more player(s)

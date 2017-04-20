@@ -1,4 +1,5 @@
-angular.module('mean', ['ngCookies', 'ngSanitize', 'ngResource', 'ngRoute', 'ui.bootstrap', 'ui.route', 'mean.system', 'mean.directives', 'toastr'])
+angular.module('mean', ['ngCookies', 'ngSanitize', 'ngResource', 'ngRoute',
+  'ui.bootstrap', 'ui.route', 'mean.system', 'mean.directives', 'toastr'])
   .config(['$routeProvider',
     function mean($routeProvider) {
       $routeProvider
@@ -26,6 +27,8 @@ angular.module('mean', ['ngCookies', 'ngSanitize', 'ngResource', 'ngRoute', 'ui.
         .when('/player-dashboard', {
           templateUrl: '/views/player-dashboard.html'
         })
+        .when('/welcome', {
+        })
         .otherwise({
           redirectTo: '/'
         });
@@ -51,7 +54,25 @@ angular.module('mean', ['ngCookies', 'ngSanitize', 'ngResource', 'ngRoute', 'ui.
     window.userDonationCb = (donationObject) => {
       DonationService.userDonated(donationObject);
     };
-  }]);
+  }])
+  .run(['$rootScope', 'UserDetails', '$location', 'socket',
+    ($rootScope, UserDetails, $location, socket) => {
+      $rootScope.$on('$routeChangeStart', (event, next) => {
+        if (next.$$route.originalPath === '/welcome') {
+          UserDetails.socialSignin()
+          .then((response) => {
+            const data = response.data;
+            window.localStorage.userid = data.userid;
+            window.localStorage.setItem('token', data.token);
+            window.localStorage.setItem('email', data.email);
+            window.localStorage.setItem('username', data.username);
+            window.localStorage.setItem('avatar', data.avatar);
+            socket.emit('issignedin', data.userid);
+            $location.path('/');
+          });
+        }
+      });
+    }]);
 
 angular.module('mean.system', []);
 angular.module('mean.directives', []);

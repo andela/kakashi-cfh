@@ -231,25 +231,6 @@ Game.prototype.stateDissolveGame = function stateDissolveGame() {
   this.sendUpdate();
 };
 
-Game.prototype.getRegion = function getRegion(self) {
-  return self.region;
-};
-
-Game.prototype.getQuestions = function getQuestions(region) {
-  return new Promise((resolve) => {
-    questions.allQuestionsForGame(region, (data) => {
-      resolve(data);
-    });
-  });
-};
-
-Game.prototype.getAnswers = function getAnswers(region) {
-  return new Promise((resolve) => {
-    answers.allAnswersForGame(region, (data) => {
-      resolve(data);
-    });
-  });
-};
 
 Game.prototype.shuffleCards = function shuffleCards(cards) {
   let shuffleIndex = cards.length;
@@ -385,6 +366,26 @@ Game.prototype.removePlayer = function removePlayer(thisPlayer) {
     }
     this.sendUpdate();
   }
+};
+
+Game.prototype.getRegion = function getRegion(self) {
+  return self.region;
+};
+
+Game.prototype.getQuestions = function getQuestions(region) {
+  return new Promise((resolve) => {
+    questions.allQuestionsForGame(region, (data) => {
+      resolve(data);
+    });
+  });
+};
+
+Game.prototype.getAnswers = function getAnswers(region) {
+  return new Promise((resolve) => {
+    answers.allAnswersForGame(region, (data) => {
+      resolve(data);
+    });
+  });
 };
 
 Game.prototype.pickWinning = function pickWinning(thisCard, thisPlayer, autopicked) {
