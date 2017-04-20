@@ -60,3 +60,23 @@ exports.updateRecord = (req, res) => {
       }
     });
 };
+
+exports.leaderboard = (req, res) => {
+  Game.find({}, (error, allGames) => {
+    if (error) {
+      return res.status(500).send({ error });
+    }
+    return res.status(200).json(allGames);
+  });
+};
+
+exports.gameLog = (req, res) => {
+  Game.find({ gameEndTime: { $ne: 'not completed' }
+  }, (error, allGames) => {
+    if (error) {
+      return res.status(500).send({ error });
+    }
+    return res.status(200).json(allGames);
+  });
+};
+

@@ -555,3 +555,46 @@ footer .github-foot img {
     float: left;
   }
 }
+
+.nav-tabs li.active a:link,
+.nav-tabs li.active a:hover,
+.nav-tabs li.active a:visited {
+  background-color: #3E7293;
+  color: #fff;
+}
+
+.nav-tabs li a {
+  color: #000;
+}
+
+.show-game-log{
+  display: block !important
+}
+
+.logPager{
+  float: right
+}
+
+.tab-pane {
+  height: 50vh;
+  overflow: auto;
+}
+
+.gray-link {
+   pointer-events: none;
+   color: grey !important;
+}
+
+.gamelog-div.ng-scope,
+#Leaderboard{
+    padding: 10px;
+    background: #f3f3f3;
+    margin-top: 10px;
+}
+
+.game-info span {
+  /*background: grey;*/
+  padding: 7px;
+  margin: 4px;
+  /*color: #F4781F;*/
+}

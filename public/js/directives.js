@@ -146,4 +146,75 @@ angular.module('mean.directives', [])
         }
       });
     },
-  })]);
+  })])
+  .directive('leaderboard', ['dashboard', dashboard => ({
+    restrict: 'EA',
+    link: (scope) => {
+      dashboard.getGames.then((response) => {
+        const players = {};
+        const leaderboard = [];
+        response.data.forEach((game) => {
+          // save game data for leaderboard
+          if (game.gameEndTime !== 'not completed') {
+            const score = players[game.gameWinner];
+            if (score) {
+              players[game.gameWinner] += 1;
+            } else {
+              players[game.gameWinner] = 1;
+            }
+          }
+        });
+        $('#Game').addClass('show-game-log');
+        Object.keys(players).forEach((key) => {
+          leaderboard.push({ username: key, score: players[key] });
+        });
+        scope.leaderboard = leaderboard;
+      });
+    },
+    template: '<tr ng-repeat="player in leaderboard | orderBy:\'-score\'"><th>{{$index + 1}}</th><td>{{player.username}}</td><td>{{player.score}}</td></tr>',
+  })])
+  .directive('gameLog', ['dashboard', dashboard => ({
+    restrict: 'EA',
+    link: (scope) => {
+      dashboard.getGameLog.then((response) => {
+        const playerGameLog = [];
+        const currentPlayer = window.localStorage.getItem('username');
+        const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
+          'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        response.data.forEach((game) => {
+           // save game data for the gamelog
+          if (game.gamePlayers.indexOf(currentPlayer) !== -1) {
+            const date = new Date(parseInt(game.gameEndTime, 10));
+            game.date = `${date.getDate()} ${month[date.getMonth()]}, 
+            ${date.getFullYear()}`;
+            playerGameLog.push(game);
+          }
+        });
+        scope.playerGameLog = playerGameLog;
+      });
+    },
+    templateUrl: '/views/game-log.html',
+  })])
+ .directive('donations', ['dashboard', dashboard => ({
+   restrict: 'EA',
+   link: (scope) => {
+     const getUserDonations = () => {
+       dashboard.getDonations.then((response) => {
+        // const userData = {};
+         let userDonations = 0;
+         response.data.forEach((users) => {
+            // get no of donations for user
+           scope.userName = window.localStorage.getItem('username');
+           if (users.donations.length > 0) {
+             userDonations = users.donations.length;
+             scope.donationMsg = `You have made ${userDonations} donations till now`;
+           } else {
+             scope.donationMsg = `You have made ${userDonations} donations till now`;
+           }
+         });
+       });
+     };
+     getUserDonations();
+   },
+   template: '<p>Hello {{userName}}</p><p>{{donationMsg}}</p>',
+ })]);
