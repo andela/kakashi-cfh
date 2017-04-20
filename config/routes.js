@@ -87,7 +87,7 @@ module.exports = (app, passport) => {
     ]
   }), users.signin);
 
-  app.get('/google/callback', passport.authenticate('google', {
+  app.get('/auth/google/callback', passport.authenticate('google', {
     failureRedirect: '/signin'
   }), users.authCallback);
 
