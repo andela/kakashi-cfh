@@ -150,58 +150,59 @@ angular.module('mean.directives', [])
   .directive('leaderboard', ['dashboard', dashboard => ({
     restrict: 'EA',
     link: (scope) => {
-      const getLeaderboard = () => {
-        dashboard.getGames.then((response) => {
-          const players = {};
-          const leaderboard = [];
-          const playerGameLog = [];
-          const currentPlayer = window.localStorage.getItem('username');
-          const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
-            'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-          response.data.forEach((game) => {
-            // save game data for gamelog
-            if (game.gamePlayers.indexOf(currentPlayer) !== -1) {
-              let date = new Date(parseInt(game.gameEndTime, 10));
-              if (game.gameEndTime !== 'not completed') {
-                game.date = `${date.getDate()} ${month[date.getMonth()]}, 
-                ${date.getFullYear()}`;
-                game.gameStatus = 'completed';
-              } else {
-                date = new Date(parseInt(game.gameStartTime, 10));
-                game.date = `${date.getDate()} ${month[date.getMonth()]}, 
-                ${date.getFullYear()}`;
-                game.gameStatus = 'not completed';
-              }
-              playerGameLog.push(game);
+      dashboard.getGames.then((response) => {
+        const players = {};
+        const leaderboard = [];
+        response.data.forEach((game) => {
+          // save game data for leaderboard
+          if (game.gameEndTime !== 'not completed') {
+            const score = players[game.gameWinner];
+            if (score) {
+              players[game.gameWinner] += 1;
+            } else {
+              players[game.gameWinner] = 1;
             }
-
-            // save game data for leaderboard
-            if (game.gameEndTime !== 'not completed') {
-              const score = players[game.gameWinner];
-              if (score) {
-                players[game.gameWinner] += 1;
-              } else {
-                players[game.gameWinner] = 1;
-              }
-            }
-          });
-          $('#Game').addClass('show-game-log');
-          Object.keys(players).forEach((key) => {
-            leaderboard.push({ username: key, score: players[key] });
-          });
-          scope.leaderboard = leaderboard;
-          scope.playerGameLog = playerGameLog;
+          }
         });
-      };
-
-      getLeaderboard();
+        $('#Game').addClass('show-game-log');
+        Object.keys(players).forEach((key) => {
+          leaderboard.push({ username: key, score: players[key] });
+        });
+        scope.leaderboard = leaderboard;
+      });
     },
     template: '<tr ng-repeat="player in leaderboard | orderBy:\'-score\'"><th>{{$index + 1}}</th><td>{{player.username}}</td><td>{{player.score}}</td></tr>',
   })])
-   .directive('gameLog', () => ({
-     restrict: 'EA',
-     templateUrl: '/views/game-log.html',
-   }))
+  .directive('gameLog', ['dashboard', dashboard => ({
+    restrict: 'EA',
+    link: (scope) => {
+      dashboard.getGameLog.then((response) => {
+        const playerGameLog = [];
+        const currentPlayer = window.localStorage.getItem('username');
+        const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
+          'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        response.data.forEach((game) => {
+           // save game data for the gamelog
+          if (game.gamePlayers.indexOf(currentPlayer) !== -1) {
+            let date = new Date(parseInt(game.gameEndTime, 10));
+            if (game.gameEndTime !== 'not completed') {
+              game.date = `${date.getDate()} ${month[date.getMonth()]}, 
+              ${date.getFullYear()}`;
+              game.gameStatus = 'completed';
+            } else {
+              date = new Date(parseInt(game.gameStartTime, 10));
+              game.date = `${date.getDate()} ${month[date.getMonth()]}, 
+              ${date.getFullYear()}`;
+              game.gameStatus = 'not completed';
+            }
+            playerGameLog.push(game);
+          }
+        });
+        scope.playerGameLog = playerGameLog;
+      });
+    },
+    templateUrl: '/views/game-log.html',
+  })])
  .directive('donations', ['dashboard', dashboard => ({
    restrict: 'EA',
    link: (scope) => {
@@ -212,7 +213,7 @@ angular.module('mean.directives', [])
          response.data.forEach((users) => {
             // get no of donations for user
            scope.userName = window.localStorage.getItem('username');
-           if (users.donations.length < 1) {
+           if (users.donations.length > 0) {
              userDonations = users.donations.length;
              scope.donationMsg = `You have made ${userDonations} donations till now`;
            } else {
