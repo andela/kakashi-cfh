@@ -184,17 +184,9 @@ angular.module('mean.directives', [])
         response.data.forEach((game) => {
            // save game data for the gamelog
           if (game.gamePlayers.indexOf(currentPlayer) !== -1) {
-            let date = new Date(parseInt(game.gameEndTime, 10));
-            if (game.gameEndTime !== 'not completed') {
-              game.date = `${date.getDate()} ${month[date.getMonth()]}, 
-              ${date.getFullYear()}`;
-              game.gameStatus = 'completed';
-            } else {
-              date = new Date(parseInt(game.gameStartTime, 10));
-              game.date = `${date.getDate()} ${month[date.getMonth()]}, 
-              ${date.getFullYear()}`;
-              game.gameStatus = 'not completed';
-            }
+            const date = new Date(parseInt(game.gameEndTime, 10));
+            game.date = `${date.getDate()} ${month[date.getMonth()]}, 
+            ${date.getFullYear()}`;
             playerGameLog.push(game);
           }
         });
