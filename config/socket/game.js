@@ -337,9 +337,8 @@ Game.prototype.getPlayer = function getPlayer(thisPlayer) {
   const playerIndex = this.findPlayerIndexBySocket(thisPlayer);
   if (playerIndex > -1) {
     return this.players[playerIndex];
-  } else {
-    return {};
   }
+  return {};
 };
 
 Game.prototype.removePlayer = function removePlayer(thisPlayer) {

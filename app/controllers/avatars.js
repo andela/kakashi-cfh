@@ -2,7 +2,7 @@
  * List of Avatars
  */
 avatars = ['/img/chosen/E01.png',
-           '/img/chosen/F01.png',
+          '/img/chosen/F01.png',
            '/img/chosen/FA04.png',
            '/img/chosen/FB03.png',
            '/img/chosen/FC01.png',

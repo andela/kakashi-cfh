@@ -32,19 +32,19 @@
           <fieldset>
             <div class="control-group inputspace">
               <div class="controls">
-                <input type="text" ng-model="name" placeholder="Name" class="form-control input-lg" required novalidate>
+                <input type="text" ng-model="name" placeholder="Name" class="form-control input-lg"  novalidate>
               </div>
             </div>
          
             <div class="control-group inputspace">
               <div class="controls ">
-                <input type="email" ng-model="email" placeholder="Email" class="form-control input-lg" required novalidate>
+                <input type="email" ng-model="email" placeholder="Email" class="form-control input-lg"  novalidate>
               </div>
             </div>
          
             <div class="control-group inputspace">
               <div class="controls">
-                <input type="password" ng-model="password" placeholder="Password" class="form-control input-lg" required novalidate>
+                <input type="password" ng-model="password" placeholder="Password" class="form-control input-lg"  novalidate>
               </div>
             </div>
             
@@ -53,7 +53,7 @@
             <div class="row">
               <div class="col-xs-3 col-sm-3 col-md-2 img-thumbnail" ng-repeat="avatar in avatars">
                 <img ng-src="{{avatar}}" class="img-responsive">
-                <input name="avatar" type='radio' value="{{$index}}"  ng-model="avIndex" required/>
+                <input name="avatar" type='radio' value="avatar" ng-model="selectedAvatar" ng-change="getAvatar(avatar)"/>
               </div>
             </div>
 

@@ -4,7 +4,7 @@
     <button class="btn btn-donate" id="inviteFriendsBtn" ng-click="inviteFriends()" ng-show="showInviteFriendsButton">Invite Friends</button>
     <span id="inviteFriendsMsg" style="color: orange"></span>
     <div id="notifications" ng-if="game.notification" ng-animate="{enter:'animated fadeInLeft', leave:'animated fadeOut'}">{{game.notification}}</div>
-    <br><p> <center> {{ czarHasDrawn }} </center></p>
+    <br><p class=""> <center> {{ czarHasDrawn }} </center></p>
 
     <div id="startGame" ng-show="game.state === 'awaiting players'">
       <div id="finding-players" class="q-header">Finding Players</div>

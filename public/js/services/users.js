@@ -14,11 +14,12 @@ angular.module('mean.system')
       });
     }());
 
-    const signup = (name, email, password) => new Promise((resolve, reject) => {
+    const signup = (name, email, password, userAvatar) => new Promise((resolve, reject) => {
       const newuser = {
         name,
         email,
-        password
+        password,
+        userAvatar
       };
       $http.post('/api/auth/signup', newuser)
         .then((response) => {

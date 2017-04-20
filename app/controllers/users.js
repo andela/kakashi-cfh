@@ -271,7 +271,7 @@ exports.signout = (req, res) => {
  */
 exports.create = (req, res) => {
     // return console.log(req.body);
-  if (req.body.name && req.body.password && req.body.email) {
+  if (req.body.name && req.body.password && req.body.email && req.body.userAvatar) {
     User.findOne({
       email: req.body.email,
     })
@@ -283,7 +283,7 @@ exports.create = (req, res) => {
             if (!(userExist)) {
               const user = new User(req.body);
           // Switch the user's avatar index to an actual avatar url
-              user.avatar = avatars[user.avatar];
+              user.avatar = req.body.userAvatar || avatars[user.useravatar];
               user.provider = 'local';
               user.save((err) => {
                 if (err) {

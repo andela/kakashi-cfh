@@ -23,8 +23,13 @@ angular.module('mean.system')
       $location.path('/');
     }
 
+    let userAvatar = null;
+    $scope.getAvatar = (selectedAvatar) => {
+      userAvatar = selectedAvatar;
+    };
+
     $scope.signup = () => {
-      Users.signup($scope.name, $scope.email, $scope.password).then((response) => {
+      Users.signup($scope.name, $scope.email, $scope.password, userAvatar).then((response) => {
         const data = response.data;
         if (data.success) {
           storeUserAndRedirect(data, $scope.email);

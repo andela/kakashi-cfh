@@ -10,7 +10,7 @@
     "twitter": {
         "clientID": "CONSUMER_KEY",
         "clientSecret": "CONSUMER_SECRET",
-        "callbackURL": "http://cardsforhumanity.com:3000/auth/twitter/callback"
+        "callbackURL": "http://localhost:3000/auth/twitter/callback"
     },
     "github": {
         "clientID": "APP_ID",
