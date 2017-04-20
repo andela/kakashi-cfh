@@ -71,7 +71,8 @@ exports.leaderboard = (req, res) => {
 };
 
 exports.gameLog = (req, res) => {
-  Game.find({}, (error, allGames) => {
+  Game.find({ gameEndTime: { $ne: 'not completed' }
+  }, (error, allGames) => {
     if (error) {
       return res.status(500).send({ error });
     }
