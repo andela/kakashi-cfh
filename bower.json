@@ -12,7 +12,8 @@
     "angular-mocks": "~1.6.3",
     "angular-route": "~1.6.3",
     "angular-resource": "~1.6.3",
-    "angular-sanitize": "~1.6.3"
+    "angular-sanitize": "~1.6.3",
+    "angular-toastr": "~2.1.1"
   },
   "exportsOverride": {
     "bootstrap": {

@@ -3,11 +3,24 @@
 const Game = require('./game');
 const Player = require('./player');
 const mongoose = require('mongoose');
+const firebase = require('firebase');
 require('console-stamp')(console, 'm/dd HH:MM:ss');
+
+// firebase details
+const config = {
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  databaseURL: process.env.DATABASE_URL,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+};
+firebase.initializeApp(config);
+const database = firebase.database();
 
 const avatars = require('../../app/controllers/avatars.js').all();
 
 const User = mongoose.model('User');
+let chatMessages = [];
 
 
 // Valid characters to use to generate random private game IDs
@@ -22,20 +35,27 @@ module.exports = function socketMethod(io) {
 
   const allSignedInUsers = [];
 
+
   io.sockets.on('connection', (socket) => {
+    // initialize chat when a new socket is connected
+    socket.emit('initializeChat', chatMessages);
+
+    // send recieved chat message to all connected sockets
+    socket.on('chat message', (chat) => {
+      game.players.forEach(player => player.socket.emit('chat message', chat));
+      chatMessages.push(chat);
+      database.ref(`chat/${gameID}`).set(chatMessages);
+    });
+
     socket.on('issignedin', (signedinUserId) => {
       allSignedInUsers.push(signedinUserId);
-      // console.log(allSignedInUsers, ' are signed in');
     });
 
     socket.on('issignedout', (signedoutid) => {
       const index = allSignedInUsers.indexOf(signedoutid);
-      // console.log(signedoutid, ' is signed out');
       allSignedInUsers.splice(index, 1);
       socket.emit('currentusers', allSignedInUsers);
     });
-
-    // console.log(allSignedInUsers, ' are signed in');
 
     socket.emit('currentusers', allSignedInUsers);
 
@@ -73,9 +93,7 @@ module.exports = function socketMethod(io) {
     socket.on('startGame', () => {
       if (allGames[socket.gameID]) {
         const thisGame = allGames[socket.gameID];
-  // console.log('comparing', thisGame.players[0].socket.id, 'with', socket.id);
         if (thisGame.players.length >= thisGame.playerMinLimit) {
-  // Remove this game from gamesNeedingPlayers so new players can't join it.
           gamesNeedingPlayers.forEach((eachgame, index) => {
             if (eachgame.gameID === socket.gameID) {
               return gamesNeedingPlayers.splice(index, 1);
@@ -87,6 +105,13 @@ module.exports = function socketMethod(io) {
       }
     });
 
+    socket.on('region', (data) => {
+      if (allGames[socket.gameID]) {
+        const thisGame = allGames[socket.gameID];
+        thisGame.region = data;
+      }
+    });
+
     socket.on('leaveGame', () => {
       exitGame(socket);
     });
@@ -94,6 +119,10 @@ module.exports = function socketMethod(io) {
     socket.on('disconnect', () => {
       // console.log('Rooms on Disconnect ', io.sockets.manager.rooms);
       exitGame(socket);
+    });
+
+    socket.on('selectBlackCard', () => {
+      allGames[socket.gameID].startNextRound(allGames[socket.gameID]);
     });
   });
 
@@ -159,7 +188,6 @@ module.exports = function socketMethod(io) {
             game.prepareGame();
           }
         } else {
-        // TODO: Send an error message back to this user saying the game has already started
           socket.emit('gamestarted', { msg: 'game started' });
         }
       } else {
@@ -248,6 +276,7 @@ module.exports = function socketMethod(io) {
         }
         game.killGame();
         delete allGames[socket.gameID];
+        chatMessages = [];
       }
     }
     socket.leave(socket.gameID);

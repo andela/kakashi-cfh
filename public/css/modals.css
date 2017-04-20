@@ -1,19 +1,18 @@
 div.modal {
-    background: rgba(0, 0, 0, .7) !important;
     color: #333;
 }
 
 .modal-header {
     min-height: 16.428571429px;
-    padding: 15px !important;
-    background: #3E7293 !important;
-    border-bottom: 1px solid #e5e5e5 !important;
+    padding: 15px;
+    background: #3E7293;
+    border-bottom: 1px solid #e5e5e5;
     color: #fff;
 }
 
 .modal-header .close {
     margin-top: -2px;
-    color: white !important;
+    color: white;
 }
 
 .modal-footer {
@@ -21,29 +20,29 @@ div.modal {
     margin-top: 15px;
     text-align: right;
     border-top: 1px solid #e5e5e5;
-    background: #3E7293 !important;
+    background: #3E7293;
 }
 
 .btn-block {
-    border: none !important;
+    border: none;
 }
 
 .table-striped {
-    color: #333 !important;
-    text-align: left !important;
+    color: #333;
+    text-align: left;
     margin-top: 10px;
 }
 .table-striped tr th {
-    color: #F4781F !important;
+    color: #F4781F;
 }
 
 .alert-info {
     margin-top: 10px;
-    text-align: center !important;
+    text-align: center;
 }
 
 #start-game-button {
-    cursor: pointer !important;
+    cursor: pointer;
     border-radius: 50%;
     height: 150px;
     width: 150px;
@@ -121,5 +120,129 @@ div.modal {
 }
 
 .btn:focus:not(:active)::after {
-  animation: ripple 1s ease-out !important;
+  animation: ripple 1s ease-out;
+}
+
+.card-face {
+  width: 200px;
+  height: 220px;
+  margin-left: 35%;
+  position: relative;
+  perspective: 800px;
+}
+#flip-card {
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: transform 1s, background 0s 0.3s, right 2s ease 1s, opacity 2s ease-out 2s;
+  right: 12px;
+  top: 12px;
+  z-index: 12;
+}
+#flip-card.slide {
+  background: black;
+  transform: rotateY( 180deg );
+}
+.cards-group {
+  bottom: 0px;
+}
+.card-load {
+  background-image:url('../img/locader.gif');
+  background-repeat:no-repeat;
+  background-size:contain;
+  background-position:center;
+  position: absolute;
+  opacity: 1;
+  bottom: 0;
+  display: block;
+  width: 70%;
+  height: 90%;
+  border-radius: 20px;
+}
+.card-stack {
+  background-image:url('../img/blackcard.jpg');
+  background-repeat:no-repeat;
+  background-size:contain;
+  background-position:center;
+  position: absolute;
+  opacity: 1;
+  bottom: 0;
+  display: block;
+  width: 70%;
+  height: 90%;
+  border: none;
+}
+.card-stack.slide {
+  opacity: 0;
+}
+
+.card-stack.left.slide {
+  left: -100vw !important;
+}
+.card-stack.right.slide {
+  right: -100vw !important;
+}
+
+.card-stack:nth-child(2) {
+  right: 2px;
+  left: -4px;
+  top: 2px;
+  z-index: 2;
+  transition: left 2s ease .8s, opacity 2s ease-out 2s;
+}
+
+
+.card-stack:nth-child(3) {
+  right: 4px;
+  top: 4px;
+  z-index: 4;
+  transition: right 2s ease 1s, opacity 2s ease-out 2s;
+}
+
+.card-stack:nth-child(4) {
+  right: 6px;
+  left: -8px;
+  top: 6px;
+  z-index: 6;
+  transition: left 2s ease 1s, opacity 2s ease-out 2s;
+}
+
+.card-stack:nth-child(5) {
+  right: 8px;
+  top: 8px;
+  z-index: 8;
+  transition: right 2s ease 1.2s, opacity 2s ease-out 2s;
+}
+
+.card-stack:nth-child(6) {
+  right: 10px;
+  left: -12px;
+  top: 10px;
+  z-index: 10;
+  transition: left 2s ease 1.2s, opacity 2s ease-out 2s;
+}
+
+
+#czarModal {
+    background: rgba(0, 0, 0, .7);
+}
+
+#czarModal .modal-dialog .modal-content .modal-header {
+    background: rgba(255, 255, 255, 1);
+    padding: 0;
+}
+#czarModal .modal-dialog .modal-content {
+  background: url('../img/deck2.jpg');
+  background-size: cover;
+}
+
+#czarModal .modal-dialog .modal-content .modal-footer {
+    background: rgba(255, 255, 255, 0);
+    border: none;
+}
+
+#pickBlackCardNotice {
+  color: #3E7293;
+  text-shadow: 1px 1px rgba(0,0,0,.2);
+  display: block;
+  text-align: center;
 }

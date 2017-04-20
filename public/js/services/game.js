@@ -1,3 +1,4 @@
+/* eslint no-undef: 0 */
 angular.module('mean.system')
   .factory('game', ['socket', '$timeout', '$http', (socket, $timeout, $http) => {
     const game = {
@@ -10,8 +11,8 @@ angular.module('mean.system')
       gameWinner: -1,
       table: [],
       czar: null,
-      playerMinLimit: 3, // Task 2 -3 - Minimum limit of playes in each game
-      playerMaxLimit: 12, // Task 2 -6 - Maximum
+      playerMinLimit: 3,
+      playerMaxLimit: 12,
       pointLimit: null,
       state: null,
       round: 0,
@@ -26,9 +27,16 @@ angular.module('mean.system')
 
     const notificationQueue = [];
     let timeout = false;
-    let joinOverrideTimeout = 0;
+    // let joinOverrideTimeout = 0;
 
-    const setNotification = () => {
+    const addToNotificationQueue = function addToNotificationQueue(msg) {
+      notificationQueue.push(msg);
+      if (!timeout) { // Start a cycle if there isn't one
+        setNotification();
+      }
+    };
+
+    const setNotification = function setNotification() {
       if (notificationQueue.length === 0) {
         // If notificationQueue is empty, stop
         clearInterval(timeout);
@@ -37,19 +45,12 @@ angular.module('mean.system')
       } else {
         // Show a notification and check again in a bit
         game.notification = notificationQueue.shift();
-        timeout = $timeout(setNotification, 1300);
-      }
-    };
-
-    const addToNotificationQueue = (msg) => {
-      notificationQueue.push(msg);
-      if (!timeout) { // Start a cycle if there isn't one
-        setNotification();
+        timeout = $timeout(setNotification, 2600);
       }
     };
 
     let timeSetViaUpdate = false;
-    const decrementTime = () => {
+    const decrementTime = function decrementTime() {
       if (game.time > 0 && !timeSetViaUpdate) {
         game.time -= 1;
       } else {
@@ -144,16 +145,23 @@ angular.module('mean.system')
         game.state = data.state;
       }
 
-      if (data.state === 'waiting for players to pick') {
+      if (data.state === 'pick black card') {
+        game.czar = data.czar;
+        if (game.czar === game.playerIndex) {
+          addToNotificationQueue('You are now a Czar, click black card to pop a new question');
+        } else {
+          addToNotificationQueue('Waiting for Czar to pick card');
+        }
+      } else if (data.state === 'waiting for players to pick') {
         game.czar = data.czar;
         game.curQuestion = data.curQuestion;
-      // Extending the underscore within the question
+          // Extending the underscore within the question
         game.curQuestion.text = data.curQuestion.text.replace(/_/g, '<u></u>');
 
-      // Set notifications only when entering state
+        // Set notifications only when entering state
         if (newState) {
           if (game.czar === game.playerIndex) {
-            addToNotificationQueue('You\'re the Card Czar! Please wait!');
+            addToNotificationQueue("You're the Card Czar! Please wait!");
           } else if (game.curQuestion.numAnswers === 1) {
             addToNotificationQueue('Select an answer!');
           } else {
@@ -167,40 +175,31 @@ angular.module('mean.system')
           addToNotificationQueue('The czar is contemplating...');
         }
       } else if (data.state === 'winner has been chosen' &&
-              game.curQuestion.text.indexOf('<u></u>') > -1) {
+                game.curQuestion.text.indexOf('<u></u>') > -1) {
+        game.czar = data.czar;
         game.curQuestion = data.curQuestion;
       } else if (data.state === 'awaiting players') {
         joinOverrideTimeout = $timeout(() => {
           game.joinOverride = true;
         }, 15000);
       } else if (data.state === 'game dissolved' || data.state === 'game ended') {
-        if (game.state === 'game ended') {
-          // Post to update game record
-        // const winner = game.gameWinner;
+        if (game.state === 'game ended' && !(game.gameOwnersId)) {
           const gamePlayers = [];
           Object.keys(game.players).map(index => gamePlayers.push(game.players[index].username));
           const gameWinner = game.players[game.gameWinner].username;
-          const gameRound = game.round;
+          const gameRounds = game.round;
           const gameID = game.gameID;
-          const gameOwnerId = game.gameOwnersId;
-          const gameEndTIme = Date.now();
+          const gameEndTime = Date.now();
           const gameInfo = {
-            gameWinner,
-            gameRound,
-            gameOwnerId,
-            gamePlayers,
             gameID,
-            gameEndTIme,
+            gameWinner,
+            gameRounds,
+            gameEndTime,
           };
-
-          $http.post(`/api/games/${gameInfo.gameOwnerId}/start`, gameInfo)
-          .then(() => {
-            // console.log('This game is has been recorded');
-          }, () => {
-            // console.log(error);
-          });
+          $http.post(`/api/games/${gameInfo.gameID}/end`, gameInfo)
+            .then(success => success, error => error);
         } else {
-          // console.log('Game abandoned');
+          return 'game abandonned';
         }
         game.players[game.playerIndex].hand = [];
         game.time = 0;
@@ -217,6 +216,9 @@ angular.module('mean.system')
       createPrivate = createPrivate || false;
       const userID = window.localStorage.userid ? window.localStorage.userid : 'unauthenticated';
       socket.emit(mode, { userID, room, createPrivate });
+      game.sendRegion = (region) => {
+        socket.emit('region', region);
+      };
     };
 
     game.startGame = () => {
@@ -238,6 +240,33 @@ angular.module('mean.system')
     };
 
     decrementTime();
+
+    game.startNextRound = () => {
+      socket.emit('selectBlackCard');
+    };
+
+
+    game.postStartRecords = () => {
+      const gamePlayers = [];
+      Object.keys(game.players).map(index => gamePlayers.push(game.players[index].username));
+      const gameWinner = 'undecided';
+      const gameRounds = game.round;
+      const gameID = game.gameID;
+      const gameOwnerId = game.gameOwnersId;
+      const gameStartTime = Date.now();
+      const gameEndTime = 'not completed';
+      const gameInfo = {
+        gameID,
+        gameWinner,
+        gameRounds,
+        gameOwnerId,
+        gamePlayers,
+        gameStartTime,
+        gameEndTime,
+      };
+      $http.post(`/api/games/${gameInfo.gameID}/start`, gameInfo)
+        .then(success => success, error => error);
+    };
 
     return game;
   }]);
