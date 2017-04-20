@@ -14,11 +14,12 @@ angular.module('mean.system')
       });
     }());
 
-    const signup = (name, email, password) => new Promise((resolve, reject) => {
+    const signup = (name, email, password, userAvatar) => new Promise((resolve, reject) => {
       const newuser = {
         name,
         email,
-        password
+        password,
+        userAvatar
       };
       $http.post('/api/auth/signup', newuser)
         .then((response) => {
@@ -39,6 +40,16 @@ angular.module('mean.system')
           resolve(response);
         })
         .catch((error) => {
+          reject(error);
+        });
+    });
+
+    const socialAuth = userDetails => new Promise((resolve, reject) => {
+      $http.put('/updateDetails', { userDetails })
+        .then((response) => {
+          const data = response.data;
+          resolve(data);
+        }, (error) => {
           reject(error);
         });
     });
@@ -74,7 +85,8 @@ angular.module('mean.system')
           if (friendsAdded.indexOf(response.data) <= -1) {
             friendsAdded.push(response.data);
           }
-          const msg = `${response.data} has recently been added to friends list`;
+          const msg = `${response.data} has recently ` +
+                    'been added to friends list';
           const friendName = response.data;
           resolve({
             msg,
@@ -138,6 +150,7 @@ angular.module('mean.system')
       findUsers,
       signup,
       signin,
+      socialAuth,
       sendInvite,
       usersInvited,
       users,
@@ -145,6 +158,6 @@ angular.module('mean.system')
       addFriend,
       inviteAllFriends,
       deleteFriend,
-      getFriends,
+      getFriends
     };
   }]);

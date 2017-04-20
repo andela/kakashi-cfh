@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+
 /**
  * [Module dependencies.]
  * @type {[type]}
@@ -6,6 +8,8 @@ const mongoose = require('mongoose');
 const avatars = require('./avatars').all();
 const jwt = require('jsonwebtoken');
 const C4HMailer = require('../../config/mailer.js').C4HMailer;
+
+mongoose.Promise = global.Promise;
 
 const User = mongoose.model('User');
 
@@ -148,7 +152,8 @@ exports.inviteFriends = (req, res) => {
         C4HMailer('C4H-Kakashi Team',
           friendEmail, 'Game invite at C4H',
           `You have been invited to join a game at C4H. Use this link ${url}`,
-          `You have been invited to join a game at C4H.\nUse this link <a href="${url}">${url}</a>`);
+          `You have been invited to join a game at C4H.\n
+            Use this link <a href="${url}">${url}</a>`);
       });
       res.status(200)
         .json({
@@ -168,7 +173,8 @@ exports.sendInvites = (req, res) => {
     C4HMailer('C4H-Kakashi Team',
       userToInvite, 'Game invite at C4H',
       `You have been invited to join a game at C4H. Use this link ${url}`,
-      `You have been invited to join a game at C4H.\nUse this link <a href="${url}">${url}</a>`);
+      `You have been invited to join a game at C4H.\n
+        Use this link <a href="${url}">${url}</a>`);
     res.status(200)
       .json(userToInvite);
   } catch (error) {
@@ -270,8 +276,8 @@ exports.signout = (req, res) => {
  * @return {[Path]}     [Path]
  */
 exports.create = (req, res) => {
-    // return console.log(req.body);
-  if (req.body.name && req.body.password && req.body.email) {
+  if (req.body.name && req.body.password && req.body.email
+    && req.body.userAvatar) {
     User.findOne({
       email: req.body.email,
     })
@@ -283,7 +289,7 @@ exports.create = (req, res) => {
             if (!(userExist)) {
               const user = new User(req.body);
           // Switch the user's avatar index to an actual avatar url
-              user.avatar = avatars[user.avatar];
+              user.avatar = req.body.userAvatar;
               user.provider = 'local';
               user.save((err) => {
                 if (err) {
@@ -350,8 +356,8 @@ exports.checkAvatar = (req, res) => {
       _id: req.user._id
     })
       .exec((err, user) => {
-        if (user.avatar !== undefined) {
-          res.redirect('/#!/');
+        if (user.avatar && user.email) {
+          res.redirect('/#!/welcome');
         } else {
           res.redirect('/#!/choose-avatar');
         }
@@ -359,6 +365,68 @@ exports.checkAvatar = (req, res) => {
   } else {
     // If user doesn't even exist, redirect to /
     res.redirect('/');
+  }
+};
+
+/**
+ * Get details for social login
+ * @param  {[req]} req [request]
+ * @param  {[res]} res [response]
+ * @return {Object|[Path]} [Path]
+ */
+exports.updateDetails = (req, res) => {
+  const userAvatar = req.body.userDetails.userAvatar;
+  const email = req.body.userDetails.email;
+
+  if (req.user && req.user._id) {
+    User.findByIdAndUpdate(
+      req.user._id
+    , {
+      avatar: userAvatar,
+      email: req.user.email || email
+    }, {
+      upsert: true
+    }, (err, user) => {
+      const token = jwt.sign({
+        id: res.req.user._id
+      }, process.env.SECRETKEY, {
+        expiresIn: 60 * 60 * 24 * 7
+      });
+      user = {
+        email: user.email,
+        username: user.username,
+        userid: user._id,
+        token,
+      };
+      res.status(200)
+        .json(user);
+    });
+  } else {
+    // If user doesn't even exist, redirect to /
+    res.redirect('/');
+  }
+};
+
+exports.socialSignin = (req, res) => {
+  if (req.user && req.user._id) {
+    User.findOne(
+      req.user._id
+    , (err, user) => {
+      const token = jwt.sign({
+        id: res.req.user._id
+      }, process.env.SECRETKEY, {
+        expiresIn: 60 * 60 * 24 * 7
+      });
+      user = {
+        email: user.email,
+        username: user.username,
+        userid: user._id,
+        avatar: user.avatar,
+        token,
+      };
+      res.status(200)
+        .json(user);
+    });
   }
 };
 
@@ -392,7 +460,8 @@ exports.avatars = (req, res) => {
 exports.addDonation = (req, res) => {
   if (req.body && req.user && req.user._id) {
     // Verify that the object contains crowdrise data
-    if (req.body.amount && req.body.crowdrise_donation_id && req.body.donor_name) {
+    if (req.body.amount && req.body.crowdrise_donation_id
+        && req.body.donor_name) {
       User.findOne({
         _id: req.user._id
       })
@@ -400,7 +469,8 @@ exports.addDonation = (req, res) => {
           // Confirm that this object hasn't already been entered
           let duplicate = false;
           for (let i = 0; i < user.donations.length; i += 1) {
-            if (user.donations[i].crowdrise_donation_id === req.body.crowdrise_donation_id) {
+            if (user.donations[i].crowdrise_donation_id
+                === req.body.crowdrise_donation_id) {
               duplicate = true;
             }
           }
