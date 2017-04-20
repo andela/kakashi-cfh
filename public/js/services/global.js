@@ -61,12 +61,12 @@ angular.module('mean.system')
         'Nearly 75 percent of wish experiences involve travel.',
         'The Walt Disney Company is involved in 40 percent of the wishes Make-A-Wish grants.',
         'As of August 2012, the average cost of a wish was $8,141.'];
-      const shuffleIndex = facts.length;
+      let shuffleIndex = facts.length;
       let temp;
       let randNum;
 
       while (shuffleIndex) {
-        randNum = Math.floor(Math.random() * (shuffleIndex - 1));
+        randNum = Math.floor(Math.random() * (shuffleIndex -= 1));
         temp = facts[randNum];
         facts[randNum] = facts[shuffleIndex];
         facts[shuffleIndex] = temp;
