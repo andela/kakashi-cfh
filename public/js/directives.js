@@ -84,7 +84,7 @@ angular.module('mean.directives', [])
         // Send chat message
       scope.sendChatMessage = () => {
         const chat = {};
-        chat.message = $('.emojionearea-editor').html();
+        chat.message = $('#chatInput').val();
         if (!chat.message) return;
         chat.date = new Date().toString();
         chat.avatar = window.localStorage.getItem('avatar');
@@ -99,7 +99,7 @@ angular.module('mean.directives', [])
         const date = new Date(chat.date);
         element.append(
           `<div class="chat"> <div class="chat-meta">
-          <img src="${chat.avatar}"> ${chat.username} <br> 
+          <img src="${chat.avatar}"> ${chat.username} <br>
           ${month[date.getMonth()]} ${date.getDate()},
           ${date.getHours()}:${date.getMinutes()} </div>
           <div class="clearfix"></div>
@@ -142,6 +142,7 @@ angular.module('mean.directives', [])
         // Submit the chat when the 'enter' key is pressed
       $('body').on('keyup', '.emojionearea-editor', (event) => {
         if (event.which === 13) {
+          $('.emojionearea-editor').trigger('blur');
           scope.sendChatMessage();
         }
       });
@@ -185,7 +186,7 @@ angular.module('mean.directives', [])
            // save game data for the gamelog
           if (game.gamePlayers.indexOf(currentPlayer) !== -1) {
             const date = new Date(parseInt(game.gameEndTime, 10));
-            game.date = `${date.getDate()} ${month[date.getMonth()]}, 
+            game.date = `${date.getDate()} ${month[date.getMonth()]},
             ${date.getFullYear()}`;
             playerGameLog.push(game);
           }
