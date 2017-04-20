@@ -114,7 +114,7 @@ angular.module('mean.system')
       const gameUrl = encodeURIComponent(window.location.href);
       const postData = {
         userId,
-        url: gameUrl,
+        gameUrl,
       };
       $http.post('/users/inviteallfriends', postData)
         .then((response) => {
