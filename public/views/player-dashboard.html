@@ -28,7 +28,12 @@
 
   <div class="container">
     <div class= "tabs">
-  <h3 style="margin-bottom: 20px;"><i class="fa fa-dashboard"></i> My Dashboard</h3>
+      <div class="row">
+        <div class="col-sm-6"><h3 style="margin-bottom: 20px; float: left;"><i class="fa fa-dashboard"></i> My Dashboard</h3></div>
+        <div class="col-sm-6 orange-text"><h3 style="float: right;" ng-model="donations">Welcome {{userName}}<h3></div>
+      </div>
+
+  
   <hr>
   <ul class="nav nav-tabs">
     <li class ="active"><a href="javascript:void(0)#Game" data-toggle= "tab"><i class="fa fa-history" aria-hidden="true"></i>&nbsp; Game Log</a></li>
@@ -41,7 +46,6 @@
   <div class="tab-pane" id="Game" game-log>
   </div>
   <div class="tab-pane" id="Leaderboard">
-    <p></p>
     <table class="table table-striped">
   <thead>
     <tr>
