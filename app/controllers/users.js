@@ -151,9 +151,9 @@ exports.inviteFriends = (req, res) => {
       user.friends.forEach((friendEmail) => {
         C4HMailer('C4H-Kakashi Team',
           friendEmail, 'Game invite at C4H',
-          `You have been invited to join a game at C4H. Use this link ${url}`,
+          `You have been invited to join a game at C4H by your friend ${user.name}. Use this link ${url}`,
           `You have been invited to join a game at C4H.\n
-            Use this link <a href="${url}">${url}</a>`);
+            Use this <a href="${url}">link to game</a>`);
       });
       res.status(200)
         .json({
