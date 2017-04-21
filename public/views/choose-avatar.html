@@ -34,13 +34,13 @@
               <p class="avatar-choice">Please fill the details below!</p>
               <div class="row">
                 <div class="col-md-12">
-                  <input type='email' ng-model="socialEmail" placeholder="Enter your email" class="form-control"/>
+                  <input type='email' ng-model="socialEmail" placeholder="Enter your email" class="form-control" required/>
                 </div>
               </div>
               <div class="row">
                 <div class="col-xs-3 col-sm-3 col-md-2 img-thumbnail" ng-repeat="avatar in avatars">
                   <img ng-src="{{avatar}}" class="img-responsive">
-                  <input name="avatar" type='radio' value="avatar" ng-model="selectedAvatar" ng-change="getAvatar(avatar)"/>
+                  <input name="avatar" type='radio' value="avatar" ng-model="selectedAvatar" ng-change="getAvatar(avatar)" required/>
                 </div>
                </div>
              </div>
@@ -50,13 +50,13 @@
               <p class="avatar-choice">Please choose an avatar!</p>
               <div class="row">
                 <div class="col-md-12">
-                  <input type='email' ng-model="socialEmail" class="form-control" readonly="readonly"/>
+                  <input type='email' ng-model="socialEmail" class="form-control" readonly="readonly" required/>
                 </div>
               </div>
               <div class="row">
                 <div class="col-xs-3 col-sm-3 col-md-2 img-thumbnail" ng-repeat="avatar in avatars">
                   <img ng-src="{{avatar}}" class="img-responsive">
-                  <input name="avatar" type='radio' value="avatar" ng-model="selectedAvatar" ng-change="getAvatar(avatar)"/>
+                  <input name="avatar" type='radio' value="avatar" ng-model="selectedAvatar" ng-change="getAvatar(avatar)" required/>
                 </div>
               </div>
             </div>
