@@ -72,6 +72,18 @@ angular.module('mean', ['ngCookies', 'ngSanitize', 'ngResource', 'ngRoute',
           });
         }
       });
+    }])
+  .run(['$rootScope', 'UserEmail',
+    ($rootScope, UserEmail) => {
+      $rootScope.$on('$routeChangeStart', (event, next) => {
+        if (next.$$route.originalPath === '/choose-avatar') {
+          UserEmail.socialEmail()
+          .then((response) => {
+            const emailUser = response.data;
+            window.localStorage.setItem('email', emailUser);
+          });
+        }
+      });
     }]);
 
 angular.module('mean.system', []);

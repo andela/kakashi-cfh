@@ -537,4 +537,18 @@ exports.donations = (req, res) => {
     }
     return res.status(200).json(allDonations);
   });
+
+  exports.getEmail = (req, res) => {
+    if (req.user && req.user._id) {
+      User.findOne({
+        _id: req.user._id
+      })
+      .exec((err, user) => {
+        if (user.email) {
+          res.status(200)
+          .json(user.email);
+        }
+      });
+    }
+  };
 };

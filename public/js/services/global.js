@@ -17,6 +17,14 @@ angular.module('mean.system')
         .then(data => data);
     }
   })])
+  .factory('UserEmail', ['$http', '$q', ($http, $q) => ({
+    socialEmail() {
+      return $q.when(
+       $http.get('/getEmail')
+     )
+       .then(data => data);
+    }
+  })])
   .factory('AvatarService', ['$http', '$q', ($http, $q) => ({
     getAvatars() {
       return $q.all([
