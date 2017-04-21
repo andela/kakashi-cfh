@@ -29,19 +29,35 @@
         <div class="col-md-4 col-xs-8 groupform">
           <form class="form-horizontal">
           <fieldset>
-            <h2 class="social-text">You're almost there! </h2>
-            <p class="avatar-choice">Please fill the options below!</p>
-
-            <div class="row">
-              <div class="col-md-12">
-                <input type='email' ng-model="socialEmail" placeholder="Enter your email" class="form-control"/>
+            <div ng-show="showUserEmail" >
+              <h2 class="social-text">You're almost there! </h2>
+              <p class="avatar-choice">Please fill the details below!</p>
+              <div class="row">
+                <div class="col-md-12">
+                  <input type='email' ng-model="socialEmail" placeholder="Enter your email" class="form-control"/>
+                </div>
               </div>
-            </div>
+              <div class="row">
+                <div class="col-xs-3 col-sm-3 col-md-2 img-thumbnail" ng-repeat="avatar in avatars">
+                  <img ng-src="{{avatar}}" class="img-responsive">
+                  <input name="avatar" type='radio' value="avatar" ng-model="selectedAvatar" ng-change="getAvatar(avatar)"/>
+                </div>
+               </div>
+             </div>
 
-            <div class="row">
-              <div class="col-xs-3 col-sm-3 col-md-2 img-thumbnail" ng-repeat="avatar in avatars">
-                <img ng-src="{{avatar}}" class="img-responsive">
-                <input name="avatar" type='radio' value="avatar" ng-model="selectedAvatar" ng-change="getAvatar(avatar)"/>
+            <div ng-hide="showUserEmail">
+              <h2 class="social-text">You're almost there! </h2>
+              <p class="avatar-choice">Please choose an avatar!</p>
+              <div class="row">
+                <div class="col-md-12">
+                  <input type='email' ng-model="socialEmail" class="form-control" readonly="readonly"/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-3 col-sm-3 col-md-2 img-thumbnail" ng-repeat="avatar in avatars">
+                  <img ng-src="{{avatar}}" class="img-responsive">
+                  <input name="avatar" type='radio' value="avatar" ng-model="selectedAvatar" ng-change="getAvatar(avatar)"/>
+                </div>
               </div>
             </div>
 

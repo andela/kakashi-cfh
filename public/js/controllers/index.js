@@ -6,6 +6,14 @@ angular.module('mean.system')
     $scope.global = Global;
     $scope.signupErrMsg = '';
     $scope.signinErrMsg = '';
+    $scope.showUserEmail = true;
+
+    if ($window.localStorage.getItem('email')) {
+      $scope.socialEmail = $window.localStorage.getItem('email');
+      $scope.showUserEmail = false;
+    } else {
+      $scope.showUserEmail = true;
+    }
 
     if ($window.localStorage.getItem('token')) {
       $scope.showOptions = false;
