@@ -10,6 +10,7 @@ angular.module('mean.system')
     $scope.game = game;
     $scope.pickedCards = [];
     $scope.showFindUsersButton = true;
+    $scope.showInviteFriendsButton = true;
     $scope.region = 'general';
     let makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
     $scope.makeAWishFact = makeAWishFacts.pop();
@@ -126,14 +127,16 @@ angular.module('mean.system')
 
       if ($scope.isCzar() === false && game.state === 'pick black card' && game.state !== 'game dissolved' && game.state !== 'awaiting players') {
         $scope.czarHasDrawn = 'Wait! Czar is drawing';
+      } else {
+        $scope.czarHasDrawn = '';
       }
     });
 
 
     $scope.startAnyWay = () => {
-      game.startGame();
       $scope.showFindUsersButton = false;
       $scope.showInviteFriendsButton = false;
+      game.startGame();
       if ($scope.isCustomGame() === true) {
         game.postStartRecords();
       }

@@ -24,6 +24,9 @@ angular.module('mean', ['ngCookies', 'ngSanitize', 'ngResource', 'ngRoute',
         .when('/choose-avatar', {
           templateUrl: '/views/choose-avatar.html'
         })
+        .when('/player-dashboard', {
+          templateUrl: '/views/player-dashboard.html'
+        })
         .when('/welcome', {
         })
         .otherwise({

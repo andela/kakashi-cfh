@@ -45,6 +45,11 @@ module.exports = (app, passport) => {
   app.post('/api/games/:id/start', users.isAuthenticated, game.saveRecord);
   app.post('/api/games/:id/end', users.isAuthenticated, game.updateRecord);
 
+  // past games route
+  app.get('/api/games/history', users.isAuthenticated, game.gameLog);
+  app.get('/api/leaderboard', users.isAuthenticated, game.leaderboard);
+  app.get('/api/donations', users.isAuthenticated, users.donations);
+
   // Setting the facebook oauth routes
   app.get('/auth/facebook', passport.authenticate('facebook', {
     scope: ['email'],
@@ -82,7 +87,7 @@ module.exports = (app, passport) => {
     ]
   }), users.signin);
 
-  app.get('/google/callback', passport.authenticate('google', {
+  app.get('/auth/google/callback', passport.authenticate('google', {
     failureRedirect: '/signin'
   }), users.authCallback);
 
